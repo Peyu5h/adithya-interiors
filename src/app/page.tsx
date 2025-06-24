@@ -19,6 +19,8 @@ export default function HomePage() {
 
         <Hero />
         <div className="bg-background h-screen w-full">hello</div>
+
+        {/* Footer */}
         <section className="relative z-0 mb-[55em] w-full overflow-hidden rounded-[64px] bg-neutral-950 drop-shadow-2xl md:mb-[32em]">
           <div className="relative">
             <div className="pointer-events-none absolute inset-0 bottom-0 z-0"></div>

@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import productRoutes from "./product.route";
+import blogRouter from "./blog.route";
 
 const indexRoute = new Hono();
 
@@ -10,5 +11,6 @@ indexRoute.get("/", (c) => {
 
 // routes
 indexRoute.route("/products", productRoutes);
+indexRoute.route("/blog", blogRouter);
 
 export default indexRoute;
