@@ -58,7 +58,7 @@ export default function Hero() {
                   </h1>
                 </div>
                 <div className="flex items-center">
-                  <div className="flex items-end">
+                  <div className="-ml-4 flex items-end">
                     <Image
                       src="https://res.cloudinary.com/dkysrpdi6/image/upload/v1749839916/pinterestdownloader.com-1749839648.404416-removebg-preview_lkg5h7.png"
                       alt="Design"

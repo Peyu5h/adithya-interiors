@@ -53,7 +53,7 @@ export default function Navbar() {
         className={`nav-container mx-auto flex items-center justify-between px-8 transition-all duration-300 ${
           scrolled
             ? "max-w-[100%] rounded-lg bg-white/20 backdrop-blur-md"
-            : "max-w-[90%] rounded-lg bg-white/10 backdrop-blur-sm"
+            : "max-w-[100%] rounded-lg bg-white/10 backdrop-blur-sm md:max-w-[90%]"
         }`}
       >
         {/* Logo */}
