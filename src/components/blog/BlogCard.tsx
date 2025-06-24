@@ -30,7 +30,7 @@ const BlogCard: React.FC<BlogPost> = ({
             <span className="mx-2">•</span>
             <span>{new Date(createdAt).toLocaleDateString()}</span>
             <span className="mx-2">•</span>
-            <span>{readTime} min read</span>
+            <span>4 min read</span>
           </div>
           <h2 className="mb-2 line-clamp-2 h-[3.5rem] text-xl font-bold">
             {title}

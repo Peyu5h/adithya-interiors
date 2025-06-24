@@ -50,12 +50,12 @@ export default function Blog({ searchParams: initialSearchParams }: BlogProps) {
   } = useInfiniteQuery({
     queryKey: ["blogPosts", activeTags],
     queryFn: fetchPosts,
-    getNextPageParam: (lastPage) =>
+    getNextPageParam: (lastPage: any) =>
       lastPage.hasNextPage ? lastPage.currentPage + 1 : undefined,
     initialPageParam: 1,
   });
 
-  const allPosts = data?.pages.flatMap((page) => page.blogs) || [];
+  const allPosts = data?.pages.flatMap((page: any) => page.blogs) || [];
 
   const filteredPosts = allPosts.filter((post) =>
     activeTags.length === 0

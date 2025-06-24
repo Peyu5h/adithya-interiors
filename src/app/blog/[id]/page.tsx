@@ -147,10 +147,7 @@ export default function BlogPost({ params }: { params: { id: string } }) {
                   {post?.tags?.[0] || "General"}
                 </p>
                 <span className="mx-0.5 flex items-center sm:mx-1">•</span>
-                <p className="text-xs sm:text-sm md:text-[16px]">
-                  {/* Calculate read time based on content length */}
-                  {Math.ceil((post?.blogContent?.length || 0) / 1000)} min read
-                </p>
+                <p className="text-xs sm:text-sm md:text-[16px]">4 min read</p>
               </div>
               <h1 className="text-2xl font-bold sm:text-3xl md:text-4xl">
                 {post?.title}
