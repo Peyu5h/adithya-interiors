@@ -289,8 +289,84 @@
   body {
     @apply bg-background text-foreground;
   }
-  button:not([disabled]),
-  [role="button"]:not([disabled]) {
+}
+
+@layer base {
+  button,
+  [role="button"] {
     cursor: pointer;
   }
+}
+
+.hamburger {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  transition: all 0.25s;
+  position: relative;
+}
+
+.hamburger-top,
+.hamburger-middle,
+.hamburger-bottom {
+  content: "";
+  position: absolute;
+  width: 24px;
+  height: 3px;
+  top: 0;
+  left: 0;
+  background: #9c9aa6;
+  transform: rotate(0);
+  transition: all 0.5s;
+}
+
+.hamburger-middle {
+  transform: translateY(7px);
+}
+
+.hamburger-bottom {
+  transform: translateY(14px);
+}
+
+.open {
+  transform: rotate(90deg);
+  transform: translateY(0px);
+}
+
+.open .hamburger-top {
+  transform: rotate(45deg) translateY(6px) translateX(6px);
+}
+
+.open .hamburger-middle {
+  display: none;
+}
+
+.open .hamburger-bottom {
+  transform: rotate(-45deg) translateY(6px) translateX(-6px);
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background-color: #7d6b56; /* Muted foreground for light mode */
+  border-radius: 5px;
+}
+
+.gradient-button {
+  background-image: linear-gradient(to right, #a67c52, #e2d8c3);
+  background-size: 200% 100%;
+  background-position: 0% 0%;
+  transition: background-position 0.3s ease-in-out;
+  color: #ffffff; /* Primary foreground for text */
+}
+
+.gradient-button:hover {
+  background-position: 100% 0%;
+  color: #5c4d3f; /* Secondary foreground for hover text */
 }
