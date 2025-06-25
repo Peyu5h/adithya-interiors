@@ -10,6 +10,9 @@ import { NumberTicker } from "./number-ticker";
 import { MdArrowOutward } from "react-icons/md";
 import TextRing from "./text-ring";
 import Link from "next/link";
+import { Button } from "./button";
+import { ArrowRightIcon } from "lucide-react";
+import ParallaxScroll from "../animations/ParallaxScroll/Parallax";
 
 export default function Hero() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -99,12 +102,18 @@ export default function Hero() {
                 </div>
               </div>
               <div className="flex items-center gap-4">
-                <button className="rounded-full border-2 border-black bg-black px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-transparent hover:text-black">
+                <Button size={"lg"} effect="shineHover">
                   Get a Quote
-                </button>
-                <button className="rounded-full border-2 border-black px-6 py-3 text-sm font-medium text-black transition-colors hover:bg-black hover:text-white">
+                </Button>
+                <Button
+                  size={"lg"}
+                  effect="expandIcon"
+                  icon={ArrowRightIcon}
+                  iconPlacement="right"
+                  variant={"outline"}
+                >
                   View Projects
-                </button>
+                </Button>
               </div>
             </div>
             {/* Right/Background Image */}
@@ -116,6 +125,9 @@ export default function Hero() {
                 className="rounded-2xl object-cover shadow-xl"
                 priority
               />
+              <div className="hidden md:block">
+                <ParallaxScroll />
+              </div>
               {/* Optional overlay for text readability */}
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/20 to-transparent" />
               {/* Floating Contact Now Spinner at top right of image */}

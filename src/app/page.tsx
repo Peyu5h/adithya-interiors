@@ -5,6 +5,17 @@ import Hero from "~/components/ui/hero";
 import LocomotiveScroll from "locomotive-scroll";
 import ChatBot from "~/components/chatbot/chatBot";
 import Footer from "~/components/footer/Footer";
+import Faq from "~/components/faq/Faq";
+import OneSol from "~/components/oneSol";
+import Paragraph from "~/components/animations/TextAnimation/Character";
+import WordReveal from "~/components/animations/TextAnimation/ScrollReveal/WordReveal";
+import MainModal from "~/components/HoverProjectCards/MainModal";
+import ImageSlide from "~/components/ImageSlideProject/ImageSlide";
+import { HeroGeometric } from "~/components/ui/shape-landing-hero";
+import { Testimonials } from "~/components/testimonials";
+import { PartnerMarquee } from "~/components/PartnerMarquee";
+import { LandingCarousel } from "~/components/landingCarousel";
+import { GridGallery } from "~/components/GridGallery";
 
 export default function HomePage() {
   useEffect(() => {
@@ -18,19 +29,25 @@ export default function HomePage() {
         <ChatBot />
 
         <Hero />
-        <div className="bg-background h-screen w-full">hello</div>
-
-        {/* Footer */}
+        {/* <OneSol /> */}
+        <div className="hidden md:block">
+          <MainModal />
+        </div>
+        <LandingCarousel />
+        {/* <ImageSlide /> */}
+        <Testimonials />
+        <PartnerMarquee />
+        <Faq />
+        {/* <div className="px-12 py-4">
+          <WordReveal paragraph="Lorem ipsum dolor sit amet dolor sit amet dolor sit amet" />
+        </div> */}
         <section className="relative z-0 mb-[55em] w-full overflow-hidden rounded-[64px] bg-neutral-950 drop-shadow-2xl md:mb-[32em]">
           <div className="relative">
-            <div className="pointer-events-none absolute inset-0 bottom-0 z-0"></div>
-            <div className="mb:pt-64 mx-auto mt-48 w-full max-w-6xl flex-col p-4 sm:px-12 md:pb-24">
-              <div className="flex flex-col gap-10 lg:flex-row lg:justify-between">
-                <div className="flex-shrink-0">
-                  <div className="flex items-center justify-start gap-2 py-4 md:flex"></div>
-                </div>
-              </div>
-            </div>
+            <HeroGeometric
+              badge="Adithya interiors"
+              title1="Elevate Your"
+              title2="Home's Vision"
+            />
           </div>
         </section>
       </div>

@@ -12,6 +12,7 @@ import Navbar from "~/components/ui/navbar";
 import { activeTagsAtom } from "~/components/providers/atom";
 import BlogCardLoader from "~/components/blog/loaders/BlogCardLoader";
 import api from "~/lib/api";
+import Stairs from "~/components/animations/Pagetransition/Stairs";
 
 const TEMP_TAGS = ["Inspiration", "Our works", "Material", "Clients"];
 
@@ -133,7 +134,7 @@ export default function Blog({ searchParams: initialSearchParams }: BlogProps) {
                     <Button
                       onClick={() => fetchNextPage()}
                       disabled={isFetchingNextPage}
-                      className="bg-default hover:bg-default/90 mx-auto mt-8 text-white"
+                      className="mx-auto mt-8 text-white"
                     >
                       {isFetchingNextPage ? "Loading..." : "Load More"}
                     </Button>

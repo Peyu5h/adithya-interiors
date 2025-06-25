@@ -73,18 +73,24 @@ export default function Navbar() {
         {/* Navigation - Center */}
         <nav className="absolute top-1/2 left-1/2 hidden -translate-x-1/2 -translate-y-1/2 transform md:block">
           <ul className="flex space-x-12">
-            {["About", "Portfolio", "Projects", "Services", "Blog"].map(
-              (item) => (
-                <li key={item}>
-                  <Link
-                    href={`/${item.toLowerCase()}`}
-                    className="nav-item text-sm font-medium transition-all duration-200 hover:opacity-70"
-                  >
-                    {item}
-                  </Link>
-                </li>
-              ),
-            )}
+            <li>
+              <Link
+                href={`/`}
+                className="nav-item text-sm font-medium transition-all duration-200 hover:opacity-70"
+              >
+                Home
+              </Link>
+            </li>
+            {["About", "Projects", "Services", "Blog"].map((item) => (
+              <li key={item}>
+                <Link
+                  href={`/${item.toLowerCase()}`}
+                  className="nav-item text-sm font-medium transition-all duration-200 hover:opacity-70"
+                >
+                  {item}
+                </Link>
+              </li>
+            ))}
           </ul>
         </nav>
 

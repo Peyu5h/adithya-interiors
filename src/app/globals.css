@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@custom-variant dark (&:is(.dark *));
+
 @font-face {
   font-family: "Robson Bold";
   src: url("/fonts/robson-bold.ttf") format("truetype");
@@ -50,6 +53,20 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --animate-marquee: marquee var(--duration, 30s) linear infinite;
+  --color-sky-500: var(----sky-500);
+  --color-sky-400: var(----sky-400);
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes marquee {
+  to {
+    transform: translateX(-50%);
+    }
+  }
 }
 :root {
   --background: oklch(0.9582 0.0152 90.2357);
@@ -108,6 +125,8 @@
     2px 3px 5px 0px hsl(28 13% 20% / 0.04),
     2px 8px 10px -1px hsl(28 13% 20% / 0.04);
   --shadow-2xl: 2px 3px 5px 0px hsl(28 13% 20% / 0.1);
+  --sky-400: #38bdf8;
+  --sky-500: #0ea5e9;
 }
 
 .dark {
@@ -167,6 +186,8 @@
     2px 3px 5px 0px hsl(28 13% 20% / 0.04),
     2px 8px 10px -1px hsl(28 13% 20% / 0.04);
   --shadow-2xl: 2px 3px 5px 0px hsl(28 13% 20% / 0.1);
+  --sky-400: #38bdf8;
+  --sky-500: #0ea5e9;
 }
 
 @theme inline {
@@ -369,4 +390,38 @@
 .gradient-button:hover {
   background-position: 100% 0%;
   color: #5c4d3f; /* Secondary foreground for hover text */
+}
+
+@layer utilities {
+  @keyframes shine {
+    0% {
+      background-position: 200% 0;
+    }
+    25% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+
+  @keyframes gradientFlow {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .animate-shine {
+    animation: shine 3s ease-out infinite;
+  }
+
+  .animate-gradient-flow {
+    animation: gradientFlow 10s ease 0s infinite normal none running;
+  }
 }
