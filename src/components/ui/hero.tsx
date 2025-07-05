@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { GridPattern } from "./grid-pattern";
 import { cn } from "~/lib/utils";
@@ -11,18 +11,43 @@ import { MdArrowOutward } from "react-icons/md";
 import TextRing from "./text-ring";
 import { Button } from "./button";
 import { ArrowRightIcon } from "lucide-react";
-// import ParallaxScroll from "../animations/ParallaxScroll/Parallax";
 
 export default function Hero() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (sectionRef.current) {
+        const rect = sectionRef.current.getBoundingClientRect();
+        setMousePosition({
+          x: ((e.clientX - rect.left) / rect.width) * 100,
+          y: ((e.clientY - rect.top) / rect.height) * 100,
+        });
+      }
+    };
+
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <>
       {/* Hero Section */}
       <section
         ref={sectionRef}
-        className="bg-background relative min-h-screen w-full overflow-hidden"
+        className="bg-background relative min-h-screen w-full"
       >
         <GridPattern
           width={30}
@@ -36,7 +61,7 @@ export default function Hero() {
         />
 
         <div className="mx-auto flex h-full min-h-screen max-w-7xl flex-col items-center justify-center px-4 pt-24 sm:px-6 lg:px-8">
-          <div className="grid w-full grid-cols-1 gap-12 md:grid-cols-2 md:items-center">
+          <div className="grid w-full grid-cols-1 gap-8 md:grid-cols-2 md:items-center md:gap-12">
             {/* Left/Main Content */}
             <div className="z-10 flex flex-col justify-center">
               <div className="mb-6 flex flex-col md:items-start">
@@ -127,48 +152,136 @@ export default function Hero() {
                 </Button>
               </div>
             </div>
-            {/* Right/Background Image */}
-            <div className="relative flex h-[350px] w-full items-center justify-center md:h-[500px]">
-              <Image
-                src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80"
-                alt="Modern Interior Hero"
-                fill
-                className="rounded-2xl object-cover shadow-xl"
-                priority
-              />
-              <div className="hidden md:block">{/* <ParallaxScroll /> */}</div>
-              {/* Optional overlay for text readability */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/20 to-transparent" />
-              {/* Floating Contact Now Spinner at top right of image */}
-              <div className="absolute top-6 right-6 z-20 flex flex-col items-center">
+
+            {/* Right/Enhanced Visual Section */}
+            <div className="relative flex h-[350px] w-full items-center justify-center md:h-[600px]">
+              {/* Main Container with Parallax */}
+              <div
+                className="perspective-1000 relative h-full w-full"
+                style={{
+                  transform: `translateY(${scrollY * 0.1}px)`,
+                }}
+              >
+                {/* Background Gradient */}
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 opacity-30" />
+
                 <div
-                  className="relative"
-                  onMouseEnter={() => setIsHovered(true)}
-                  onMouseLeave={() => setIsHovered(false)}
+                  className="absolute bottom-12 left-12 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-lg transition-transform duration-300 ease-out"
+                  style={{
+                    transform: `translate(${mousePosition.x * 0.025}px, ${mousePosition.y * 0.025}px)`,
+                  }}
                 >
+                  <div className="h-4 w-4 rounded-full bg-green-400"></div>
+                </div>
+
+                {/* Main Image Grid */}
+                <div className="relative grid h-full w-full grid-cols-12 grid-rows-12 gap-3 p-4">
+                  {/* Large Main Image */}
                   <div
-                    style={{ zIndex: 99 }}
-                    className="relative flex h-30 w-30 cursor-pointer items-center justify-center rounded-full border-[1px] border-[#CDEA67] bg-[#222222] text-black shadow-lg select-none"
+                    className="group relative col-span-8 row-span-8 overflow-hidden rounded-2xl shadow-2xl"
+                    style={{
+                      transform: `translateZ(${scrollY * 0.05}px) rotateX(${mousePosition.y * 0.05}deg) rotateY(${mousePosition.x * 0.05}deg)`,
+                    }}
                   >
-                    <div className="m-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-2 border-black bg-[#CDEA67] select-none md:h-12 md:w-12">
-                      {/* Rotated arrow to point to top right (header contact) */}
-                      <MdArrowOutward className="text-2xl text-[#222222] md:text-3xl" />
-                    </div>
-                  </div>
-                  <div
-                    style={{ zIndex: 100 }}
-                    className="absolute inset-0 flex cursor-pointer items-center justify-center text-[#CDEA67] select-none"
-                  >
-                    <TextRing
-                      text="CONTACT NOW CONTACT NOW "
-                      isPaused={isHovered}
+                    <Image
+                      src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80"
+                      alt="Luxury Living Room"
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                      priority
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                  </div>
+
+                  {/* Small Top Right Image */}
+                  <div className="group relative col-span-4 row-span-4 overflow-hidden bg-transparent"></div>
+
+                  {/* Bottom Right Image */}
+                  <div
+                    className="group relative col-span-4 row-span-4 overflow-hidden rounded-xl shadow-lg"
+                    style={{
+                      transform: `translateZ(${scrollY * 0.04}px) rotateX(${mousePosition.y * 0.04}deg) rotateY(${mousePosition.x * 0.04}deg)`,
+                    }}
+                  >
+                    <Image
+                      src="https://images.unsplash.com/photo-1571508601891-ca5e7a713859?auto=format&fit=crop&w=400&q=80"
+                      alt="Elegant Bedroom"
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                  </div>
+
+                  {/* Bottom Left Accent */}
+                  <div
+                    className="group relative col-span-8 row-span-4 overflow-hidden rounded-xl shadow-lg"
+                    style={{
+                      zIndex: 10,
+                      transform: `translateZ(${scrollY * 0.02}px) rotateX(${mousePosition.y * 0.02}deg) rotateY(${mousePosition.x * 0.02}deg)`,
+                    }}
+                  >
+                    <Image
+                      src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=600&q=80"
+                      alt="Contemporary Workspace"
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                  </div>
+
+                  <div
+                    className="group relative col-span-4 row-span-4 overflow-hidden rounded-xl shadow-lg"
+                    style={{
+                      transform: `translateZ(${scrollY * 0.03}px) rotateX(${mousePosition.y * 0.03}deg) rotateY(${mousePosition.x * 0.03}deg)`,
+                    }}
+                  >
+                    <Image
+                      src="https://images.unsplash.com/photo-1556912167-f556f1f39fdf?auto=format&fit=crop&w=400&q=80"
+                      alt="Modern Kitchen"
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                  </div>
+                </div>
+
+                {/* Floating Contact Now Spinner */}
+                <div className="absolute top-8 right-8 z-30 flex flex-col items-center md:top-12 md:right-12">
+                  <div
+                    className="relative"
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                  >
+                    <div
+                      style={{ zIndex: 99 }}
+                      className="relative flex h-30 w-30 cursor-pointer items-center justify-center rounded-full border-[1px] border-[#CDEA67] bg-[#222222] text-black shadow-xl backdrop-blur-sm select-none"
+                    >
+                      <div className="m-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-2 border-black bg-[#CDEA67] select-none md:h-12 md:w-12">
+                        <MdArrowOutward className="text-2xl text-[#222222] md:text-3xl" />
+                      </div>
+                    </div>
+                    <div
+                      style={{ zIndex: 100 }}
+                      className="absolute inset-0 flex cursor-pointer items-center justify-center text-[#CDEA67] select-none"
+                    >
+                      <TextRing
+                        text="CONTACT NOW CONTACT NOW "
+                        isPaused={isHovered}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+        {/* CSS for perspective */}
+        <style jsx>{`
+          .perspective-1000 {
+            perspective: 1000px;
+          }
+        `}</style>
       </section>
     </>
   );
