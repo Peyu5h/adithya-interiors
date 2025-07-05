@@ -5,9 +5,13 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { gsap } from "gsap";
 import { Button } from "./button";
+import { usePathname } from "next/navigation";
+import MobileHamburger from "~/components/MobileHamburger";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const [toggleMenu, setToggleMenu] = useState(false);
 
   useEffect(() => {
     // GSAP animation for navbar
@@ -67,7 +71,7 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
-            Adithya
+            Adithya <span className="text-primary">Interiors</span>
           </motion.span>
         </Link>
 
@@ -77,7 +81,7 @@ export default function Navbar() {
             <li>
               <Link
                 href={`/`}
-                className="nav-item text-sm font-medium transition-all duration-200 hover:opacity-70"
+                className={`nav-item text-sm font-medium transition-all duration-200 hover:opacity-70 ${pathname === "/" ? "text-gray-900" : "text-black/50"}`}
               >
                 Home
               </Link>
@@ -86,7 +90,7 @@ export default function Navbar() {
               <li key={item}>
                 <Link
                   href={`/${item.toLowerCase()}`}
-                  className="nav-item text-sm font-medium transition-all duration-200 hover:opacity-70"
+                  className={`nav-item text-sm font-medium transition-all duration-200 hover:opacity-70 ${pathname.startsWith(`/${item.toLowerCase()}`) && item.toLowerCase() !== "" ? "text-gray-900" : "text-black/50"}`}
                 >
                   {item}
                 </Link>
@@ -95,20 +99,18 @@ export default function Navbar() {
           </ul>
         </nav>
 
-        <div className="relative z-50 md:hidden">
-          <button className="flex flex-col items-end justify-center space-y-1.5 p-3 transition-all duration-200">
-            <span className="h-0.5 w-5 bg-black"></span>
-            <span className="h-0.5 w-5 bg-black"></span>
-            <span className="h-0.5 w-5 bg-black"></span>
-          </button>
-        </div>
+        <MobileHamburger
+          toggleMenu={toggleMenu}
+          setToggleMenu={setToggleMenu}
+        />
+
         <Button
           variant={scrolled ? "outline" : "default"}
-          className={`rounded-xl ${scrolled ? "bg-background/20" : ""}`}
+          className={`hidden rounded-md md:block ${scrolled ? "bg-background/20" : ""}`}
           size={"lg"}
           effect="shineHover"
         >
-          Get a Quote
+          Contact Now
         </Button>
       </div>
     </motion.header>

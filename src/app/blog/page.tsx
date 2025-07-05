@@ -31,7 +31,7 @@ export default function Blog({ searchParams: initialSearchParams }: BlogProps) {
   }, [category, setActiveTags]);
 
   const fetchPosts = async ({ pageParam = 1 }) => {
-    const limit = activeTags.length > 0 ? 100 : 6;
+    const limit = activeTags.length > 0 ? 100 : 24;
     const response = await api.get("/api/blog");
     if (!response.success) {
       return { blogs: [], hasNextPage: false, currentPage: pageParam };
@@ -81,8 +81,8 @@ export default function Blog({ searchParams: initialSearchParams }: BlogProps) {
   const shouldShowLoadMore =
     activeTags.length === 0 &&
     hasNextPage &&
-    visiblePosts.length >= 6 &&
-    visiblePosts.length % 6 === 0;
+    visiblePosts.length >= 24 &&
+    visiblePosts.length % 24 === 0;
 
   const searchParams = useSearchParams();
   const version = searchParams.get("version") || "default";
@@ -95,10 +95,12 @@ export default function Blog({ searchParams: initialSearchParams }: BlogProps) {
       >
         <Navbar />
         <div className="text-foreground z-24 mx-auto w-full max-w-7xl rounded-b-3xl pb-12">
-          <div className="mt-32 w-full">
-            <div className="header mb-8 flex flex-col gap-4">
-              <h1 className="font-gabarito text-6xl font-bold">Blog</h1>
-              <p className="text-xl text-gray-500">
+          <div className="mt-20 w-full lg:mt-28">
+            <div className="header mb-8 flex flex-col gap-2 md:gap-4">
+              <h1 className="font-gabarito text-4xl font-bold md:text-5xl">
+                Blog
+              </h1>
+              <p className="text-lg text-gray-500 md:text-xl">
                 Explore Insights on our working process.
               </p>
             </div>
@@ -118,7 +120,7 @@ export default function Blog({ searchParams: initialSearchParams }: BlogProps) {
             {/* BlogPosts */}
             {isLoading ? (
               <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {[...Array(6)].map((_, index) => (
+                {[...Array(12)].map((_, index) => (
                   <BlogCardLoader key={index} />
                 ))}
               </div>

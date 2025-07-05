@@ -39,12 +39,12 @@ export default function Hero() {
           <div className="grid w-full grid-cols-1 gap-12 md:grid-cols-2 md:items-center">
             {/* Left/Main Content */}
             <div className="z-10 flex flex-col justify-center">
-              <div className="mb-6">
-                <div className="flex items-center">
-                  <h1 className="text-6xl font-bold tracking-tighter text-black sm:text-7xl md:text-8xl">
+              <div className="mb-6 flex flex-col md:items-start">
+                <div className="flex items-center text-center">
+                  <h1 className="text-7xl font-bold tracking-tighter text-black sm:text-7xl md:text-8xl">
                     Interi
                   </h1>
-                  <div className="relative flex h-[3rem] w-[3rem] items-center justify-center overflow-hidden rounded-full sm:h-[3.5rem] sm:w-[3.5rem] md:h-[5rem] md:w-[5rem]">
+                  <div className="relative flex h-[4rem] w-[4rem] items-center justify-center overflow-hidden rounded-full sm:h-[3.5rem] sm:w-[3.5rem] md:h-[5rem] md:w-[5rem]">
                     <Lottie
                       className="h-full w-full"
                       loop={false}
@@ -55,7 +55,7 @@ export default function Hero() {
                       }}
                     />
                   </div>
-                  <h1 className="text-6xl font-bold tracking-tighter text-black sm:text-7xl md:text-8xl">
+                  <h1 className="text-7xl font-bold tracking-tighter text-black sm:text-7xl md:text-8xl">
                     r
                   </h1>
                 </div>
@@ -66,15 +66,27 @@ export default function Hero() {
                       alt="Design"
                       width={1600}
                       height={1600}
-                      className="object-contain px-0"
+                      className="hidden h-[3em] w-[3em] object-contain px-0 md:block md:h-[5em] md:w-[5em]"
                       style={{
                         height: "3em",
                         width: "auto",
                         minHeight: "5em",
                       }}
                     />
+                    <Image
+                      src="https://res.cloudinary.com/dkysrpdi6/image/upload/v1749839916/pinterestdownloader.com-1749839648.404416-removebg-preview_lkg5h7.png"
+                      alt="Design"
+                      width={1600}
+                      height={1600}
+                      className="ml-2 h-[3em] w-[3em] object-contain px-0 md:hidden md:h-[5em] md:w-[5em]"
+                      style={{
+                        height: "3em",
+                        width: "auto",
+                        minHeight: "4em",
+                      }}
+                    />
                   </div>
-                  <h1 className="ml-2 text-6xl font-bold tracking-tighter text-black sm:text-7xl md:text-8xl">
+                  <h1 className="ml-2 text-7xl font-bold tracking-tighter text-black sm:text-7xl md:text-8xl">
                     Design
                   </h1>
                 </div>

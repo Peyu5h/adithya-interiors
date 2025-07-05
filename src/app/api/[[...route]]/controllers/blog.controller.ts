@@ -93,7 +93,7 @@ export const updateBlogById = async (c: Context) => {
 export const getAllBlogs = async (c: Context) => {
   try {
     const page = parseInt(c.req.query("page") || "1");
-    const limit = parseInt(c.req.query("limit") || "6");
+    const limit = parseInt(c.req.query("limit") || "24");
     const skip = (page - 1) * limit;
 
     // Get total count for pagination

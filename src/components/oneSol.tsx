@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { ASSETS } from "~/lib/constants";
 import { motion } from "framer-motion";
 import HoverUp from "./animations/TextAnimation/HoverUp";
 
@@ -23,8 +22,8 @@ const OneSol = () => {
     return () => clearTimeout(timer);
   }, [activeTab]);
 
-  const LOGO_HEIGHT = 160;
-  const LOGO_WIDTH = 300;
+  const LOGO_HEIGHT = 340;
+  const LOGO_WIDTH = 340;
 
   function PartnerLogo({
     src,
@@ -62,15 +61,13 @@ const OneSol = () => {
 
       <section className="relative mx-auto flex w-full max-w-6xl flex-col items-start gap-8 px-4 py-4 md:-mb-8 md:flex-row md:pt-12 md:pb-24 xl:ps-0 xl:pe-4">
         <div className="w-full md:w-2/3">
-          <h3 className="max-w-sm text-2xl font-medium tracking-[-0.2px] text-black/80 md:text-3xl md:leading-[42px] md:tracking-[-1px]">
+          <h3 className="max-w-sm text-xl font-medium tracking-[-0.2px] text-black/80 md:text-3xl md:leading-[42px] md:tracking-[-1px]">
             One Stop Solution for All
           </h3>
           <p className="text-md mt-1 text-sm text-neutral-700 md:mt-4 md:text-lg md:text-neutral-950">
             We are a Mumbai-based interior design and construction company,
             delivering exceptional spaces for homes, offices, and commercial
-            projects. Serving Malad, Kandivali, Andheri, Borivali, and beyond,
-            we blend creativity, quality, and functionality to bring your vision
-            to life.
+            projects.
           </p>
 
           <div
@@ -78,7 +75,7 @@ const OneSol = () => {
             data-orientation="horizontal"
             className="md:md-10 mt-6"
           >
-            <div className="bg-accent/50 inline-flex h-fit w-full items-center justify-center rounded-md p-1 md:w-fit md:rounded-[20px]">
+            <div className="bg-accent/50 inline-flex h-fit w-full items-center justify-center rounded-xl p-1 md:w-fit md:rounded-[20px]">
               <button
                 type="button"
                 onClick={() => handleTabClick("Students")}
@@ -214,7 +211,7 @@ const OneSol = () => {
         </div>
 
         <div className="w-full justify-end md:flex md:w-1/3">
-          <div className="relative mx-auto h-full w-full max-w-sm transition-all duration-200 md:max-w-none md:py-4 lg:py-12">
+          <div className="relative mx-auto h-full w-full max-w-sm transition-all duration-200 md:max-w-none md:pb-4 lg:pb-12">
             <motion.div
               key={activeTab}
               initial={{ y: 20, opacity: 0 }}
@@ -225,10 +222,10 @@ const OneSol = () => {
               <PartnerLogo
                 src={
                   activeTab === "Students"
-                    ? ASSETS.oneSol.student
+                    ? "https://res.cloudinary.com/dkysrpdi6/image/upload/v1750003031/Interior_design_un5sgo.gif"
                     : activeTab === "Teachers"
-                      ? ASSETS.oneSol.teacher
-                      : ASSETS.oneSol.institute
+                      ? "https://res.cloudinary.com/dkysrpdi6/image/upload/v1750003031/Interior_design_un5sgo.gif"
+                      : "https://res.cloudinary.com/dkysrpdi6/image/upload/v1750003031/Interior_design_un5sgo.gif"
                 }
                 alt={
                   activeTab === "Students"
