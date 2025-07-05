@@ -3,12 +3,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { GoHome } from "react-icons/go";
-import { Shapes } from "lucide-react"; // Only Shapes is needed, Settings, MdOutlineAssignment, MdOutlineChatBubbleOutline are not used in the project structure
-import {
-  MdOutlineAssignment,
-  MdOutlineChatBubbleOutline,
-} from "react-icons/md"; // Keeping these imports for now, but they will likely be removed later if not used.
 
 const MobileHamburger = ({
   toggleMenu,
@@ -29,17 +23,16 @@ const MobileHamburger = ({
 
   return (
     <div className="md:hidden">
-      <div className="absolute top-9 right-6 z-50">
-        <button
-          onClick={() => setToggleMenu(!toggleMenu)}
-          className={`hamburger block focus:outline-none ${toggleMenu ? "open" : ""}`}
-          type="button"
-        >
-          <span className="hamburger-top"></span>
-          <span className="hamburger-middle"></span>
-          <span className="hamburger-bottom"></span>
-        </button>
-      </div>
+      <button
+        style={{ zIndex: 50 }}
+        onClick={() => setToggleMenu(!toggleMenu)}
+        className={`hamburger my-auto flex flex-col items-center justify-center space-y-1.5 px-3 py-0 focus:outline-none ${toggleMenu ? "open" : ""}`}
+        type="button"
+      >
+        <span className="hamburger-top h-0.5 w-5 bg-black"></span>
+        <span className="hamburger-middle h-0.5 w-5 bg-black"></span>
+        <span className="hamburger-bottom h-0.5 w-5 bg-black"></span>
+      </button>
 
       <div
         className={`bg-background fixed inset-0 h-screen transition-transform duration-300 ${

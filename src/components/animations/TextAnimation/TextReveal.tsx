@@ -37,7 +37,6 @@ export function TextReveal({
     <div ref={ref} className="overflow-hidden">
       <motion.p
         className={className}
-        variants={animation}
         initial="initial"
         animate={inView ? "enter" : ""}
       >

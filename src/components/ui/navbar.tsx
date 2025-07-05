@@ -99,10 +99,12 @@ export default function Navbar() {
           </ul>
         </nav>
 
-        <MobileHamburger
-          toggleMenu={toggleMenu}
-          setToggleMenu={setToggleMenu}
-        />
+        <div className="my-auto flex h-full items-center justify-end gap-4 md:gap-8">
+          <MobileHamburger
+            toggleMenu={toggleMenu}
+            setToggleMenu={setToggleMenu}
+          />
+        </div>
 
         <Button
           variant={scrolled ? "outline" : "default"}
