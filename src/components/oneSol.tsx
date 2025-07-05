@@ -25,6 +25,12 @@ const OneSol = () => {
 
   return (
     <div>
+      <div className="mx-auto flex flex-col items-center justify-center">
+        <h2 className="mt-5 text-xl font-bold tracking-tighter sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
+          Why Choose Us?
+        </h2>
+      </div>
+
       <section className="relative mx-auto flex w-full max-w-6xl flex-col items-start gap-8 px-4 py-4 md:-mb-8 md:flex-row md:py-24 xl:ps-0 xl:pe-4">
         <div className="w-full md:w-2/3">
           <h3 className="max-w-sm text-2xl font-medium tracking-[-0.2px] text-black/80 md:text-3xl md:leading-[42px] md:tracking-[-1px]">
@@ -178,53 +184,33 @@ const OneSol = () => {
 
         <div className="w-full justify-end md:flex md:w-1/3">
           <div className="relative mx-auto h-full w-full max-w-sm transition-all duration-200 md:max-w-none md:py-4 lg:py-12">
-            {activeTab === "Students" && (
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-                className="mt-0 md:mt-24"
-              >
-                <Image
-                  src={ASSETS.oneSol.student}
-                  alt="A student using the platform"
-                  className="rounded-lg transition-all duration-200"
-                  width={500}
-                  height={500}
-                />
-              </motion.div>
-            )}
-            {activeTab === "Teachers" && (
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-                className="mt-0 md:mt-24"
-              >
-                <Image
-                  src={ASSETS.oneSol.teacher}
-                  alt="A teacher using the platform"
-                  className="rounded-lg transition-all duration-200"
-                  width={500}
-                  height={500}
-                />
-              </motion.div>
-            )}
-            {activeTab === "Institutes" && (
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-              >
-                <Image
-                  src={ASSETS.oneSol.institute}
-                  alt="An institute using the platform"
-                  width={500}
-                  height={500}
-                  className="rounded-lg transition-all duration-200"
-                />
-              </motion.div>
-            )}
+            <motion.div
+              key={activeTab}
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="mt-0 md:mt-24"
+            >
+              <Image
+                src={
+                  activeTab === "Students"
+                    ? ASSETS.oneSol.student
+                    : activeTab === "Teachers"
+                      ? ASSETS.oneSol.teacher
+                      : ASSETS.oneSol.institute
+                }
+                alt={
+                  activeTab === "Students"
+                    ? "A student using the platform"
+                    : activeTab === "Teachers"
+                      ? "A teacher using the platform"
+                      : "An institute using the platform"
+                }
+                className="rounded-lg transition-all duration-200"
+                width={500}
+                height={500}
+              />
+            </motion.div>
           </div>
         </div>
       </section>

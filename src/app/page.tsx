@@ -6,21 +6,17 @@ import LocomotiveScroll from "locomotive-scroll";
 import ChatBot from "~/components/chatbot/chatBot";
 import Footer from "~/components/footer/Footer";
 import Faq from "~/components/faq/Faq";
-import OneSol from "~/components/oneSol";
-import Paragraph from "~/components/animations/TextAnimation/Character";
-import WordReveal from "~/components/animations/TextAnimation/ScrollReveal/WordReveal";
 import MainModal from "~/components/HoverProjectCards/MainModal";
-import ImageSlide from "~/components/ImageSlideProject/ImageSlide";
 import { HeroGeometric } from "~/components/ui/shape-landing-hero";
 import { Testimonials } from "~/components/testimonials";
 import { PartnerMarquee } from "~/components/PartnerMarquee";
 import { LandingCarousel } from "~/components/landingCarousel";
-import { GridGallery } from "~/components/GridGallery";
+import OneSol from "~/components/oneSol";
 
 export default function HomePage() {
-  useEffect(() => {
-    const locomotiveScroll = new LocomotiveScroll();
-  }, []);
+  // useEffect(() => {
+  //   const locomotiveScroll = new LocomotiveScroll();
+  // }, []);
 
   return (
     <main className="">
@@ -29,13 +25,13 @@ export default function HomePage() {
         <ChatBot />
 
         <Hero />
-        {/* <OneSol /> */}
-        <div className="hidden md:block">
-          <MainModal />
-        </div>
+
+        <div className="hidden md:block">{/* <MainModal /> */}</div>
         <LandingCarousel />
         {/* <ImageSlide /> */}
         <Testimonials />
+        <OneSol />
+
         <PartnerMarquee />
         <Faq />
         {/* <div className="px-12 py-4">
@@ -51,6 +47,7 @@ export default function HomePage() {
           </div>
         </section>
       </div>
+
       <Footer />
     </main>
   );

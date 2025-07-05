@@ -9,10 +9,9 @@ import lotte from "~/components/animations/lotte.json";
 import { NumberTicker } from "./number-ticker";
 import { MdArrowOutward } from "react-icons/md";
 import TextRing from "./text-ring";
-import Link from "next/link";
 import { Button } from "./button";
 import { ArrowRightIcon } from "lucide-react";
-import ParallaxScroll from "../animations/ParallaxScroll/Parallax";
+// import ParallaxScroll from "../animations/ParallaxScroll/Parallax";
 
 export default function Hero() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -125,9 +124,7 @@ export default function Hero() {
                 className="rounded-2xl object-cover shadow-xl"
                 priority
               />
-              <div className="hidden md:block">
-                <ParallaxScroll />
-              </div>
+              <div className="hidden md:block">{/* <ParallaxScroll /> */}</div>
               {/* Optional overlay for text readability */}
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/20 to-transparent" />
               {/* Floating Contact Now Spinner at top right of image */}
