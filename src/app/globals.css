@@ -425,3 +425,13 @@
     animation: gradientFlow 10s ease 0s infinite normal none running;
   }
 }
+
+.dark-section ~ * .navbar-text,
+.dark-section ~ * .nav-item,
+.dark-section ~ * .font-condensed {
+  color: white !important;
+}
+
+.dark-section ~ * .hamburger-line {
+  background-color: white !important;
+}

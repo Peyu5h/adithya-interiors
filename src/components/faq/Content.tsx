@@ -7,29 +7,29 @@ import {
 
 const faqs = [
   {
-    question: "Is Vignam suitable for all educational levels?",
+    question: "What areas do you serve in Mumbai?",
     answer:
-      "Yes, Vignam is designed to support educators and students at all educational levels, from primary school to higher education.",
+      "We provide interior design and construction services across Mumbai, including Malad, Kandivali, Andheri, Borivali, and nearby suburbs.",
   },
   {
-    question: "Can I use Vignam for subjects other than math and science?",
+    question: "Do you handle both residential and commercial projects?",
     answer:
-      "Absolutely! While we focus on math and science, Vignam can be adapted to create simulations for various subjects, enhancing learning across disciplines.",
+      "Yes, we specialize in residential, commercial, and office interiors, as well as renovation and turnkey construction projects.",
   },
   {
-    question: "Will I encounter copyright issues with Vignam?",
+    question: "Can you manage end-to-end execution, including civil work?",
     answer:
-      "No, you will not encounter copyright issues, as the content you create with Vignam belongs to you.",
+      "Absolutely. We offer complete solutions from design to execution, including civil work, carpentry, electrical, plumbing, and painting.",
   },
   {
-    question: "How can I export content from Vignam?",
+    question: "How do you ensure project timelines and quality?",
     answer:
-      "You can record your simulations and save them for use in your marketing or educational materials.",
+      "We use detailed project planning, quality materials, and experienced teams to ensure timely delivery and high-quality results.",
   },
   {
-    question: "What kind of support does Vignam offer?",
+    question: "How do I get a quote or start my project?",
     answer:
-      "We provide comprehensive support through our help center, including tutorials, FAQs, and customer service to assist you with any questions.",
+      "Contact us for a free consultation. We'll discuss your requirements, visit your site, and provide a detailed proposal and estimate.",
   },
 ];
 

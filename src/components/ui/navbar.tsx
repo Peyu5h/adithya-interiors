@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { gsap } from "gsap";
+import { Button } from "./button";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -43,14 +44,14 @@ export default function Navbar() {
   return (
     <motion.header
       className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
-        scrolled ? "py-3" : "py-5"
+        scrolled ? "py-1" : "py-5"
       }`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
     >
       <div
-        className={`nav-container mx-auto flex items-center justify-between px-8 transition-all duration-300 ${
+        className={`nav-container mx-auto flex items-center justify-between px-8 py-1 transition-all duration-300 ${
           scrolled
             ? "max-w-[100%] rounded-lg bg-white/20 backdrop-blur-md"
             : "max-w-[100%] rounded-lg bg-white/10 backdrop-blur-sm md:max-w-[90%]"
@@ -94,13 +95,21 @@ export default function Navbar() {
           </ul>
         </nav>
 
-        <div className="relative z-50">
+        <div className="relative z-50 md:hidden">
           <button className="flex flex-col items-end justify-center space-y-1.5 p-3 transition-all duration-200">
             <span className="h-0.5 w-5 bg-black"></span>
             <span className="h-0.5 w-5 bg-black"></span>
             <span className="h-0.5 w-5 bg-black"></span>
           </button>
         </div>
+        <Button
+          variant={scrolled ? "outline" : "default"}
+          className={`rounded-xl ${scrolled ? "bg-background/20" : ""}`}
+          size={"lg"}
+          effect="shineHover"
+        >
+          Get a Quote
+        </Button>
       </div>
     </motion.header>
   );

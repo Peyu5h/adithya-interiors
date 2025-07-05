@@ -2,6 +2,7 @@
 import { IconArrowNarrowRight } from "@tabler/icons-react";
 import Image from "next/image";
 import { useState, useRef, useId, useEffect } from "react";
+import { Button } from "./button";
 
 interface SlideData {
   title: string;
@@ -92,7 +93,7 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
           }}
         >
           <Image
-            className="absolute inset-0 h-[120%] w-[120%] object-cover opacity-100 transition-opacity duration-600 ease-in-out"
+            className="absolute inset-0 h-[120%] w-[120%] cursor-pointer object-cover opacity-100 transition-opacity duration-600 ease-in-out"
             style={{
               opacity: current === index ? 1 : 0.5,
             }}
@@ -140,15 +141,17 @@ const CarouselControl = ({
   handleClick,
 }: CarouselControlProps) => {
   return (
-    <button
-      className={`mx-2 flex h-10 w-10 items-center justify-center rounded-full border-3 border-transparent bg-neutral-200 transition duration-200 hover:-translate-y-0.5 focus:border-[#6D64F7] focus:outline-none active:translate-y-0.5 dark:bg-neutral-800 ${
+    <Button
+      variant={"outline"}
+      size={"lg"}
+      className={`mx-2 flex h-12 w-12 items-center justify-center rounded-xl ${
         type === "previous" ? "rotate-180" : ""
       }`}
       title={title}
       onClick={handleClick}
     >
       <IconArrowNarrowRight className="text-neutral-600 dark:text-neutral-200" />
-    </button>
+    </Button>
   );
 };
 

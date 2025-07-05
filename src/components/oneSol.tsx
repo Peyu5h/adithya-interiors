@@ -60,15 +60,17 @@ const OneSol = () => {
         </h2>
       </div>
 
-      <section className="relative mx-auto flex w-full max-w-6xl flex-col items-start gap-8 px-4 py-4 md:-mb-8 md:flex-row md:py-24 xl:ps-0 xl:pe-4">
+      <section className="relative mx-auto flex w-full max-w-6xl flex-col items-start gap-8 px-4 py-4 md:-mb-8 md:flex-row md:pt-12 md:pb-24 xl:ps-0 xl:pe-4">
         <div className="w-full md:w-2/3">
           <h3 className="max-w-sm text-2xl font-medium tracking-[-0.2px] text-black/80 md:text-3xl md:leading-[42px] md:tracking-[-1px]">
             One Stop Solution for All
           </h3>
           <p className="text-md mt-1 text-sm text-neutral-700 md:mt-4 md:text-lg md:text-neutral-950">
-            At Vignam, our software is designed to help students, teachers, and
-            institutions enhance learning and teaching with interactive 3D
-            simulations.
+            We are a Mumbai-based interior design and construction company,
+            delivering exceptional spaces for homes, offices, and commercial
+            projects. Serving Malad, Kandivali, Andheri, Borivali, and beyond,
+            we blend creativity, quality, and functionality to bring your vision
+            to life.
           </p>
 
           <div
@@ -86,7 +88,7 @@ const OneSol = () => {
                     : "text-black/60 hover:text-black/90"
                 }`}
               >
-                <HoverUp text={"STUDENTS"} />
+                <HoverUp text={"RESIDENTIAL"} />
               </button>
 
               <button
@@ -98,7 +100,7 @@ const OneSol = () => {
                     : "text-black/60 hover:text-black/90"
                 }`}
               >
-                <HoverUp text={"TEACHERS"} />
+                <HoverUp text={"COMMERCIAL"} />
               </button>
 
               <button
@@ -110,7 +112,7 @@ const OneSol = () => {
                     : "text-black/60 hover:text-black/90"
                 }`}
               >
-                <HoverUp text={"INSTITUTES"} />
+                <HoverUp text={"RENOVATION"} />
               </button>
             </div>
 
@@ -121,25 +123,25 @@ const OneSol = () => {
                     <li className="relative inline-flex items-center gap-4">
                       <div className="relative size-1.5 rounded bg-neutral-200 md:size-2"></div>
                       <div className="relative mt-[-1px] w-fit text-xs leading-5 font-normal tracking-[-0.2px] whitespace-nowrap text-neutral-600 md:text-sm">
-                        Boost student engagement and participation
+                        Bespoke home interiors tailored to your lifestyle
                       </div>
                     </li>
                     <li className="relative inline-flex items-center gap-4">
                       <div className="relative size-1.5 rounded bg-neutral-200 md:size-2"></div>
                       <div className="relative mt-[-1px] w-fit text-xs leading-5 font-normal tracking-[-0.2px] whitespace-nowrap text-neutral-600 md:text-sm">
-                        Boost student engagement and participation
+                        Turnkey solutions from design to execution
                       </div>
                     </li>
                     <li className="relative inline-flex items-center gap-4">
                       <div className="relative size-1.5 rounded bg-neutral-200 md:size-2"></div>
                       <div className="relative mt-[-1px] w-fit text-xs leading-5 font-normal tracking-[-0.2px] whitespace-nowrap text-neutral-600 md:text-sm">
-                        Boost student engagement and participation
+                        Space planning, modular kitchens, wardrobes, and more
                       </div>
                     </li>
                     <li className="relative inline-flex items-center gap-4">
                       <div className="relative size-1.5 rounded bg-neutral-200 md:size-2"></div>
                       <div className="relative mt-[-1px] w-fit text-xs leading-5 font-normal tracking-[-0.2px] whitespace-nowrap text-neutral-600 md:text-sm">
-                        Boost student engagement and participation
+                        Quality materials and on-time project delivery
                       </div>
                     </li>
                   </ul>
@@ -152,25 +154,25 @@ const OneSol = () => {
                     <li className="relative inline-flex items-center gap-4">
                       <div className="relative size-1.5 rounded bg-neutral-200 md:size-2"></div>
                       <div className="relative mt-[-1px] w-fit text-xs leading-5 font-normal tracking-[-0.2px] whitespace-nowrap text-neutral-600 md:text-sm">
-                        Boost student engagement and participation
+                        Modern office and retail interiors for every business
                       </div>
                     </li>
                     <li className="relative inline-flex items-center gap-4">
                       <div className="relative size-1.5 rounded bg-neutral-200 md:size-2"></div>
                       <div className="relative mt-[-1px] w-fit text-xs leading-5 font-normal tracking-[-0.2px] whitespace-nowrap text-neutral-600 md:text-sm">
-                        Boost student engagement and participation
+                        Functional layouts and brand-focused design
                       </div>
                     </li>
                     <li className="relative inline-flex items-center gap-4">
                       <div className="relative size-1.5 rounded bg-neutral-200 md:size-2"></div>
                       <div className="relative mt-[-1px] w-fit text-xs leading-5 font-normal tracking-[-0.2px] whitespace-nowrap text-neutral-600 md:text-sm">
-                        Boost student engagement and participation
+                        End-to-end project management
                       </div>
                     </li>
                     <li className="relative inline-flex items-center gap-4">
                       <div className="relative size-1.5 rounded bg-neutral-200 md:size-2"></div>
                       <div className="relative mt-[-1px] w-fit text-xs leading-5 font-normal tracking-[-0.2px] whitespace-nowrap text-neutral-600 md:text-sm">
-                        Boost student engagement and participation
+                        Renovation, remodeling, and fit-outs
                       </div>
                     </li>
                   </ul>
@@ -183,25 +185,25 @@ const OneSol = () => {
                     <li className="relative inline-flex items-center gap-4">
                       <div className="relative size-1.5 rounded bg-neutral-200 md:size-2"></div>
                       <div className="relative mt-[-1px] w-fit text-xs leading-5 font-normal tracking-[-0.2px] whitespace-nowrap text-neutral-600 md:text-sm">
-                        Boost student engagement and participation
+                        Complete renovation and remodeling services
                       </div>
                     </li>
                     <li className="relative inline-flex items-center gap-4">
                       <div className="relative size-1.5 rounded bg-neutral-200 md:size-2"></div>
                       <div className="relative mt-[-1px] w-fit text-xs leading-5 font-normal tracking-[-0.2px] whitespace-nowrap text-neutral-600 md:text-sm">
-                        Boost student engagement and participation
+                        Civil work, painting, electrical, and plumbing
                       </div>
                     </li>
                     <li className="relative inline-flex items-center gap-4">
                       <div className="relative size-1.5 rounded bg-neutral-200 md:size-2"></div>
                       <div className="relative mt-[-1px] w-fit text-xs leading-5 font-normal tracking-[-0.2px] whitespace-nowrap text-neutral-600 md:text-sm">
-                        Boost student engagement and participation
+                        Hassle-free upgrades for homes and businesses
                       </div>
                     </li>
                     <li className="relative inline-flex items-center gap-4">
                       <div className="relative size-1.5 rounded bg-neutral-200 md:size-2"></div>
                       <div className="relative mt-[-1px] w-fit text-xs leading-5 font-normal tracking-[-0.2px] whitespace-nowrap text-neutral-600 md:text-sm">
-                        Boost student engagement and participation
+                        Transparent pricing and dedicated support
                       </div>
                     </li>
                   </ul>
