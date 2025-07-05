@@ -20,7 +20,7 @@ export default function HomePage() {
 
   return (
     <main className="">
-      <div className="relative flex-grow rounded-b-[64px] bg-white">
+      <div className="bg-background relative flex-grow rounded-b-[64px]">
         <Navbar />
         <ChatBot />
 

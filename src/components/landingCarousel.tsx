@@ -6,20 +6,34 @@ import { GridGallery } from "./GridGallery";
 export function LandingCarousel() {
   const slideData = [
     {
-      title: "Mystic Mountains",
-      src: "https://images.unsplash.com/photo-1494806812796-244fe51b774d?q=80&w=3534&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      title: "Office Interior",
+      description:
+        "Modern office interiors that boost productivity and reflect your brand.",
+      src: "https://res.cloudinary.com/dkysrpdi6/image/upload/v1751717552/biju/images-homemaker/7-820x999_l6ybry.jpg",
     },
     {
-      title: "Urban Dreams",
-      src: "https://images.unsplash.com/photo-1518710843675-2540dd79065c?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      title: "Vastu Interiors",
+      description:
+        "Interiors designed with Vastu principles for harmony and prosperity.",
+      src: "https://res.cloudinary.com/dkysrpdi6/image/upload/v1751717565/biju/images-homemaker/Enscape_2024-03-20-16-37-41_Enscape-scene-5-850x540_p26ucs.png",
     },
     {
-      title: "Neon Nights",
-      src: "https://images.unsplash.com/photo-1590041794748-2d8eb73a571c?q=80&w=3456&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      title: "NRI Interior Services",
+      description:
+        "Specialized interior solutions for NRIs, tailored to your unique needs.",
+      src: "https://res.cloudinary.com/dkysrpdi6/image/upload/v1751717508/biju/images-homemaker/5-820x999_xhuwu6.jpg",
     },
     {
-      title: "Desert Whispers",
-      src: "https://images.unsplash.com/photo-1679420437432-80cfbf88986c?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      title: "Restaurant Interior",
+      description:
+        "Elegant and vibrant restaurant spaces designed for memorable dining experiences.",
+      src: "https://res.cloudinary.com/dkysrpdi6/image/upload/v1751717508/biju/images-homemaker/6-820x999_waf8bf.jpg",
+    },
+    {
+      title: "Commercial Spaces",
+      description:
+        "Functional and stylish commercial interiors for all business needs.",
+      src: "https://res.cloudinary.com/dkysrpdi6/image/upload/v1751717566/biju/images-homemaker/WhatsApp-Image-2023-06-19-at-5.32.12-PM-1-850x540_yvg45d.jpg",
     },
   ];
   return (
@@ -30,7 +44,7 @@ export function LandingCarousel() {
             Our image gallery
           </h2>
           <p className="mt-5 text-center opacity-75">
-            See what our customers have to say about us.
+            We provide more than just quality services.
           </p>
         </div>
       </div>

@@ -1,10 +1,12 @@
 "use client";
 import { IconArrowNarrowRight } from "@tabler/icons-react";
+import Image from "next/image";
 import { useState, useRef, useId, useEffect } from "react";
 
 interface SlideData {
   title: string;
   src: string;
+  description: string;
 }
 
 interface SlideProps {
@@ -61,7 +63,7 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
     event.currentTarget.style.opacity = "1";
   };
 
-  const { src, title } = slide;
+  const { src, title, description } = slide;
 
   return (
     <div className="[perspective:1200px] [transform-style:preserve-3d]">
@@ -89,7 +91,7 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
                 : "none",
           }}
         >
-          <img
+          <Image
             className="absolute inset-0 h-[120%] w-[120%] object-cover opacity-100 transition-opacity duration-600 ease-in-out"
             style={{
               opacity: current === index ? 1 : 0.5,
@@ -99,20 +101,27 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
             onLoad={imageLoaded}
             loading="eager"
             decoding="sync"
+            fill
           />
           {current === index && (
-            <div className="absolute inset-0 bg-black/30 transition-all duration-1000" />
+            <div className="absolute inset-0 bg-black/10 transition-all duration-1000" />
           )}
+
+          {/* Bottom fade overlay for text area */}
+          <div className="pointer-events-none absolute right-0 bottom-0 left-0 h-[40%] bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
         </div>
 
         <article
-          className={`relative p-[4vmin] transition-opacity duration-1000 ease-in-out ${
+          className={`absolute bottom-0 left-0 p-[4vmin] transition-opacity duration-1000 ease-in-out ${
             current === index ? "visible opacity-100" : "invisible opacity-0"
           }`}
         >
-          <h2 className="relative text-lg font-semibold md:text-2xl lg:text-4xl">
+          <h2 className="text-md text-start font-semibold md:text-xl lg:text-2xl">
             {title}
           </h2>
+          <p className="max-w-md text-start text-xs text-white">
+            {description}
+          </p>
         </article>
       </li>
     </div>

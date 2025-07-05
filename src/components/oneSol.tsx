@@ -23,8 +23,37 @@ const OneSol = () => {
     return () => clearTimeout(timer);
   }, [activeTab]);
 
+  const LOGO_HEIGHT = 160;
+  const LOGO_WIDTH = 300;
+
+  function PartnerLogo({
+    src,
+    alt,
+    className,
+  }: {
+    src: string;
+    alt: string;
+    className: string;
+  }) {
+    return (
+      <div
+        className={`relative ${className}`}
+        style={{ height: LOGO_HEIGHT, width: LOGO_WIDTH, minWidth: LOGO_WIDTH }}
+      >
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          sizes={`${LOGO_WIDTH}px`}
+          className={`object-contain ${className}`}
+          draggable={false}
+        />
+      </div>
+    );
+  }
+
   return (
-    <div>
+    <div className="bg-background">
       <div className="mx-auto flex flex-col items-center justify-center">
         <h2 className="mt-5 text-xl font-bold tracking-tighter sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
           Why Choose Us?
@@ -47,13 +76,13 @@ const OneSol = () => {
             data-orientation="horizontal"
             className="md:md-10 mt-6"
           >
-            <div className="inline-flex h-fit w-full items-center justify-center rounded-md bg-zinc-200 p-1 md:w-fit md:rounded-[20px]">
+            <div className="bg-accent/50 inline-flex h-fit w-full items-center justify-center rounded-md p-1 md:w-fit md:rounded-[20px]">
               <button
                 type="button"
                 onClick={() => handleTabClick("Students")}
                 className={`inline-flex flex-1 items-center justify-center rounded-[10px] px-4 py-2 text-xs font-medium whitespace-nowrap transition-all md:rounded-2xl md:px-10 md:py-4 md:text-base ${
                   activeTab === "Students"
-                    ? "bg-white text-black"
+                    ? "bg-primary text-white"
                     : "text-black/60 hover:text-black/90"
                 }`}
               >
@@ -65,7 +94,7 @@ const OneSol = () => {
                 onClick={() => handleTabClick("Teachers")}
                 className={`inline-flex flex-1 items-center justify-center rounded-[10px] px-4 py-2 text-xs font-medium whitespace-nowrap transition-all md:rounded-2xl md:px-10 md:py-4 md:text-base ${
                   activeTab === "Teachers"
-                    ? "bg-white text-black"
+                    ? "bg-primary text-white"
                     : "text-black/60 hover:text-black/90"
                 }`}
               >
@@ -77,7 +106,7 @@ const OneSol = () => {
                 onClick={() => handleTabClick("Institutes")}
                 className={`inline-flex flex-1 items-center justify-center rounded-[10px] px-4 py-2 text-xs font-medium whitespace-nowrap transition-all md:rounded-2xl md:px-10 md:py-4 md:text-base ${
                   activeTab === "Institutes"
-                    ? "bg-white text-black"
+                    ? "bg-primary text-white"
                     : "text-black/60 hover:text-black/90"
                 }`}
               >
@@ -191,7 +220,7 @@ const OneSol = () => {
               transition={{ duration: 0.3, ease: "easeOut" }}
               className="mt-0 md:mt-24"
             >
-              <Image
+              <PartnerLogo
                 src={
                   activeTab === "Students"
                     ? ASSETS.oneSol.student
@@ -207,8 +236,6 @@ const OneSol = () => {
                       : "An institute using the platform"
                 }
                 className="rounded-lg transition-all duration-200"
-                width={500}
-                height={500}
               />
             </motion.div>
           </div>
