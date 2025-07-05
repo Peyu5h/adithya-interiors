@@ -4,7 +4,7 @@ import {
   HoverSliderImageWrap,
   TextStaggerHover,
 } from "~/components/animated-slideshow";
-import Stairs from "~/components/animations/Pagetransition/Stairs";
+// import Stairs from "~/components/animations/Pagetransition/Stairs";
 import Navbar from "~/components/ui/navbar";
 
 const SLIDES = [
@@ -43,41 +43,41 @@ const SLIDES = [
 export default function HoverSliderDemo() {
   return (
     <div className="h-screen">
-      <Stairs backgroundColor={"#0e0e0e"}>
-        <Navbar />
-        <HoverSlider className="min-h-svh place-content-center bg-[#faf9f5] p-6 text-[#3d3929] md:px-12">
-          <h3 className="text-[rgb(201, 100, 66)] mb-6 text-xs font-medium tracking-wide text-[#c96442] capitalize">
-            / our services
-          </h3>
-          <div className="flex flex-wrap items-center justify-evenly gap-6 md:gap-12">
-            <div className="flex flex-col space-y-2 md:space-y-4">
-              {SLIDES.map((slide, index) => (
-                <TextStaggerHover
-                  key={slide.title}
-                  index={index}
-                  className="cursor-pointer text-4xl font-bold tracking-tighter uppercase"
-                  text={slide.title}
-                />
-              ))}
-            </div>
-            <HoverSliderImageWrap>
-              {SLIDES.map((slide, index) => (
-                <div key={slide.id} className=" ">
-                  <HoverSliderImage
-                    index={index}
-                    imageUrl={slide.imageUrl}
-                    src={slide.imageUrl}
-                    alt={slide.title}
-                    className="size-full max-h-96 object-cover"
-                    loading="eager"
-                    decoding="async"
-                  />
-                </div>
-              ))}
-            </HoverSliderImageWrap>
+      {/* <Stairs backgroundColor={"#0e0e0e"}> */}
+      <Navbar />
+      <HoverSlider className="min-h-svh place-content-center bg-[#faf9f5] p-6 text-[#3d3929] md:px-12">
+        <h3 className="text-[rgb(201, 100, 66)] mb-6 text-xs font-medium tracking-wide text-[#c96442] capitalize">
+          / our services
+        </h3>
+        <div className="flex flex-wrap items-center justify-evenly gap-6 md:gap-12">
+          <div className="flex flex-col space-y-2 md:space-y-4">
+            {SLIDES.map((slide, index) => (
+              <TextStaggerHover
+                key={slide.title}
+                index={index}
+                className="cursor-pointer text-4xl font-bold tracking-tighter uppercase"
+                text={slide.title}
+              />
+            ))}
           </div>
-        </HoverSlider>
-      </Stairs>
+          <HoverSliderImageWrap>
+            {SLIDES.map((slide, index) => (
+              <div key={slide.id} className=" ">
+                <HoverSliderImage
+                  index={index}
+                  imageUrl={slide.imageUrl}
+                  src={slide.imageUrl}
+                  alt={slide.title}
+                  className="size-full max-h-96 object-cover"
+                  loading="eager"
+                  decoding="async"
+                />
+              </div>
+            ))}
+          </HoverSliderImageWrap>
+        </div>
+      </HoverSlider>
+      {/* </Stairs> */}
     </div>
   );
 }
