@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import { LayoutGrid } from "./ui/layout-grid";
+import PropertyDetails from "./PropertyDetails";
 
 export function GridGallery() {
   return (
@@ -12,15 +13,8 @@ export function GridGallery() {
 
 const SkeletonOne = () => {
   return (
-    <div>
-      <p className="text-xl font-bold text-white md:text-4xl">
-        House in the woods
-      </p>
-      <p className="text-base font-normal text-white"></p>
-      <p className="my-4 max-w-lg text-base font-normal text-neutral-200">
-        A serene and tranquil retreat, this house in the woods offers a peaceful
-        escape from the hustle and bustle of city life.
-      </p>
+    <div className="flex h-[90vh] w-[90vw] flex-col items-center justify-center">
+      <PropertyDetails params={{ id: "1" }} />
     </div>
   );
 };
