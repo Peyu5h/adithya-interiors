@@ -47,7 +47,7 @@ export default function Navbar() {
 
   return (
     <motion.header
-      className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 right-0 left-0 z-[60] transition-all duration-300 ${
         scrolled ? "py-1" : "py-5"
       }`}
       initial={{ opacity: 0 }}

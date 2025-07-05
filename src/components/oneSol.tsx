@@ -54,7 +54,7 @@ const OneSol = () => {
   return (
     <div className="bg-background">
       <div className="mx-auto flex flex-col items-center justify-center">
-        <h2 className="mt-5 text-xl font-bold tracking-tighter sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
+        <h2 className="mt-5 text-2xl font-bold tracking-tighter sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
           Why Choose Us?
         </h2>
       </div>
@@ -64,7 +64,7 @@ const OneSol = () => {
           <h3 className="max-w-sm text-xl font-medium tracking-[-0.2px] text-black/80 md:text-3xl md:leading-[42px] md:tracking-[-1px]">
             One Stop Solution for All
           </h3>
-          <p className="text-md mt-1 text-sm text-neutral-700 md:mt-4 md:text-lg md:text-neutral-950">
+          <p className="text-md mt-1 text-sm text-neutral-700 md:mt-4 md:text-lg md:text-black/40">
             We are a Mumbai-based interior design and construction company,
             delivering exceptional spaces for homes, offices, and commercial
             projects.

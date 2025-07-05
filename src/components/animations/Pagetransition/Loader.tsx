@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "~/components/ui/navbar";
+// import Navbar from "~/components/ui/navbar";
 
 const Loader = () => {
   return (

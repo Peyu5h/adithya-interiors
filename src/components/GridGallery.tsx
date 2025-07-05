@@ -267,7 +267,7 @@ const ProjectCarousel = ({
   return (
     <div className="flex flex-1 flex-col overflow-hidden lg:flex-row">
       {/* Main Image */}
-      <div className="relative h-[300px] min-h-0 flex-1 bg-gray-100 lg:h-auto">
+      <div className="relative z-50 h-[300px] min-h-0 flex-1 bg-gray-100 lg:h-auto">
         <Image
           height={800}
           width={800}
@@ -305,10 +305,10 @@ const ProjectCarousel = ({
         <div className="space-y-6">
           {/* Project Title */}
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">
+            <h2 className="text-2xl font-bold text-white md:text-gray-900">
               {project.title}
             </h2>
-            <div className="mt-2 flex items-center gap-2 text-gray-600">
+            <div className="mt-2 flex items-center gap-2 text-white md:text-gray-600">
               <MapPin size={16} />
               <span className="text-sm">{project.location}</span>
             </div>

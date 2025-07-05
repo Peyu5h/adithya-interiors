@@ -40,10 +40,10 @@ export function LandingCarousel() {
     <div className="relative h-full w-full overflow-hidden pt-20">
       <div className="z-10 container mx-auto mb-12">
         <div className="mx-auto flex flex-col items-center justify-center">
-          <h2 className="mt-5 text-xl font-bold tracking-tighter sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
+          <h2 className="mt-5 text-2xl font-bold tracking-tighter sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
             Our image gallery
           </h2>
-          <p className="mt-5 text-center opacity-75">
+          <p className="mt-2 text-center opacity-75 md:mt-5">
             We provide more than just quality services.
           </p>
         </div>

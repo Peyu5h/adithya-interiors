@@ -77,10 +77,10 @@ export const Testimonials = () => {
             <div className="rounded-lg border px-4 py-1">Testimonials</div>
           </div>
 
-          <h2 className="mt-5 text-xl font-bold tracking-tighter sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
+          <h2 className="mt-5 text-2xl font-bold tracking-tighter sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
             What our clients say
           </h2>
-          <p className="mt-5 text-center opacity-75">
+          <p className="mt-2 text-center opacity-75 md:mt-5">
             See what our customers have to say about us.
           </p>
         </motion.div>
