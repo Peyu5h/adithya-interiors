@@ -209,7 +209,7 @@ export function GridGallery({
 
   return (
     <>
-      <div className="h-screen w-full">
+      <div className="mt-24 h-screen w-full">
         <div className="relative mx-auto grid h-auto min-h-[90vh] w-[90vw] cursor-pointer grid-cols-1 gap-4 p-4 md:grid-cols-3 md:p-10">
           {sampleProjects.map((card, i) => (
             <div key={i} className={cn(card.className, "")}>
