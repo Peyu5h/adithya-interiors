@@ -13,13 +13,11 @@ export interface BlogPost {
   author: string;
 }
 
-// API Response wrapper
 export interface BlogResponse {
   success: boolean;
   data: BlogPost;
 }
 
-// For blog list response
 export interface BlogListResponse {
   success: boolean;
   data: {
