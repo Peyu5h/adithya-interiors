@@ -1,9 +1,14 @@
+"use client";
+
 import {
   HoverSlider,
   HoverSliderImage,
   HoverSliderImageWrap,
   TextStaggerHover,
 } from "~/components/animated-slideshow";
+import { Zap } from "lucide-react";
+import { motion } from "framer-motion";
+import React from "react";
 // import Stairs from "~/components/animations/Pagetransition/Stairs";
 import Navbar from "~/components/ui/navbar";
 
@@ -45,38 +50,28 @@ export default function HoverSliderDemo() {
     <div className="h-screen">
       {/* <Stairs backgroundColor={"#0e0e0e"}> */}
       <Navbar />
-      <HoverSlider className="min-h-svh place-content-center bg-[#faf9f5] p-6 text-[#3d3929] md:px-12">
-        <h3 className="text-[rgb(201, 100, 66)] mb-6 text-xs font-medium tracking-wide text-[#c96442] capitalize">
-          / our services
-        </h3>
-        <div className="flex flex-wrap items-center justify-evenly gap-6 md:gap-12">
-          <div className="flex flex-col space-y-2 md:space-y-4">
-            {SLIDES.map((slide, index) => (
-              <TextStaggerHover
-                key={slide.title}
-                index={index}
-                className="cursor-pointer text-4xl font-bold tracking-tighter uppercase"
-                text={slide.title}
-              />
-            ))}
-          </div>
-          <HoverSliderImageWrap>
-            {SLIDES.map((slide, index) => (
-              <div key={slide.id} className=" ">
-                <HoverSliderImage
-                  index={index}
-                  imageUrl={slide.imageUrl}
-                  src={slide.imageUrl}
-                  alt={slide.title}
-                  className="size-full max-h-96 object-cover"
-                  loading="eager"
-                  decoding="async"
-                />
-              </div>
-            ))}
-          </HoverSliderImageWrap>
-        </div>
-      </HoverSlider>
+      <div className="sect">
+        <motion.div className="mb-6 flex flex-col items-center pt-24">
+          <motion.span
+            className="mb-2 flex items-center gap-2 font-medium text-[#88734C]"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+          >
+            <Zap className="h-4 w-4" />
+            DISCOVER OUR SERVICES
+          </motion.span>
+          <h2 className="mb-4 text-center text-4xl font-light md:text-5xl">
+            Our Services
+          </h2>
+          <motion.div
+            className="h-1 w-24 bg-[#88734C]"
+            initial={{ width: 0 }}
+            animate={{ width: 96 }}
+            transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+          ></motion.div>
+        </motion.div>
+      </div>
       {/* </Stairs> */}
     </div>
   );

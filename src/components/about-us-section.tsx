@@ -63,15 +63,6 @@ export default function AboutUsSection() {
     },
   };
 
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
-  };
-
   const services = [
     {
       icon: <Pen className="h-6 w-6" />,
@@ -196,7 +187,9 @@ export default function AboutUsSection() {
       >
         <motion.div
           className="mb-6 flex flex-col items-center"
-          variants={itemVariants}
+          initial={{ y: 20, opacity: 0 }}
+          animate={isInView ? { y: 0, opacity: 1 } : {}}
+          transition={{ duration: 0.6, ease: "easeOut" }}
         >
           <motion.span
             className="mb-2 flex items-center gap-2 font-medium text-[#88734C]"
@@ -220,7 +213,9 @@ export default function AboutUsSection() {
 
         <motion.p
           className="mx-auto mb-16 max-w-2xl text-center text-[#202e44]/80"
-          variants={itemVariants}
+          initial={{ y: 20, opacity: 0 }}
+          animate={isInView ? { y: 0, opacity: 1 } : {}}
+          transition={{ duration: 0.6, ease: "easeOut" }}
         >
           We are a passionate team of designers and architects dedicated to
           creating beautiful, functional spaces that inspire and elevate
@@ -240,7 +235,6 @@ export default function AboutUsSection() {
                   secondaryIcon={service.secondaryIcon}
                   title={service.title}
                   description={service.description}
-                  variants={itemVariants}
                   delay={index * 0.2}
                   direction="left"
                 />
@@ -251,7 +245,9 @@ export default function AboutUsSection() {
           <div className="order-first mb-8 flex items-center justify-center md:order-none md:mb-0">
             <motion.div
               className="relative w-full max-w-xs"
-              variants={itemVariants}
+              initial={{ y: 20, opacity: 0 }}
+              animate={isInView ? { y: 0, opacity: 1 } : {}}
+              transition={{ duration: 0.6, ease: "easeOut" }}
             >
               <motion.div
                 className="overflow-hidden rounded-md shadow-xl"
@@ -345,7 +341,6 @@ export default function AboutUsSection() {
                   secondaryIcon={service.secondaryIcon}
                   title={service.title}
                   description={service.description}
-                  variants={itemVariants}
                   delay={index * 0.2}
                   direction="right"
                 />
@@ -385,7 +380,7 @@ export default function AboutUsSection() {
               Ready to transform your space?
             </h3>
             <p className="text-white/80">
-              Let's create something beautiful together.
+              Let&#39;s create something beautiful together.
             </p>
           </div>
           <motion.button
@@ -406,14 +401,6 @@ interface ServiceItemProps {
   secondaryIcon?: React.ReactNode;
   title: string;
   description: string;
-  variants: {
-    hidden: { opacity: number; y?: number };
-    visible: {
-      opacity: number;
-      y?: number;
-      transition: { duration: number; ease: string };
-    };
-  };
   delay: number;
   direction: "left" | "right";
 }
@@ -423,15 +410,15 @@ function ServiceItem({
   secondaryIcon,
   title,
   description,
-  variants,
   delay,
   direction,
 }: ServiceItemProps) {
   return (
     <motion.div
       className="group flex flex-col"
-      variants={variants}
-      transition={{ delay }}
+      initial={{ y: 20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut", delay }}
       whileHover={{ y: -5, transition: { duration: 0.2 } }}
     >
       <motion.div
@@ -510,14 +497,9 @@ function StatCounter({ icon, value, label, suffix, delay }: StatCounterProps) {
   return (
     <motion.div
       className="group flex flex-col items-center rounded-xl bg-white/50 p-6 text-center backdrop-blur-sm transition-colors duration-300 hover:bg-white"
-      variants={{
-        hidden: { opacity: 0, y: 20 },
-        visible: {
-          opacity: 1,
-          y: 0,
-          transition: { duration: 0.6, delay },
-        },
-      }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      transition={{ duration: 0.6, delay }}
       whileHover={{ y: -5, transition: { duration: 0.2 } }}
     >
       <motion.div
