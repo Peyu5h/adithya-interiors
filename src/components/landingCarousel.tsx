@@ -2,8 +2,22 @@
 
 import { Carousel } from "~/components/ui/carousel";
 import { GridGallery } from "./GridGallery";
+import { useState, useEffect } from "react";
 
 export function LandingCarousel() {
+  const [isGridGalleryOpen, setIsGridGalleryOpen] = useState(false);
+
+  useEffect(() => {
+    if (isGridGalleryOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isGridGalleryOpen]);
+
   const slideData = [
     {
       title: "Office Interior",
@@ -50,7 +64,7 @@ export function LandingCarousel() {
       </div>
       <Carousel slides={slideData} />
 
-      <GridGallery />
+      <GridGallery onCardSelectChange={setIsGridGalleryOpen} />
     </div>
   );
 }

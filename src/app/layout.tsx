@@ -38,7 +38,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <ReactQueryProvider>
-            <Navbar />
+            {/* <Navbar /> */}
             {children}
           </ReactQueryProvider>
           <Toaster />

@@ -12,6 +12,7 @@ import { PartnerMarquee } from "~/components/PartnerMarquee";
 import { LandingCarousel } from "~/components/landingCarousel";
 import OneSol from "~/components/oneSol";
 import Loader from "~/components/animations/Pagetransition/Loader";
+import LocomotiveScroll from "locomotive-scroll";
 
 export default function HomePage() {
   const [showLoader, setShowLoader] = useState(true);
@@ -61,8 +62,14 @@ export default function HomePage() {
     });
   };
 
+  // useEffect(() => {
+  //   const locomotiveScroll = new LocomotiveScroll();
+  // }, []);
+
   return (
     <main className="">
+      <Navbar />
+
       {/* SEO-friendly content always present in DOM */}
       <div
         ref={mainContentRef}
@@ -78,9 +85,7 @@ export default function HomePage() {
 
           <Hero data-critical="true" />
 
-          <div className="hidden md:block">{/* <MainModal /> */}</div>
           <LandingCarousel />
-          {/* <ImageSlide /> */}
           <Testimonials />
           <OneSol />
 

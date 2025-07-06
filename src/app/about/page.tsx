@@ -7,6 +7,7 @@ export default function Aboutpage() {
     <div>
       {/* <Stairs backgroundColor={"#0e0e0e"}> */}
       <Navbar />
+
       <AboutUsSection />
       {/* </Stairs> */}
     </div>

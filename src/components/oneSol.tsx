@@ -3,24 +3,111 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import HoverUp from "./animations/TextAnimation/HoverUp";
+import TabButton from "~/components/ui/tab-button";
 
 const OneSol = () => {
-  const [activeTab, setActiveTab] = useState("Students");
+  const tabData = [
+    {
+      id: "renovation",
+      label: "Home renovation",
+      image:
+        "https://res.cloudinary.com/dkysrpdi6/image/upload/v1750003031/Interior_design_un5sgo.gif",
+      content: [
+        "Complete renovation and remodeling services",
+        "Civil work, painting, electrical, and plumbing",
+        "Hassle-free upgrades for homes and businesses",
+        "Transparent pricing and dedicated support",
+      ],
+    },
+    {
+      id: "false_ceiling",
+      label: "FALSE CEILING",
+      image:
+        "https://res.cloudinary.com/dkysrpdi6/image/upload/v1750003031/Interior_design_un5sgo.gif",
+      content: [
+        "Innovative false ceiling designs for aesthetic appeal",
+        "Variety of materials including gypsum, POP, and more",
+        "Expert installation for homes and commercial spaces",
+        "Enhanced lighting and sound insulation solutions",
+      ],
+    },
+    {
+      id: "tiling",
+      label: "Flooring & TILING",
+      image:
+        "https://res.cloudinary.com/dkysrpdi6/image/upload/v1750003031/Interior_design_un5sgo.gif",
+      content: [
+        "Professional tiling services for floors and walls",
+        "Wide range of tile options including ceramic, porcelain, and natural stone",
+        "Precision installation for a flawless finish",
+        "Grouting and sealing for durability and easy maintenance",
+      ],
+    },
+    {
+      id: "electric_work",
+      label: "ELECTRIC WORK",
+      image:
+        "https://res.cloudinary.com/dkysrpdi6/image/upload/v1750003031/Interior_design_un5sgo.gif",
+      content: [
+        "Comprehensive electrical solutions for new and renovated spaces",
+        "Wiring, lighting, power outlets, and panel installations",
+        "Safety compliance and energy-efficient solutions",
+        "Experienced electricians for reliable service",
+      ],
+    },
+    {
+      id: "plumbing",
+      label: "PLUMBING",
+      image:
+        "https://res.cloudinary.com/dkysrpdi6/image/upload/v1750003031/Interior_design_un5sgo.gif",
+      content: [
+        "Complete plumbing installations and repairs",
+        "Water supply, drainage, and fixture fittings",
+        "Leak detection and pipe replacement",
+        "Quality workmanship for lasting solutions",
+      ],
+    },
+    {
+      id: "trolly",
+      label: "Kitchen TROLLY",
+      image:
+        "https://res.cloudinary.com/dkysrpdi6/image/upload/v1750003031/Interior_design_un5sgo.gif",
+      content: [
+        "Customized kitchen trolleys for optimal storage",
+        "High-quality materials for durability and style",
+        "Space-saving designs for modern kitchens",
+        "Seamless integration with existing kitchen layouts",
+      ],
+    },
+    {
+      id: "panelling_tv_ac",
+      label: "PANELLING",
+      image:
+        "https://res.cloudinary.com/dkysrpdi6/image/upload/v1750003031/Interior_design_un5sgo.gif",
+      content: [
+        "Custom paneling solutions for TVs and ACs",
+        "Elegant designs to conceal wires and enhance aesthetics",
+        "Variety of materials and finishes to match your decor",
+        "Integrated storage and display options",
+      ],
+    },
+  ];
 
-  const tabs = ["Students", "Teachers", "Institutes"];
+  const [activeTab, setActiveTab] = useState(tabData[0].id);
 
-  const handleTabClick = (tab: string): void => {
-    setActiveTab(tab);
+  const handleTabClick = (tabId: string): void => {
+    setActiveTab(tabId);
   };
 
   useEffect(() => {
-    const nextTabIndex = (tabs.indexOf(activeTab) + 1) % tabs.length;
+    const nextTabIndex =
+      (tabData.findIndex((tab) => tab.id === activeTab) + 1) % tabData.length;
     const timer = setTimeout(() => {
-      setActiveTab(tabs[nextTabIndex]);
+      setActiveTab(tabData[nextTabIndex].id);
     }, 5000);
 
     return () => clearTimeout(timer);
-  }, [activeTab]);
+  }, [activeTab, tabData]);
 
   const LOGO_HEIGHT = 340;
   const LOGO_WIDTH = 340;
@@ -75,136 +162,37 @@ const OneSol = () => {
             data-orientation="horizontal"
             className="md:md-10 mt-6"
           >
-            <div className="bg-accent/50 inline-flex h-fit w-full items-center justify-center rounded-xl p-1 md:w-fit md:rounded-[20px]">
-              <button
-                type="button"
-                onClick={() => handleTabClick("Students")}
-                className={`inline-flex flex-1 items-center justify-center rounded-[10px] px-4 py-2 text-xs font-medium whitespace-nowrap transition-all md:rounded-2xl md:px-10 md:py-4 md:text-base ${
-                  activeTab === "Students"
-                    ? "bg-primary text-white"
-                    : "text-black/60 hover:text-black/90"
-                }`}
-              >
-                <HoverUp text={"RESIDENTIAL"} />
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleTabClick("Teachers")}
-                className={`inline-flex flex-1 items-center justify-center rounded-[10px] px-4 py-2 text-xs font-medium whitespace-nowrap transition-all md:rounded-2xl md:px-10 md:py-4 md:text-base ${
-                  activeTab === "Teachers"
-                    ? "bg-primary text-white"
-                    : "text-black/60 hover:text-black/90"
-                }`}
-              >
-                <HoverUp text={"COMMERCIAL"} />
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleTabClick("Institutes")}
-                className={`inline-flex flex-1 items-center justify-center rounded-[10px] px-4 py-2 text-xs font-medium whitespace-nowrap transition-all md:rounded-2xl md:px-10 md:py-4 md:text-base ${
-                  activeTab === "Institutes"
-                    ? "bg-primary text-white"
-                    : "text-black/60 hover:text-black/90"
-                }`}
-              >
-                <HoverUp text={"RENOVATION"} />
-              </button>
+            <div className="bg-accent/50 flex h-fit flex-wrap gap-x-2 rounded-xl p-1 md:w-fit md:gap-x-0 md:rounded-[20px]">
+              {tabData.map((tab) => (
+                <TabButton
+                  key={tab.id}
+                  text={tab.label}
+                  onClick={() => handleTabClick(tab.id)}
+                  isActive={activeTab === tab.id}
+                />
+              ))}
             </div>
 
             <div className="ring-offset-background focus-visible:ring-ring mt-4 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none md:mt-12">
-              {activeTab === "Students" && (
-                <div className="me-auto max-w-xl">
-                  <ul className="d:my-4 relative my-4 flex flex-col items-start gap-2 md:gap-4">
-                    <li className="relative inline-flex items-center gap-4">
-                      <div className="relative size-1.5 rounded bg-neutral-200 md:size-2"></div>
-                      <div className="relative mt-[-1px] w-fit text-xs leading-5 font-normal tracking-[-0.2px] whitespace-nowrap text-neutral-600 md:text-sm">
-                        Bespoke home interiors tailored to your lifestyle
-                      </div>
-                    </li>
-                    <li className="relative inline-flex items-center gap-4">
-                      <div className="relative size-1.5 rounded bg-neutral-200 md:size-2"></div>
-                      <div className="relative mt-[-1px] w-fit text-xs leading-5 font-normal tracking-[-0.2px] whitespace-nowrap text-neutral-600 md:text-sm">
-                        Turnkey solutions from design to execution
-                      </div>
-                    </li>
-                    <li className="relative inline-flex items-center gap-4">
-                      <div className="relative size-1.5 rounded bg-neutral-200 md:size-2"></div>
-                      <div className="relative mt-[-1px] w-fit text-xs leading-5 font-normal tracking-[-0.2px] whitespace-nowrap text-neutral-600 md:text-sm">
-                        Space planning, modular kitchens, wardrobes, and more
-                      </div>
-                    </li>
-                    <li className="relative inline-flex items-center gap-4">
-                      <div className="relative size-1.5 rounded bg-neutral-200 md:size-2"></div>
-                      <div className="relative mt-[-1px] w-fit text-xs leading-5 font-normal tracking-[-0.2px] whitespace-nowrap text-neutral-600 md:text-sm">
-                        Quality materials and on-time project delivery
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              )}
-
-              {activeTab === "Teachers" && (
-                <div className="me-auto max-w-xl">
-                  <ul className="relative flex flex-col items-start gap-2 md:gap-4">
-                    <li className="relative inline-flex items-center gap-4">
-                      <div className="relative size-1.5 rounded bg-neutral-200 md:size-2"></div>
-                      <div className="relative mt-[-1px] w-fit text-xs leading-5 font-normal tracking-[-0.2px] whitespace-nowrap text-neutral-600 md:text-sm">
-                        Modern office and retail interiors for every business
-                      </div>
-                    </li>
-                    <li className="relative inline-flex items-center gap-4">
-                      <div className="relative size-1.5 rounded bg-neutral-200 md:size-2"></div>
-                      <div className="relative mt-[-1px] w-fit text-xs leading-5 font-normal tracking-[-0.2px] whitespace-nowrap text-neutral-600 md:text-sm">
-                        Functional layouts and brand-focused design
-                      </div>
-                    </li>
-                    <li className="relative inline-flex items-center gap-4">
-                      <div className="relative size-1.5 rounded bg-neutral-200 md:size-2"></div>
-                      <div className="relative mt-[-1px] w-fit text-xs leading-5 font-normal tracking-[-0.2px] whitespace-nowrap text-neutral-600 md:text-sm">
-                        End-to-end project management
-                      </div>
-                    </li>
-                    <li className="relative inline-flex items-center gap-4">
-                      <div className="relative size-1.5 rounded bg-neutral-200 md:size-2"></div>
-                      <div className="relative mt-[-1px] w-fit text-xs leading-5 font-normal tracking-[-0.2px] whitespace-nowrap text-neutral-600 md:text-sm">
-                        Renovation, remodeling, and fit-outs
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              )}
-
-              {activeTab === "Institutes" && (
-                <div className="me-auto max-w-xl">
-                  <ul className="relative flex flex-col items-start gap-2 md:gap-4">
-                    <li className="relative inline-flex items-center gap-4">
-                      <div className="relative size-1.5 rounded bg-neutral-200 md:size-2"></div>
-                      <div className="relative mt-[-1px] w-fit text-xs leading-5 font-normal tracking-[-0.2px] whitespace-nowrap text-neutral-600 md:text-sm">
-                        Complete renovation and remodeling services
-                      </div>
-                    </li>
-                    <li className="relative inline-flex items-center gap-4">
-                      <div className="relative size-1.5 rounded bg-neutral-200 md:size-2"></div>
-                      <div className="relative mt-[-1px] w-fit text-xs leading-5 font-normal tracking-[-0.2px] whitespace-nowrap text-neutral-600 md:text-sm">
-                        Civil work, painting, electrical, and plumbing
-                      </div>
-                    </li>
-                    <li className="relative inline-flex items-center gap-4">
-                      <div className="relative size-1.5 rounded bg-neutral-200 md:size-2"></div>
-                      <div className="relative mt-[-1px] w-fit text-xs leading-5 font-normal tracking-[-0.2px] whitespace-nowrap text-neutral-600 md:text-sm">
-                        Hassle-free upgrades for homes and businesses
-                      </div>
-                    </li>
-                    <li className="relative inline-flex items-center gap-4">
-                      <div className="relative size-1.5 rounded bg-neutral-200 md:size-2"></div>
-                      <div className="relative mt-[-1px] w-fit text-xs leading-5 font-normal tracking-[-0.2px] whitespace-nowrap text-neutral-600 md:text-sm">
-                        Transparent pricing and dedicated support
-                      </div>
-                    </li>
-                  </ul>
-                </div>
+              {tabData.map(
+                (tab) =>
+                  activeTab === tab.id && (
+                    <div key={tab.id} className="me-auto max-w-xl">
+                      <ul className="d:my-4 relative my-4 flex flex-col items-start gap-2 md:gap-4">
+                        {tab.content.map((item, index) => (
+                          <li
+                            key={index}
+                            className="relative inline-flex items-center gap-4"
+                          >
+                            <div className="relative size-1.5 rounded bg-neutral-200 md:size-2"></div>
+                            <div className="relative mt-[-1px] w-fit text-xs leading-5 font-normal tracking-[-0.2px] whitespace-nowrap text-neutral-600 md:text-sm">
+                              {item}
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ),
               )}
             </div>
           </div>
@@ -220,20 +208,8 @@ const OneSol = () => {
               className="mt-0 md:mt-24"
             >
               <PartnerLogo
-                src={
-                  activeTab === "Students"
-                    ? "https://res.cloudinary.com/dkysrpdi6/image/upload/v1750003031/Interior_design_un5sgo.gif"
-                    : activeTab === "Teachers"
-                      ? "https://res.cloudinary.com/dkysrpdi6/image/upload/v1750003031/Interior_design_un5sgo.gif"
-                      : "https://res.cloudinary.com/dkysrpdi6/image/upload/v1750003031/Interior_design_un5sgo.gif"
-                }
-                alt={
-                  activeTab === "Students"
-                    ? "A student using the platform"
-                    : activeTab === "Teachers"
-                      ? "A teacher using the platform"
-                      : "An institute using the platform"
-                }
+                src={tabData.find((tab) => tab.id === activeTab)?.image || ""}
+                alt={activeTab}
                 className="rounded-lg transition-all duration-200"
               />
             </motion.div>
