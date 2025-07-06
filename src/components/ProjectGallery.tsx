@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { motion } from "framer-motion";
 import { cn } from "~/lib/utils";
 import { X } from "lucide-react";
@@ -61,8 +61,9 @@ const ProjectCarousel = ({
           height={800}
           width={800}
           src={project.images[currentImageIndex]}
-          alt={`${project.title} - Image ${currentImageIndex + 1}`}
+          alt={`${project.title} - ${project.fullLocation} - Image ${currentImageIndex + 1}`}
           className="h-full w-full object-cover"
+          priority
         />
 
         {/* Navigation arrows */}
@@ -71,12 +72,14 @@ const ProjectCarousel = ({
             <button
               onClick={prevImage}
               className="absolute bottom-0 left-4 h-12 -translate-y-1/2 transform rounded-full bg-white/90 p-3 shadow-lg transition-all hover:bg-white active:scale-95 md:top-1/2"
+              aria-label="Previous image"
             >
               <ChevronLeft size={20} />
             </button>
             <button
               onClick={nextImage}
               className="absolute right-4 bottom-0 h-12 -translate-y-1/2 transform rounded-full bg-white/90 p-3 shadow-lg transition-all hover:bg-white active:scale-95 md:top-1/2"
+              aria-label="Next image"
             >
               <ChevronRight size={20} />
             </button>
@@ -94,9 +97,9 @@ const ProjectCarousel = ({
         <div className="space-y-6">
           {/* Project Title */}
           <div>
-            <h2 className="text-2xl font-bold text-white md:text-gray-900">
+            <h1 className="text-2xl font-bold text-white md:text-gray-900">
               {project.title}
-            </h2>
+            </h1>
             <div className="mt-2 flex items-center gap-2 text-white md:text-gray-600">
               <MapPin size={16} />
               <span className="text-sm">{project.fullLocation}</span>
@@ -106,6 +109,23 @@ const ProjectCarousel = ({
           {/* Description */}
           <div>
             <p className="text-sm text-gray-700">{project.description}</p>
+          </div>
+
+          {/* Technologies */}
+          <div>
+            <h3 className="mb-2 text-sm font-semibold text-gray-900">
+              Technologies
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {project.technologies.map((tech, index) => (
+                <span
+                  key={index}
+                  className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
           </div>
 
           {/* Completed Date */}
@@ -121,6 +141,8 @@ const ProjectCarousel = ({
               <Button
                 variant="outline"
                 className="inline-flex items-center gap-2 font-medium"
+                onClick={() => window.open(project.url, "_blank")}
+                aria-label={`Visit ${project.title} project`}
               >
                 <ExternalLink size={16} />
               </Button>
@@ -143,12 +165,13 @@ const ProjectCarousel = ({
                         ? "ring-primary shadow-lg ring-2"
                         : "hover:shadow-md hover:ring-2 hover:ring-gray-300"
                     }`}
+                    aria-label={`View image ${index + 1} of ${project.title}`}
                   >
                     <Image
                       height={100}
                       width={100}
                       src={image}
-                      alt={`Thumbnail ${index + 1}`}
+                      alt={`${project.title} thumbnail ${index + 1}`}
                       className="h-full w-full object-cover transition-transform duration-200"
                     />
                   </button>
@@ -194,7 +217,7 @@ const SelectedCard = ({
         <button
           onClick={onClose}
           className="absolute top-4 right-4 z-[120] rounded-full bg-black/60 p-2 text-white transition-colors hover:bg-black/80"
-          aria-label="Close"
+          aria-label="Close project details"
         >
           <X size={24} />
         </button>
@@ -206,13 +229,14 @@ const SelectedCard = ({
   );
 };
 
-export function ProjectGallery({
+// Create a wrapper component for search params logic
+const ProjectGalleryContent = ({
   onCardSelectChange,
   onProjectSelect,
 }: {
   onCardSelectChange: (isOpen: boolean) => void;
   onProjectSelect: (project: Card | null) => void;
-}) {
+}) => {
   const [selected, setSelected] = useState<Card | null>(null);
   const [lastSelected, setLastSelected] = useState<Card | null>(null);
 
@@ -226,48 +250,6 @@ export function ProjectGallery({
       .replace(/[^a-z0-9\s-]/g, "")
       .replace(/\s+/g, "-")
       .replace(/-+/g, "-");
-  };
-
-  useEffect(() => {
-    const projectSlug = searchParams.get("project");
-    if (projectSlug) {
-      const projectToSelect = sampleProjects.find(
-        (p) => createSlug(p.title, p.fullLocation) === projectSlug,
-      );
-      if (projectToSelect) {
-        setSelected(projectToSelect);
-      }
-    }
-  }, [searchParams]);
-
-  const handleClick = (card: Card) => {
-    setLastSelected(selected);
-    setSelected(card);
-    onProjectSelect(card);
-  };
-
-  const handleOutsideClick = () => {
-    setLastSelected(selected);
-    setSelected(null);
-    onProjectSelect(null);
-  };
-
-  useEffect(() => {
-    onCardSelectChange(selected !== null);
-  }, [selected, onCardSelectChange]);
-
-  const ImageComponent = ({ card }: { card: Card }) => {
-    return (
-      <Image
-        src={card.thumbnail}
-        height="500"
-        width="500"
-        className={cn(
-          "absolute inset-0 h-full w-full object-cover object-top transition duration-200",
-        )}
-        alt="thumbnail"
-      />
-    );
   };
 
   const sampleProjects: Card[] = [
@@ -378,12 +360,55 @@ export function ProjectGallery({
     },
   ];
 
+  useEffect(() => {
+    const projectSlug = searchParams.get("project");
+    if (projectSlug) {
+      const projectToSelect = sampleProjects.find(
+        (p) => createSlug(p.title, p.fullLocation) === projectSlug,
+      );
+      if (projectToSelect) {
+        setSelected(projectToSelect);
+      }
+    }
+  }, [searchParams]);
+
+  const handleClick = (card: Card) => {
+    setLastSelected(selected);
+    setSelected(card);
+    onProjectSelect(card);
+  };
+
+  const handleOutsideClick = () => {
+    setLastSelected(selected);
+    setSelected(null);
+    onProjectSelect(null);
+  };
+
+  useEffect(() => {
+    onCardSelectChange(selected !== null);
+  }, [selected, onCardSelectChange]);
+
+  const ImageComponent = ({ card }: { card: Card }) => {
+    return (
+      <Image
+        src={card.thumbnail}
+        height="500"
+        width="500"
+        className={cn(
+          "absolute inset-0 h-full w-full object-cover object-top transition duration-200",
+        )}
+        alt={`${card.title} in ${card.fullLocation} - Interior Design Project`}
+        priority
+      />
+    );
+  };
+
   return (
     <>
       <div className="h-screen w-full">
         <div className="relative mx-auto grid h-auto min-h-[90vh] w-[90vw] cursor-pointer grid-cols-1 gap-4 p-4 md:grid-cols-3 md:p-10">
           {sampleProjects.map((card, i) => (
-            <div key={i} className={cn(card.className, "")}>
+            <article key={card.id} className={cn(card.className, "")}>
               <motion.div
                 onClick={() => handleClick(card)}
                 className={cn(
@@ -393,6 +418,14 @@ export function ProjectGallery({
                 layoutId={`card-${card.id}`}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
+                role="button"
+                tabIndex={0}
+                aria-label={`View details for ${card.title} project in ${card.fullLocation}`}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    handleClick(card);
+                  }
+                }}
               >
                 <div className="relative h-full w-full">
                   <ImageComponent card={card} />
@@ -405,10 +438,17 @@ export function ProjectGallery({
                     <span className="inline sm:hidden">{card.location}</span>
                   </div>
                   {/* Overlay with content */}
-                  <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/60 to-transparent p-6"></div>
+                  <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/60 to-transparent p-6">
+                    <h3 className="mb-2 text-lg font-bold text-white">
+                      {card.title}
+                    </h3>
+                    <p className="line-clamp-2 text-sm text-white/80">
+                      {card.description}
+                    </p>
+                  </div>
                 </div>
               </motion.div>
-            </div>
+            </article>
           ))}
         </div>
       </div>
@@ -418,5 +458,30 @@ export function ProjectGallery({
         <SelectedCard selected={selected} onClose={handleOutsideClick} />
       )}
     </>
+  );
+};
+
+// Loading fallback component
+const ProjectGalleryLoading = () => (
+  <div className="flex h-screen w-full items-center justify-center">
+    <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-[#88734C]"></div>
+  </div>
+);
+
+// Main component with Suspense boundary
+export function ProjectGallery({
+  onCardSelectChange,
+  onProjectSelect,
+}: {
+  onCardSelectChange: (isOpen: boolean) => void;
+  onProjectSelect: (project: Card | null) => void;
+}) {
+  return (
+    <Suspense fallback={<ProjectGalleryLoading />}>
+      <ProjectGalleryContent
+        onCardSelectChange={onCardSelectChange}
+        onProjectSelect={onProjectSelect}
+      />
+    </Suspense>
   );
 }
