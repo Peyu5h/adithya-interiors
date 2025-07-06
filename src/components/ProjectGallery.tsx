@@ -230,13 +230,7 @@ const SelectedCard = ({
 };
 
 // Create a wrapper component for search params logic
-const ProjectGalleryContent = ({
-  onCardSelectChange,
-  onProjectSelect,
-}: {
-  onCardSelectChange: (isOpen: boolean) => void;
-  onProjectSelect: (project: Card | null) => void;
-}) => {
+const ProjectGalleryContent = ({}: {}) => {
   const [selected, setSelected] = useState<Card | null>(null);
   const [lastSelected, setLastSelected] = useState<Card | null>(null);
 
@@ -360,33 +354,67 @@ const ProjectGalleryContent = ({
     },
   ];
 
+  // Handle URL changes and project selection
   useEffect(() => {
     const projectSlug = searchParams.get("project");
     if (projectSlug) {
       const projectToSelect = sampleProjects.find(
-        (p) => createSlug(p.title, p.fullLocation) === projectSlug,
+        (p) => createSlug(p.title, p.location) === projectSlug,
       );
       if (projectToSelect) {
         setSelected(projectToSelect);
       }
+    } else {
+      setSelected(null);
     }
   }, [searchParams]);
 
   const handleClick = (card: Card) => {
+    const slug = createSlug(card.title, card.location);
+    // Update URL with the project slug
+    const newUrl = new URL(window.location.href);
+    newUrl.searchParams.set("project", slug);
+
+    // Use router.push to update the URL
+    router.push(newUrl.pathname + newUrl.search, { scroll: false });
+
     setLastSelected(selected);
     setSelected(card);
-    onProjectSelect(card);
   };
 
   const handleOutsideClick = () => {
+    // Remove the project parameter from URL
+    const newUrl = new URL(window.location.href);
+    newUrl.searchParams.delete("project");
+
+    // Update URL to remove the project parameter
+    router.push(newUrl.pathname + newUrl.search, { scroll: false });
+
     setLastSelected(selected);
     setSelected(null);
-    onProjectSelect(null);
   };
 
+  // Handle browser back/forward buttons
   useEffect(() => {
-    onCardSelectChange(selected !== null);
-  }, [selected, onCardSelectChange]);
+    const handlePopState = () => {
+      const projectSlug = new URLSearchParams(window.location.search).get(
+        "project",
+      );
+      if (projectSlug) {
+        const projectToSelect = sampleProjects.find(
+          (p) => createSlug(p.title, p.location) === projectSlug,
+        );
+        if (projectToSelect) {
+          setSelected(projectToSelect);
+        }
+      } else {
+        setSelected(null);
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
 
   const ImageComponent = ({ card }: { card: Card }) => {
     return (
@@ -438,14 +466,7 @@ const ProjectGalleryContent = ({
                     <span className="inline sm:hidden">{card.location}</span>
                   </div>
                   {/* Overlay with content */}
-                  <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/60 to-transparent p-6">
-                    <h3 className="mb-2 text-lg font-bold text-white">
-                      {card.title}
-                    </h3>
-                    <p className="line-clamp-2 text-sm text-white/80">
-                      {card.description}
-                    </p>
-                  </div>
+                  <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/60 to-transparent p-6"></div>
                 </div>
               </motion.div>
             </article>
@@ -469,19 +490,10 @@ const ProjectGalleryLoading = () => (
 );
 
 // Main component with Suspense boundary
-export function ProjectGallery({
-  onCardSelectChange,
-  onProjectSelect,
-}: {
-  onCardSelectChange: (isOpen: boolean) => void;
-  onProjectSelect: (project: Card | null) => void;
-}) {
+export function ProjectGallery({}: {}) {
   return (
     <Suspense fallback={<ProjectGalleryLoading />}>
-      <ProjectGalleryContent
-        onCardSelectChange={onCardSelectChange}
-        onProjectSelect={onProjectSelect}
-      />
+      <ProjectGalleryContent />
     </Suspense>
   );
 }
