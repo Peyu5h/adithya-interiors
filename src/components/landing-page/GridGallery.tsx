@@ -13,7 +13,7 @@ import {
   Calendar,
 } from "lucide-react";
 import { MapTemp } from "~/lib/map";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
 type Card = {
   id: number;
@@ -30,9 +30,9 @@ type Card = {
 };
 
 export function GridGallery({
-  onCardSelectChange,
+  onCardSelectChangeAction,
 }: {
-  onCardSelectChange: (isOpen: boolean) => void;
+  onCardSelectChangeAction: (isOpen: boolean) => void;
 }) {
   const [selected, setSelected] = useState<Card | null>(null);
   const [lastSelected, setLastSelected] = useState<Card | null>(null);
@@ -48,8 +48,8 @@ export function GridGallery({
   };
 
   useEffect(() => {
-    onCardSelectChange(selected !== null);
-  }, [selected, onCardSelectChange]);
+    onCardSelectChangeAction(selected !== null);
+  }, [selected, onCardSelectChangeAction]);
 
   const ImageComponent = ({ card }: { card: Card }) => {
     return (
@@ -209,7 +209,7 @@ export function GridGallery({
 
   return (
     <>
-      <div className="mt-24 h-screen w-full">
+      <div className="mt-24 w-full">
         <div className="relative mx-auto grid h-auto min-h-[90vh] w-[90vw] cursor-pointer grid-cols-1 gap-4 p-4 md:grid-cols-3 md:p-10">
           {sampleProjects.map((card, i) => (
             <div key={i} className={cn(card.className, "")}>

@@ -4,9 +4,10 @@ import React, { Suspense } from "react";
 import { motion } from "framer-motion";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import Head from "next/head";
-import Navbar from "~/components/ui/navbar";
+
 import { Zap } from "lucide-react";
 import { ProjectGallery } from "~/components/ProjectGallery";
+import Navbar from "~/components/navbar";
 
 // Sample projects data (you can move this to a separate file)
 const sampleProjects = [

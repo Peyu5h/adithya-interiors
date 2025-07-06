@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Marquee } from "./ui/marquee";
+import { Marquee } from "../ui/marquee";
 
 // Array of partner logo image URLs
 const partnerLogos = [

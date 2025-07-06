@@ -4,9 +4,9 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { gsap } from "gsap";
-import { Button } from "./button";
+import { Button } from "./ui/button";
 import { usePathname } from "next/navigation";
-import MobileHamburger from "~/components/MobileHamburger";
+import MobileHamburger from "~/components/landing-page/MobileHamburger";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -14,7 +14,6 @@ export default function Navbar() {
   const [toggleMenu, setToggleMenu] = useState(false);
 
   useEffect(() => {
-    // GSAP animation for navbar
     const tl = gsap.timeline();
     tl.fromTo(
       ".nav-container",
@@ -22,7 +21,6 @@ export default function Navbar() {
       { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
     );
 
-    // Staggered animation for nav items
     tl.fromTo(
       ".nav-item",
       { y: -10, opacity: 0 },
@@ -30,7 +28,6 @@ export default function Navbar() {
       "-=0.4",
     );
 
-    // Handle scroll events
     const handleScroll = () => {
       if (window.scrollY > 20) {
         setScrolled(true);
@@ -61,7 +58,6 @@ export default function Navbar() {
             : "max-w-[100%] rounded-lg bg-white/10 backdrop-blur-sm md:max-w-[90%]"
         }`}
       >
-        {/* Logo */}
         <Link
           href="/"
           className="font-condensed py-3 text-xl font-bold tracking-tighter"
@@ -75,7 +71,6 @@ export default function Navbar() {
           </motion.span>
         </Link>
 
-        {/* Navigation - Center */}
         <nav className="absolute top-1/2 left-1/2 hidden -translate-x-1/2 -translate-y-1/2 transform md:block">
           <ul className="flex space-x-12">
             <li>

@@ -1,18 +1,17 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
-import Navbar from "~/components/ui/navbar";
 import Hero from "~/components/ui/hero";
 // import LocomotiveScroll from "locomotive-scroll";
 import ChatBot from "~/components/chatbot/chatBot";
 import Footer from "~/components/footer/Footer";
-import Faq from "~/components/faq/Faq";
+import Faq from "~/components/landing-page/faq/Faq";
 import { HeroGeometric } from "~/components/ui/shape-landing-hero";
-import { Testimonials } from "~/components/testimonials";
-import { PartnerMarquee } from "~/components/PartnerMarquee";
-import { LandingCarousel } from "~/components/landingCarousel";
-import OneSol from "~/components/oneSol";
+import { Testimonials } from "~/components/landing-page/testimonials/testimonials";
+import { PartnerMarquee } from "~/components/landing-page/PartnerMarquee";
+import OneSol from "~/components/landing-page/oneSol";
 import Loader from "~/components/animations/Pagetransition/Loader";
-import LocomotiveScroll from "locomotive-scroll";
+import { LandingCarousel } from "~/components/landing-page/landingCarousel";
+import Navbar from "~/components/navbar";
 
 export default function HomePage() {
   const [showLoader, setShowLoader] = useState(true);
@@ -20,11 +19,9 @@ export default function HomePage() {
   const mainContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Check if page is already loaded
     if (document.readyState === "complete") {
       handlePageLoad();
     } else {
-      // Wait for all resources to load
       const handleLoad = () => {
         handlePageLoad();
       };
@@ -35,28 +32,23 @@ export default function HomePage() {
   }, []);
 
   const handlePageLoad = () => {
-    // Additional check for critical content rendering
     const checkContentReady = () => {
       if (mainContentRef.current) {
-        // Check if critical elements are rendered
         const criticalElements = mainContentRef.current.querySelectorAll(
           '[data-critical="true"], nav, main, section',
         );
 
         if (criticalElements.length > 0) {
           setIsContentReady(true);
-          // Small delay to ensure smooth transition
           setTimeout(() => {
             setShowLoader(false);
           }, 500);
         } else {
-          // Fallback: retry after a short delay
           setTimeout(checkContentReady, 100);
         }
       }
     };
 
-    // Use requestAnimationFrame to ensure DOM is fully rendered
     requestAnimationFrame(() => {
       setTimeout(checkContentReady, 50);
     });
@@ -70,7 +62,6 @@ export default function HomePage() {
     <main className="">
       <Navbar />
 
-      {/* SEO-friendly content always present in DOM */}
       <div
         ref={mainContentRef}
         className={
@@ -108,7 +99,6 @@ export default function HomePage() {
         <Footer />
       </div>
 
-      {/* Loader overlay */}
       {showLoader && (
         <div className="fixed inset-0 z-50">
           <Loader />

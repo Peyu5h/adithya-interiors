@@ -36,8 +36,10 @@ import { useToast } from "~/components/ui/use-toast";
 import api from "~/lib/api";
 import { generateBlogContentWithGemini } from "~/lib/gemini";
 
-const CLOUDINARY_CLOUD_NAME = "dkysrpdi6";
-const CLOUDINARY_UPLOAD_PRESET = "wzj4shyr";
+const CLOUDINARY_CLOUD_NAME =
+  process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "dkysrpdi6";
+const CLOUDINARY_UPLOAD_PRESET =
+  process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
 const CLOUDINARY_UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
 
 const ADMIN_PIN = "1234";
@@ -157,7 +159,7 @@ export default function AdminDashboard() {
       setIsUploading(true);
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+      formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET!);
 
       const response = await fetch(CLOUDINARY_UPLOAD_URL, {
         method: "POST",

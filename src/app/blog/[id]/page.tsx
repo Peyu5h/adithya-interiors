@@ -47,8 +47,8 @@ export default function BlogPost({ params }: { params: { id: string } }) {
     error,
   } = useQuery<BlogPostType>({
     queryKey: ["blogPost", id],
-    queryFn: () => fetchPosts(id!), // Use non-null assertion since we know id exists
-    enabled: !!id, // Only run query when id is available
+    queryFn: () => fetchPosts(id!),
+    enabled: !!id,
   });
 
   useEffect(() => {
@@ -60,7 +60,6 @@ export default function BlogPost({ params }: { params: { id: string } }) {
     }
   }, [post]);
 
-  // Intersection Observer for active heading
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -76,7 +75,6 @@ export default function BlogPost({ params }: { params: { id: string } }) {
       },
     );
 
-    // Observe all h2 elements
     const h2Elements = document.querySelectorAll("h2[id]");
     h2Elements.forEach((el) => observer.observe(el));
 

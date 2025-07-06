@@ -8,11 +8,10 @@ import { Button } from "~/components/ui/button";
 import { useAtom } from "jotai";
 import { useSearchParams } from "next/navigation";
 import Footer from "~/components/footer/Footer";
-import Navbar from "~/components/ui/navbar";
 import { activeTagsAtom } from "~/components/providers/atom";
 import BlogCardLoader from "~/components/blog/loaders/BlogCardLoader";
 import api from "~/lib/api";
-import Stairs from "~/components/animations/Pagetransition/Stairs";
+import Navbar from "~/components/navbar";
 
 const TEMP_TAGS = ["Inspiration", "Our works", "Material", "Clients"];
 

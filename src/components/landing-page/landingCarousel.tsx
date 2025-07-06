@@ -1,8 +1,8 @@
 "use client";
 
 import { Carousel } from "~/components/ui/carousel";
-import { GridGallery } from "./GridGallery";
 import { useState, useEffect } from "react";
+import { GridGallery } from "./GridGallery";
 
 export function LandingCarousel() {
   const [isGridGalleryOpen, setIsGridGalleryOpen] = useState(false);
@@ -55,16 +55,15 @@ export function LandingCarousel() {
       <div className="z-10 container mx-auto mb-12">
         <div className="mx-auto flex flex-col items-center justify-center">
           <h2 className="mt-5 text-2xl font-bold tracking-tighter sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
-            Our image gallery
+            OUR PROJECTS
           </h2>
-          <p className="mt-2 text-center opacity-75 md:mt-5">
-            We provide more than just quality services.
+          <p className="text-md mt-1 text-sm text-neutral-700 md:mt-4 md:text-lg md:text-black/40">
+            Take a look at our finest work
           </p>
         </div>
       </div>
       <Carousel slides={slideData} />
-
-      <GridGallery onCardSelectChange={setIsGridGalleryOpen} />
+      <GridGallery onCardSelectChangeAction={setIsGridGalleryOpen} />
     </div>
   );
 }

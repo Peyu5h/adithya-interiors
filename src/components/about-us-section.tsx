@@ -29,6 +29,7 @@ import {
   useSpring,
 } from "framer-motion";
 import { Button } from "./ui/button";
+import Image from "next/image";
 
 export default function AboutUsSection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -37,7 +38,6 @@ export default function AboutUsSection() {
   const isInView = useInView(sectionRef, { once: false, amount: 0.1 });
   const isStatsInView = useInView(statsRef, { once: false, amount: 0.3 });
 
-  // Parallax effect for decorative elements
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
@@ -256,7 +256,9 @@ export default function AboutUsSection() {
                 transition={{ duration: 0.8, delay: 0.3 }}
                 whileHover={{ scale: 1.03, transition: { duration: 0.3 } }}
               >
-                <img
+                <Image
+                  height={3027}
+                  width={3027}
                   src="https://images.unsplash.com/photo-1747582411588-f9b4acabe995?q=80&w=3027&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   alt="Modern House"
                   className="h-full w-full object-cover"
@@ -285,7 +287,6 @@ export default function AboutUsSection() {
                 transition={{ duration: 0.8, delay: 0.6 }}
               ></motion.div>
 
-              {/* Floating accent elements */}
               <motion.div
                 className="absolute -top-4 -right-8 h-16 w-16 rounded-full bg-[#88734C]/10"
                 initial={{ opacity: 0, y: 20 }}
@@ -301,7 +302,6 @@ export default function AboutUsSection() {
                 style={{ y: y2 }}
               ></motion.div>
 
-              {/* Additional decorative elements */}
               <motion.div
                 className="absolute -top-10 left-1/2 h-3 w-3 -translate-x-1/2 rounded-full bg-[#88734C]"
                 animate={{
@@ -348,7 +348,7 @@ export default function AboutUsSection() {
           </div>
         </div>
 
-        {/* Stats Section */}
+        {/* Stats */}
         <motion.div
           ref={statsRef}
           className="mt-24 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4"
@@ -368,7 +368,7 @@ export default function AboutUsSection() {
           ))}
         </motion.div>
 
-        {/* CTA Section */}
+        {/* CTA */}
         <motion.div
           className="mt-20 flex flex-col items-center justify-between gap-6 rounded-xl bg-[#202e44] p-8 text-white md:flex-row"
           initial={{ opacity: 0, y: 30 }}

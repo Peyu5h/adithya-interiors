@@ -9,8 +9,8 @@ import {
 import { Zap } from "lucide-react";
 import { motion } from "framer-motion";
 import React from "react";
+import Navbar from "~/components/navbar";
 // import Stairs from "~/components/animations/Pagetransition/Stairs";
-import Navbar from "~/components/ui/navbar";
 
 const SLIDES = [
   {

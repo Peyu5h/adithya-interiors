@@ -1,97 +1,99 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import HoverUp from "./animations/TextAnimation/HoverUp";
 import TabButton from "~/components/ui/tab-button";
 
 const OneSol = () => {
-  const tabData = [
-    {
-      id: "renovation",
-      label: "Home renovation",
-      image:
-        "https://res.cloudinary.com/dkysrpdi6/image/upload/v1750003031/Interior_design_un5sgo.gif",
-      content: [
-        "Complete renovation and remodeling services",
-        "Civil work, painting, electrical, and plumbing",
-        "Hassle-free upgrades for homes and businesses",
-        "Transparent pricing and dedicated support",
-      ],
-    },
-    {
-      id: "false_ceiling",
-      label: "FALSE CEILING",
-      image:
-        "https://res.cloudinary.com/dkysrpdi6/image/upload/v1750003031/Interior_design_un5sgo.gif",
-      content: [
-        "Innovative false ceiling designs for aesthetic appeal",
-        "Variety of materials including gypsum, POP, and more",
-        "Expert installation for homes and commercial spaces",
-        "Enhanced lighting and sound insulation solutions",
-      ],
-    },
-    {
-      id: "tiling",
-      label: "Flooring & TILING",
-      image:
-        "https://res.cloudinary.com/dkysrpdi6/image/upload/v1750003031/Interior_design_un5sgo.gif",
-      content: [
-        "Professional tiling services for floors and walls",
-        "Wide range of tile options including ceramic, porcelain, and natural stone",
-        "Precision installation for a flawless finish",
-        "Grouting and sealing for durability and easy maintenance",
-      ],
-    },
-    {
-      id: "electric_work",
-      label: "ELECTRIC WORK",
-      image:
-        "https://res.cloudinary.com/dkysrpdi6/image/upload/v1750003031/Interior_design_un5sgo.gif",
-      content: [
-        "Comprehensive electrical solutions for new and renovated spaces",
-        "Wiring, lighting, power outlets, and panel installations",
-        "Safety compliance and energy-efficient solutions",
-        "Experienced electricians for reliable service",
-      ],
-    },
-    {
-      id: "plumbing",
-      label: "PLUMBING",
-      image:
-        "https://res.cloudinary.com/dkysrpdi6/image/upload/v1750003031/Interior_design_un5sgo.gif",
-      content: [
-        "Complete plumbing installations and repairs",
-        "Water supply, drainage, and fixture fittings",
-        "Leak detection and pipe replacement",
-        "Quality workmanship for lasting solutions",
-      ],
-    },
-    {
-      id: "trolly",
-      label: "Kitchen TROLLY",
-      image:
-        "https://res.cloudinary.com/dkysrpdi6/image/upload/v1750003031/Interior_design_un5sgo.gif",
-      content: [
-        "Customized kitchen trolleys for optimal storage",
-        "High-quality materials for durability and style",
-        "Space-saving designs for modern kitchens",
-        "Seamless integration with existing kitchen layouts",
-      ],
-    },
-    {
-      id: "panelling_tv_ac",
-      label: "PANELLING",
-      image:
-        "https://res.cloudinary.com/dkysrpdi6/image/upload/v1750003031/Interior_design_un5sgo.gif",
-      content: [
-        "Custom paneling solutions for TVs and ACs",
-        "Elegant designs to conceal wires and enhance aesthetics",
-        "Variety of materials and finishes to match your decor",
-        "Integrated storage and display options",
-      ],
-    },
-  ];
+  const tabData = useMemo(
+    () => [
+      {
+        id: "renovation",
+        label: "Home renovation",
+        image:
+          "https://res.cloudinary.com/dkysrpdi6/image/upload/v1750003031/Interior_design_un5sgo.gif",
+        content: [
+          "Complete renovation and remodeling services",
+          "Civil work, painting, electrical, and plumbing",
+          "Hassle-free upgrades for homes and businesses",
+          "Transparent pricing and dedicated support",
+        ],
+      },
+      {
+        id: "false_ceiling",
+        label: "FALSE CEILING",
+        image:
+          "https://res.cloudinary.com/dkysrpdi6/image/upload/v1750003031/Interior_design_un5sgo.gif",
+        content: [
+          "Innovative false ceiling designs for aesthetic appeal",
+          "Variety of materials including gypsum, POP, and more",
+          "Expert installation for homes and commercial spaces",
+          "Enhanced lighting and sound insulation solutions",
+        ],
+      },
+      {
+        id: "tiling",
+        label: "Flooring & TILING",
+        image:
+          "https://res.cloudinary.com/dkysrpdi6/image/upload/v1750003031/Interior_design_un5sgo.gif",
+        content: [
+          "Professional tiling services for floors and walls",
+          "Wide range of tile options including ceramic, porcelain, and natural stone",
+          "Precision installation for a flawless finish",
+          "Grouting and sealing for durability and easy maintenance",
+        ],
+      },
+      {
+        id: "electric_work",
+        label: "ELECTRIC WORK",
+        image:
+          "https://res.cloudinary.com/dkysrpdi6/image/upload/v1750003031/Interior_design_un5sgo.gif",
+        content: [
+          "Comprehensive electrical solutions for new and renovated spaces",
+          "Wiring, lighting, power outlets, and panel installations",
+          "Safety compliance and energy-efficient solutions",
+          "Experienced electricians for reliable service",
+        ],
+      },
+      {
+        id: "plumbing",
+        label: "PLUMBING",
+        image:
+          "https://res.cloudinary.com/dkysrpdi6/image/upload/v1750003031/Interior_design_un5sgo.gif",
+        content: [
+          "Complete plumbing installations and repairs",
+          "Water supply, drainage, and fixture fittings",
+          "Leak detection and pipe replacement",
+          "Quality workmanship for lasting solutions",
+        ],
+      },
+      {
+        id: "trolly",
+        label: "Kitchen TROLLY",
+        image:
+          "https://res.cloudinary.com/dkysrpdi6/image/upload/v1750003031/Interior_design_un5sgo.gif",
+        content: [
+          "Customized kitchen trolleys for optimal storage",
+          "High-quality materials for durability and style",
+          "Space-saving designs for modern kitchens",
+          "Seamless integration with existing kitchen layouts",
+        ],
+      },
+      {
+        id: "panelling_tv_ac",
+        label: "PANELLING",
+        image:
+          "https://res.cloudinary.com/dkysrpdi6/image/upload/v1750003031/Interior_design_un5sgo.gif",
+        content: [
+          "Custom paneling solutions for TVs and ACs",
+          "Elegant designs to conceal wires and enhance aesthetics",
+          "Variety of materials and finishes to match your decor",
+          "Integrated storage and display options",
+        ],
+      },
+    ],
+    [],
+  );
 
   const [activeTab, setActiveTab] = useState(tabData[0].id);
 
