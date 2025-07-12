@@ -207,26 +207,26 @@ export interface PartnersData {
 export const landingPageData: LandingPageData = {
   navigation: {
     logo: {
-      text: "Adithya",
-      highlight: "Interiors",
+      text: "ADITHYA",
+      highlight: "CONSTRUCTIONS & INTERIOR WORKS",
     },
     menuItems: [
-      { name: "Home", href: "/" },
-      { name: "About", href: "/about" },
-      { name: "Projects", href: "/projects" },
-      { name: "Services", href: "/services" },
-      { name: "Blog", href: "/blog" },
+      { name: "HOME", href: "/" },
+      { name: "ABOUT US", href: "/about" },
+      { name: "PROJECTS", href: "/projects" },
+      { name: "SERVICES", href: "/services" },
+      { name: "BLOG", href: "/blog" },
     ],
     contactButton: {
       text: "Contact Now",
     },
   },
   hero: {
-    badge: "Adithya interiors",
+    badge: "ADITHYA CONSTRUCTIONS & INTERIOR WORKS",
     title1: "Elevate Your",
     title2: "Home's Vision",
     subtitle:
-      "Premium interior design solutions for residential and commercial spaces in Mumbai.",
+      "Mumbai's One-Stop Premium Home Interior Solutions, Backed by 35+ Years of Expertise.",
   },
   about: {
     section: {
