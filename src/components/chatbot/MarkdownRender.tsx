@@ -52,6 +52,35 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
         {...props}
       />
     ),
+    table: ({ node, ...props }: ComponentProps) => (
+      <div className="w-full overflow-x-auto">
+        <table className="mb-4 w-full border-collapse text-left" {...props} />
+      </div>
+    ),
+    thead: ({ node, ...props }: ComponentProps) => (
+      <thead className="[&>tr]:border-b" {...props} />
+    ),
+    tbody: ({ node, ...props }: ComponentProps) => (
+      <tbody className="[&>tr:last-child]:border-0" {...props} />
+    ),
+    tr: ({ node, ...props }: ComponentProps) => (
+      <tr
+        className="hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors"
+        {...props}
+      />
+    ),
+    th: ({ node, ...props }: ComponentProps) => (
+      <th
+        className="text-muted-foreground h-12 px-4 text-left align-middle font-medium [&:has([role=checkbox])]:pr-0"
+        {...props}
+      />
+    ),
+    td: ({ node, ...props }: ComponentProps) => (
+      <td
+        className="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+        {...props}
+      />
+    ),
     code: ({ node, inline, className, children, ...props }: CodeProps) => {
       const match = /language-(\w+)/.exec(className || "");
       return !inline && match ? (

@@ -11,8 +11,13 @@ import { MdArrowOutward } from "react-icons/md";
 import TextRing from "./text-ring";
 import { Button } from "./button";
 import { ArrowRightIcon } from "lucide-react";
+import { HeroData } from "~/lib/data/data";
 
-export default function Hero() {
+interface HeroProps {
+  data?: HeroData;
+}
+
+export default function Hero({ data }: HeroProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -118,8 +123,8 @@ export default function Hero() {
               </div>
               <div className="mb-8 max-w-lg">
                 <p className="mb-4 text-lg text-gray-700">
-                  Premium interior design solutions for residential and
-                  commercial spaces in Mumbai.
+                  {data?.subtitle ||
+                    "Premium interior design solutions for residential and commercial spaces in Mumbai."}
                 </p>
                 <div className="h-px w-16 bg-black"></div>
               </div>

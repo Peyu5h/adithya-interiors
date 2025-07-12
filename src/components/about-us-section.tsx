@@ -30,8 +30,13 @@ import {
 } from "framer-motion";
 import { Button } from "./ui/button";
 import Image from "next/image";
+import { AboutData } from "~/lib/data/data";
 
-export default function AboutUsSection() {
+interface AboutUsSectionProps {
+  data: AboutData;
+}
+
+export default function AboutUsSection({ data }: AboutUsSectionProps) {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
@@ -63,80 +68,60 @@ export default function AboutUsSection() {
     },
   };
 
-  const services = [
-    {
-      icon: <Pen className="h-6 w-6" />,
-      secondaryIcon: (
-        <Sparkles className="absolute -top-1 -right-1 h-4 w-4 text-[#A9BBC8]" />
-      ),
-      title: "Interior",
-      description:
-        "Transform your living spaces with our expert interior design services. We blend functionality and aesthetics to create spaces that reflect your unique style and personality.",
-      position: "left",
-    },
-    {
-      icon: <Home className="h-6 w-6" />,
-      secondaryIcon: (
-        <CheckCircle className="absolute -top-1 -right-1 h-4 w-4 text-[#A9BBC8]" />
-      ),
-      title: "Exterior",
-      description:
-        "Make a lasting impression with stunning exterior designs that enhance curb appeal and create harmonious connections between architecture and landscape.",
-      position: "left",
-    },
-    {
-      icon: <PenTool className="h-6 w-6" />,
-      secondaryIcon: (
-        <Star className="absolute -top-1 -right-1 h-4 w-4 text-[#A9BBC8]" />
-      ),
-      title: "Design",
-      description:
-        "Our innovative design process combines creativity with practicality, resulting in spaces that are both beautiful and functional for everyday living.",
-      position: "left",
-    },
-    {
-      icon: <PaintBucket className="h-6 w-6" />,
-      secondaryIcon: (
-        <Sparkles className="absolute -top-1 -right-1 h-4 w-4 text-[#A9BBC8]" />
-      ),
-      title: "Decoration",
-      description:
-        "Elevate your space with our curated decoration services. From color schemes to textiles and accessories, we perfect every detail to bring your vision to life.",
-      position: "right",
-    },
-    {
-      icon: <Ruler className="h-6 w-6" />,
-      secondaryIcon: (
-        <CheckCircle className="absolute -top-1 -right-1 h-4 w-4 text-[#A9BBC8]" />
-      ),
-      title: "Planning",
-      description:
-        "Our meticulous planning process ensures every project runs smoothly from concept to completion, with careful attention to timelines, budgets, and requirements.",
-      position: "right",
-    },
-    {
-      icon: <Building2 className="h-6 w-6" />,
-      secondaryIcon: (
-        <Star className="absolute -top-1 -right-1 h-4 w-4 text-[#A9BBC8]" />
-      ),
-      title: "Execution",
-      description:
-        "Watch your dream space come to life through our flawless execution. Our skilled team handles every aspect of implementation with precision and care.",
-      position: "right",
-    },
-  ];
+  const getIcon = (iconName: string) => {
+    switch (iconName) {
+      case "Pen":
+        return <Pen className="h-6 w-6" />;
+      case "Home":
+        return <Home className="h-6 w-6" />;
+      case "PenTool":
+        return <PenTool className="h-6 w-6" />;
+      case "PaintBucket":
+        return <PaintBucket className="h-6 w-6" />;
+      case "Ruler":
+        return <Ruler className="h-6 w-6" />;
+      case "Building2":
+        return <Building2 className="h-6 w-6" />;
+      default:
+        return <Pen className="h-6 w-6" />;
+    }
+  };
 
-  const stats = [
-    { icon: <Award />, value: 150, label: "Projects Completed", suffix: "+" },
-    { icon: <Users />, value: 1200, label: "Happy Clients", suffix: "+" },
-    { icon: <Calendar />, value: 12, label: "Years Experience", suffix: "" },
-    {
-      icon: <TrendingUp />,
-      value: 98,
-      label: "Satisfaction Rate",
-      suffix: "%",
-    },
-  ];
+  const getSecondaryIcon = (iconName: string) => {
+    switch (iconName) {
+      case "Sparkles":
+        return (
+          <Sparkles className="absolute -top-1 -right-1 h-4 w-4 text-[#A9BBC8]" />
+        );
+      case "CheckCircle":
+        return (
+          <CheckCircle className="absolute -top-1 -right-1 h-4 w-4 text-[#A9BBC8]" />
+        );
+      case "Star":
+        return (
+          <Star className="absolute -top-1 -right-1 h-4 w-4 text-[#A9BBC8]" />
+        );
+      default:
+        return (
+          <Sparkles className="absolute -top-1 -right-1 h-4 w-4 text-[#A9BBC8]" />
+        );
+    }
+  };
+
+  const getStatIcon = (iconName: string) => {
+    switch (iconName) {
+      case "Award":
+        return <Award />;
+      case "Users":
+        return <Users />;
+      case "Calendar":
+        return <Calendar />;
+      case "TrendingUp":
+        return <TrendingUp />;
+      default:
+        return <Award />;
+    }
+  };
 
   return (
     <section
@@ -198,10 +183,10 @@ export default function AboutUsSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <Zap className="h-4 w-4" />
-            DISCOVER OUR STORY
+            {data.section.subtitle}
           </motion.span>
           <h2 className="mb-4 text-center text-4xl font-light md:text-5xl">
-            About Us
+            {data.section.title}
           </h2>
           <motion.div
             className="h-1 w-24 bg-[#88734C]"
@@ -217,22 +202,19 @@ export default function AboutUsSection() {
           animate={isInView ? { y: 0, opacity: 1 } : {}}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          We are a passionate team of designers and architects dedicated to
-          creating beautiful, functional spaces that inspire and elevate
-          everyday living. With attention to detail and commitment to
-          excellence, we transform visions into reality.
+          {data.section.description}
         </motion.p>
 
         <div className="relative grid grid-cols-1 gap-8 md:grid-cols-3">
           {/* Left Column */}
           <div className="space-y-16">
-            {services
+            {data.services
               .filter((service) => service.position === "left")
               .map((service, index) => (
                 <ServiceItem
                   key={`left-${index}`}
-                  icon={service.icon}
-                  secondaryIcon={service.secondaryIcon}
+                  icon={getIcon(service.icon)}
+                  secondaryIcon={getSecondaryIcon(service.secondaryIcon)}
                   title={service.title}
                   description={service.description}
                   delay={index * 0.2}
@@ -332,13 +314,13 @@ export default function AboutUsSection() {
 
           {/* Right Column */}
           <div className="space-y-16">
-            {services
+            {data.services
               .filter((service) => service.position === "right")
               .map((service, index) => (
                 <ServiceItem
                   key={`right-${index}`}
-                  icon={service.icon}
-                  secondaryIcon={service.secondaryIcon}
+                  icon={getIcon(service.icon)}
+                  secondaryIcon={getSecondaryIcon(service.secondaryIcon)}
                   title={service.title}
                   description={service.description}
                   delay={index * 0.2}
@@ -356,10 +338,10 @@ export default function AboutUsSection() {
           animate={isStatsInView ? "visible" : "hidden"}
           variants={containerVariants}
         >
-          {stats.map((stat, index) => (
+          {data.stats.map((stat, index) => (
             <StatCounter
               key={index}
-              icon={stat.icon}
+              icon={getStatIcon(stat.icon)}
               value={stat.value}
               label={stat.label}
               suffix={stat.suffix}
@@ -376,19 +358,15 @@ export default function AboutUsSection() {
           transition={{ duration: 0.8, delay: 0.5 }}
         >
           <div className="flex-1">
-            <h3 className="mb-2 text-2xl font-medium">
-              Ready to transform your space?
-            </h3>
-            <p className="text-white/80">
-              Let&#39;s create something beautiful together.
-            </p>
+            <h3 className="mb-2 text-2xl font-medium">{data.cta.title}</h3>
+            <p className="text-white/80">{data.cta.description}</p>
           </div>
           <motion.button
             className="flex items-center gap-2 rounded-lg bg-[#88734C] px-6 py-3 font-medium text-white transition-colors hover:bg-[#88734C]/90"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Get Started <ArrowRight className="h-4 w-4" />
+            {data.cta.buttonText} <ArrowRight className="h-4 w-4" />
           </motion.button>
         </motion.div>
       </motion.div>

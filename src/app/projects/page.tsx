@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Suspense } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import Head from "next/head";
@@ -8,56 +8,38 @@ import Head from "next/head";
 import { Zap } from "lucide-react";
 import { ProjectGallery } from "~/components/ProjectGallery";
 import Navbar from "~/components/navbar";
+import api from "~/lib/api";
+import { landingPageData } from "~/lib/data/data";
 
-// Sample projects data (you can move this to a separate file)
-const sampleProjects = [
-  {
-    id: 1,
-    title: "Office Interior",
-    location: "Andheri, Mumbai",
-    fullLocation: "Andheri - Project At Mahindra Vicino - Malad West, Mumbai",
-    description:
-      "Modern office interior design with advanced ergonomic solutions and contemporary aesthetics. This space combines functionality with style to create an inspiring work environment.",
-  },
-  {
-    id: 2,
-    title: "House above the clouds",
-    location: "Bandra, Mumbai",
-    fullLocation: "Bandra - Sea View Apartment - Mumbai",
-    description:
-      "Perched high above the world, this house offers breathtaking views and a unique living experience. It's a place where the sky meets home, and tranquility is a way of life.",
-  },
-  {
-    id: 3,
-    title: "Greens all over",
-    location: "Lonavala, Pune",
-    fullLocation: "Lonavala - Hillside Villa - Pune",
-    description:
-      "A house surrounded by greenery and nature's beauty. It's the perfect place to relax, unwind, and enjoy life in harmony with the natural environment.",
-  },
-  {
-    id: 4,
-    title: "Rivers are serene",
-    location: "Alibaug, Raigad",
-    fullLocation: "Alibaug - Riverside Retreat - Raigad",
-    description:
-      "A house by the river is a place of peace and tranquility. It's the perfect place to relax, unwind, and enjoy life by the water.",
-  },
-  {
-    id: 5,
-    title: "Modern Living Space",
-    location: "Juhu, Mumbai",
-    fullLocation: "Juhu - Contemporary Loft - Mumbai",
-    description:
-      "Contemporary living space with clean lines and modern amenities. This design showcases the perfect balance of comfort and style.",
-  },
-];
+// Projects are now fetched from API
 
 // Create a separate component for the content that uses useSearchParams
 const ProjectPageContent = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [projects, setProjects] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        setLoading(true);
+        const response = await api.get("api/projects");
+
+        if (response.success) {
+          // @ts-expect-error - API response type mismatch
+          setProjects(response.data.projects || []);
+        }
+      } catch (err) {
+        console.error("Failed to fetch projects:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
 
   const createSlug = (title: string, location: string) => {
     const combined = `${title}-${location}`;
@@ -71,9 +53,7 @@ const ProjectPageContent = () => {
   // Get current project for SEO
   const projectSlug = searchParams.get("project");
   const currentProject = projectSlug
-    ? sampleProjects.find(
-        (p) => createSlug(p.title, p.location) === projectSlug,
-      )
+    ? projects.find((p) => createSlug(p.title, p.location) === projectSlug)
     : null;
 
   // Generate dynamic meta tags
@@ -104,7 +84,7 @@ const ProjectPageContent = () => {
 
       <div>
         {/* <Stairs backgroundColor={"#0e0e0e"}> */}
-        <Navbar />
+        <Navbar data={landingPageData.navigation} />
 
         <motion.div className="mb-6 flex flex-col items-center pt-24">
           <motion.span

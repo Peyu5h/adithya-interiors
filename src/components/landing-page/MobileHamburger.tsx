@@ -3,23 +3,20 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { MenuItem } from "~/lib/data/data";
+
+interface MobileHamburgerProps {
+  toggleMenu: boolean;
+  setToggleMenu: (toggleMenu: boolean) => void;
+  menuItems: MenuItem[];
+}
 
 const MobileHamburger = ({
   toggleMenu,
   setToggleMenu,
-}: {
-  toggleMenu: boolean;
-  setToggleMenu: (toggleMenu: boolean) => void;
-}) => {
+  menuItems,
+}: MobileHamburgerProps) => {
   const pathname = usePathname();
-
-  const navItems = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Projects", href: "/projects" },
-    { name: "Services", href: "/services" },
-    { name: "Blog", href: "/blog" },
-  ];
 
   return (
     <div className="md:hidden">
@@ -41,7 +38,7 @@ const MobileHamburger = ({
         style={{ zIndex: 40 }}
       >
         <nav className="ml-12 flex h-full flex-col items-start justify-center gap-y-8 text-black">
-          {navItems.map((item) => (
+          {menuItems.map((item) => (
             <Link
               key={item.name}
               href={item.href}

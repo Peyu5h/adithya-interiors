@@ -12,6 +12,7 @@ import { activeTagsAtom } from "~/components/providers/atom";
 import BlogCardLoader from "~/components/blog/loaders/BlogCardLoader";
 import api from "~/lib/api";
 import Navbar from "~/components/navbar";
+import { landingPageData } from "~/lib/data/data";
 
 const TEMP_TAGS = ["Inspiration", "Our works", "Material", "Clients"];
 
@@ -92,7 +93,7 @@ export default function Blog({ searchParams: initialSearchParams }: BlogProps) {
         style={{ zIndex: 24 }}
         className="bg-background mb-[64rem] flex-grow rounded-b-[32px] p-4 md:mb-[32rem]"
       >
-        <Navbar />
+        <Navbar data={landingPageData.navigation} />
         <div className="text-foreground z-24 mx-auto w-full max-w-7xl rounded-b-3xl pb-12">
           <div className="mt-20 w-full lg:mt-28">
             <div className="header mb-8 flex flex-col gap-2 md:gap-4">
@@ -151,7 +152,7 @@ export default function Blog({ searchParams: initialSearchParams }: BlogProps) {
         </div>
       </div>
       <div className="relative z-20">
-        <Footer />
+        <Footer data={landingPageData.footer} />
       </div>
     </div>
   );

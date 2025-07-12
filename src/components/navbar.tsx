@@ -7,8 +7,13 @@ import { gsap } from "gsap";
 import { Button } from "./ui/button";
 import { usePathname } from "next/navigation";
 import MobileHamburger from "~/components/landing-page/MobileHamburger";
+import { NavigationData } from "~/lib/data/data";
 
-export default function Navbar() {
+interface NavbarProps {
+  data: NavigationData;
+}
+
+export default function Navbar({ data }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -67,27 +72,25 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
-            Adithya <span className="text-primary">Interiors</span>
+            {data.logo.text}{" "}
+            <span className="text-primary">{data.logo.highlight}</span>
           </motion.span>
         </Link>
 
         <nav className="absolute top-1/2 left-1/2 hidden -translate-x-1/2 -translate-y-1/2 transform md:block">
           <ul className="flex space-x-12">
-            <li>
-              <Link
-                href={`/`}
-                className={`nav-item text-sm font-medium transition-all duration-200 hover:opacity-70 ${pathname === "/" ? "text-gray-900" : "text-black/50"}`}
-              >
-                Home
-              </Link>
-            </li>
-            {["About", "Projects", "Services", "Blog"].map((item) => (
-              <li key={item}>
+            {data.menuItems.map((item) => (
+              <li key={item.name}>
                 <Link
-                  href={`/${item.toLowerCase()}`}
-                  className={`nav-item text-sm font-medium transition-all duration-200 hover:opacity-70 ${pathname.startsWith(`/${item.toLowerCase()}`) && item.toLowerCase() !== "" ? "text-gray-900" : "text-black/50"}`}
+                  href={item.href}
+                  className={`nav-item text-sm font-medium transition-all duration-200 hover:opacity-70 ${
+                    pathname === item.href ||
+                    (item.href !== "/" && pathname.startsWith(item.href))
+                      ? "text-gray-900"
+                      : "text-black/50"
+                  }`}
                 >
-                  {item}
+                  {item.name}
                 </Link>
               </li>
             ))}
@@ -98,6 +101,7 @@ export default function Navbar() {
           <MobileHamburger
             toggleMenu={toggleMenu}
             setToggleMenu={setToggleMenu}
+            menuItems={data.menuItems}
           />
         </div>
 
@@ -107,7 +111,7 @@ export default function Navbar() {
           size={"lg"}
           effect="shineHover"
         >
-          Contact Now
+          {data.contactButton.text}
         </Button>
       </div>
     </motion.header>

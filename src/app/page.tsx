@@ -12,6 +12,7 @@ import OneSol from "~/components/landing-page/oneSol";
 import Loader from "~/components/animations/Pagetransition/Loader";
 import { LandingCarousel } from "~/components/landing-page/landingCarousel";
 import Navbar from "~/components/navbar";
+import { landingPageData } from "~/lib/data/data";
 
 export default function HomePage() {
   const [showLoader, setShowLoader] = useState(true);
@@ -60,7 +61,7 @@ export default function HomePage() {
 
   return (
     <main className="">
-      <Navbar />
+      <Navbar data={landingPageData.navigation} />
 
       <div
         ref={mainContentRef}
@@ -72,31 +73,32 @@ export default function HomePage() {
         style={{ visibility: showLoader ? "hidden" : "visible" }}
       >
         <div className="bg-background relative flex-grow rounded-b-[64px]">
-          <ChatBot />
+          <ChatBot data={landingPageData.chatbot} />
 
-          <Hero data-critical="true" />
+          <Hero data-critical="true" data={landingPageData.hero} />
 
-          <LandingCarousel />
-          <Testimonials />
-          <OneSol />
+          <LandingCarousel data={landingPageData.projects} />
+          <Testimonials data={landingPageData.testimonials} />
+          <OneSol data={landingPageData.services} />
 
-          <PartnerMarquee />
-          <Faq />
+          <PartnerMarquee data={landingPageData.partners} />
+          <Faq data={landingPageData.faq} />
           {/* <div className="px-12 py-4">
           <WordReveal paragraph="Lorem ipsum dolor sit amet dolor sit amet dolor sit amet" />
         </div> */}
           <section className="relative z-0 mb-[55em] w-full overflow-hidden rounded-[64px] bg-neutral-950 drop-shadow-2xl md:mb-[32em]">
             <div className="relative">
               <HeroGeometric
-                badge="Adithya interiors"
-                title1="Elevate Your"
-                title2="Home's Vision"
+                badge={landingPageData.hero.badge}
+                title1={landingPageData.hero.title1}
+                title2={landingPageData.hero.title2}
+                subtitle={landingPageData.hero.subtitle}
               />
             </div>
           </section>
         </div>
 
-        <Footer />
+        <Footer data={landingPageData.footer} />
       </div>
 
       {showLoader && (

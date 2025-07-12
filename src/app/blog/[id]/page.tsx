@@ -13,6 +13,7 @@ import Footer from "~/components/footer/Footer";
 import BlogPostLoader from "~/components/blog/loaders/BlogPostLoader";
 import ScrollProgress from "~/components/ui/scroll-progress";
 import api from "~/lib/api";
+import data from "~/lib/data/data";
 
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
@@ -223,7 +224,7 @@ export default function BlogPost({ params }: { params: { id: string } }) {
         </div>
       </div>
       <div className="relative z-20">
-        <Footer />
+        <Footer data={data.footer} />
       </div>
     </div>
   );

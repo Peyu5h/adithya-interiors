@@ -27,3 +27,34 @@ model Blog {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 }
+
+model Project {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  title          String
+  location       String
+  fullLocation   String
+  description    String
+  slug           String   @unique
+  thumbnailImage String
+  images         String[]
+  technologies   String[]
+  completedDate  String
+  category       String   @default("interior")
+  isDeleted      Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Service {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  title            String
+  slug             String   @unique
+  description      String
+  shortDescription String
+  content          String
+  images           String[]
+  category         String   @default("construction")
+  isDeleted        Boolean  @default(false)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}

@@ -14,25 +14,16 @@ import {
 } from "lucide-react";
 import { MapTemp } from "~/lib/map";
 import { Button } from "../ui/button";
+import { ProjectCard } from "~/lib/data/data";
 
-type Card = {
-  id: number;
-  className: string;
-  thumbnail: string;
-  title: string;
-  location: string;
-  fullLocation: string;
-  images: string[];
-  description: string;
-  technologies: string[];
-  completedDate: string;
-  url: string;
-};
+type Card = ProjectCard;
 
 export function GridGallery({
   onCardSelectChangeAction,
+  projects,
 }: {
   onCardSelectChangeAction: (isOpen: boolean) => void;
+  projects: ProjectCard[];
 }) {
   const [selected, setSelected] = useState<Card | null>(null);
   const [lastSelected, setLastSelected] = useState<Card | null>(null);
@@ -64,114 +55,6 @@ export function GridGallery({
       />
     );
   };
-
-  const sampleProjects: Card[] = [
-    {
-      id: 1,
-      title: "Office Interior",
-      location: "Andheri, Mumbai",
-      fullLocation: "Andheri - Project At Mahindra Vicino - Malad West, Mumbai",
-      thumbnail:
-        "https://res.cloudinary.com/dkysrpdi6/image/upload/v1751717568/biju/images-homemaker/WhatsApp-Image-2024-11-07-at-16.20.28_d400f443-scaled-1-850x540_qmosd1.png",
-      images: [
-        "https://res.cloudinary.com/dkysrpdi6/image/upload/v1751717568/biju/images-homemaker/WhatsApp-Image-2024-11-07-at-16.20.28_d400f443-scaled-1-850x540_qmosd1.png",
-        "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=600&fit=crop",
-      ],
-      description:
-        "Modern office interior design with advanced ergonomic solutions and contemporary aesthetics. This space combines functionality with style to create an inspiring work environment.",
-      technologies: ["Interior Design", "Space Planning", "Ergonomics"],
-      completedDate: "2024-03-15",
-      url: "https://example.com",
-      className: "md:col-span-1",
-    },
-    {
-      id: 2,
-      title: "House above the clouds",
-      location: "Bandra, Mumbai",
-      fullLocation: "Bandra - Sea View Apartment - Mumbai",
-      thumbnail:
-        "https://res.cloudinary.com/dkysrpdi6/image/upload/v1751717565/biju/images-homemaker/pexels-abhishek-3858771-6993194-850x540_sycdid.jpg",
-      images: [
-        "https://res.cloudinary.com/dkysrpdi6/image/upload/v1751717565/biju/images-homemaker/pexels-abhishek-3858771-6993194-850x540_sycdid.jpg",
-        "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&h=600&fit=crop",
-      ],
-      description:
-        "Perched high above the world, this house offers breathtaking views and a unique living experience. It's a place where the sky meets home, and tranquility is a way of life.",
-      technologies: ["Architecture", "Residential Design", "Luxury Living"],
-      completedDate: "2024-01-20",
-      url: "https://example.com",
-      className: "col-span-1",
-    },
-    {
-      id: 3,
-      title: "Greens all over",
-      location: "Lonavala, Pune",
-      fullLocation: "Lonavala - Hillside Villa - Pune",
-      thumbnail:
-        "https://res.cloudinary.com/dkysrpdi6/image/upload/v1751717565/biju/images-homemaker/Enscape_2024-03-20-16-37-41_Enscape-scene-5-850x540_p26ucs.png",
-      images: [
-        "https://res.cloudinary.com/dkysrpdi6/image/upload/v1751717565/biju/images-homemaker/Enscape_2024-03-20-16-37-41_Enscape-scene-5-850x540_p26ucs.png",
-        "https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1448630360428-65456885c650?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop",
-      ],
-      description:
-        "A house surrounded by greenery and nature's beauty. It's the perfect place to relax, unwind, and enjoy life in harmony with the natural environment.",
-      technologies: [
-        "Sustainable Design",
-        "Landscape Architecture",
-        "Green Building",
-      ],
-      completedDate: "2024-02-10",
-      url: "https://example.com",
-      className: "col-span-1",
-    },
-    {
-      id: 4,
-      title: "Rivers are serene",
-      location: "Alibaug, Raigad",
-      fullLocation: "Alibaug - Riverside Retreat - Raigad",
-      thumbnail:
-        "https://res.cloudinary.com/dkysrpdi6/image/upload/v1751727622/biju/images-homemaker/spacejoy-PyeXkOVmG1Y-unsplash_rr8k4o.jpg",
-      images: [
-        "https://res.cloudinary.com/dkysrpdi6/image/upload/v1751727622/biju/images-homemaker/spacejoy-PyeXkOVmG1Y-unsplash_rr8k4o.jpg",
-        "https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1448630360428-65456885c650?w=800&h=600&fit=crop",
-      ],
-      description:
-        "A house by the river is a place of peace and tranquility. It's the perfect place to relax, unwind, and enjoy life by the water.",
-      technologies: [
-        "Waterfront Design",
-        "Residential Architecture",
-        "Natural Integration",
-      ],
-      completedDate: "2024-04-05",
-      url: "https://example.com",
-      className: "md:col-span-2",
-    },
-    {
-      id: 5,
-      title: "Modern Living Space",
-      location: "Juhu, Mumbai",
-      fullLocation: "Juhu - Contemporary Loft - Mumbai",
-      thumbnail:
-        "https://res.cloudinary.com/dkysrpdi6/image/upload/v1751717564/biju/images-homemaker/bjgva8mlgjibf7j50o4n-scaled-1-850x540_yeqvgr.png",
-      images: [
-        "https://res.cloudinary.com/dkysrpdi6/image/upload/v1751717564/biju/images-homemaker/bjgva8mlgjibf7j50o4n-scaled-1-850x540_yeqvgr.png",
-        "https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&h=600&fit=crop",
-        "https://images.unsplash.com/photo-1448630360428-65456885c650?w=800&h=600&fit=crop",
-      ],
-      description:
-        "Contemporary living space with clean lines and modern amenities. This design showcases the perfect balance of comfort and style.",
-      technologies: ["Modern Design", "Interior Architecture", "Smart Home"],
-      completedDate: "2024-05-12",
-      url: "https://example.com",
-      className: "md:col-span-1",
-    },
-  ];
 
   const SelectedCard = ({
     selected,
@@ -211,7 +94,7 @@ export function GridGallery({
     <>
       <div className="mt-24 w-full">
         <div className="relative mx-auto grid h-auto min-h-[90vh] w-[90vw] cursor-pointer grid-cols-1 gap-4 p-4 md:grid-cols-3 md:p-10">
-          {sampleProjects.map((card, i) => (
+          {projects.map((card, i) => (
             <div key={i} className={cn(card.className, "")}>
               <motion.div
                 onClick={() => handleClick(card)}

@@ -15,6 +15,7 @@ import {
   PopoverTrigger,
 } from "~/components/ui/popover";
 import MarkdownRenderer from "./MarkdownRender";
+import { ChatbotData } from "~/lib/data/data";
 
 export interface Message {
   role: "user" | "assistant";
@@ -22,7 +23,11 @@ export interface Message {
   id?: number;
 }
 
-const ChatBot = ({ propertyData }: { propertyData?: any }) => {
+interface ChatBotProps {
+  data: ChatbotData;
+}
+
+const ChatBot = ({ data }: ChatBotProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [chatPrompt, setChatPrompt] = useState("");
   const [chatMessages, setChatMessages] = useState<Message[]>([]);
@@ -40,22 +45,6 @@ const ChatBot = ({ propertyData }: { propertyData?: any }) => {
         scrollContainerRef.current.scrollHeight;
     }
   }, [chatMessages]);
-
-  const adithyaContext = `You are a smart, friendly, and highly professional chatbot for Adithya Interiors, a top-tier, Awwwards-level SaaS agency website for interior and construction design. The company specializes in local construction and interior services such as false ceiling, wardrobe, readymade and custom furniture, civil work, architectural solutions, turnkey projects, aluminium fabrication, painting, plumbing, electrical, grill fabrication, POP, and carpentry works. The business is based in Mumbai, serving areas including Kandivali, Malad, Borivali, Andheri, Jogeshwari, and Goregaon. Your goal is to help users with:
-
-- Service inquiries (e.g., 'Can you do a false ceiling in Malad?')
-- Local project requests (e.g., 'Best wardrobe design in Kandivali')
-- SEO/keyword-focused questions (e.g., 'Interior designer near me', 'Affordable interior design in Mumbai')
-- Company info, contact, and callback requests
-- Website structure, landing page, and blog navigation
-- Advice on how to get started, what services are offered, and how to book a consultation
-
-Always be concise, helpful, and focused on converting visitors into leads. Highlight the local expertise, quality, and one-stop solution approach. Use trending and high-impact keywords naturally in your responses. If asked about the company, mention:
-
-AdithyaCONSTRUCTION & Interior Works
-One Stop Solution For All Kinds Of: Civil Work, Interior Designing, Architectural Solution, Turnkey Project, Aluminium Fabrication, Painting, Plumbing, Electrical, Grill Fabrication, POP & Carpentry Works.
-Contact: Biju +91 9594635913 / +91 9833249556 / +91 7208251641
-Shop No.1, Ganga Niwas, Opp. Toyota Showroom, Chincholi Link Road, Malad (West), Mumbai - 400064.`;
 
   const generateChatResponse = useCallback(async () => {
     if (!chatPrompt.trim()) return;
@@ -77,7 +66,7 @@ Shop No.1, Ganga Niwas, Opp. Toyota Showroom, Chincholi Link Road, Malad (West),
 
       const prompt =
         language === "english"
-          ? `${adithyaContext}\n\nUser: ${chatPrompt}`
+          ? `${data.context}\n\nUser: ${chatPrompt}`
           : `तुम्ही 'Adithya Interiors' साठी एक स्मार्ट, मैत्रीपूर्ण आणि व्यावसायिक चॅटबॉट आहात. कंपनी मुंबईतील स्थानिक इंटीरियर आणि कन्स्ट्रक्शन सेवा देते. वापरकर्त्याचा प्रश्न: ${chatPrompt}`;
 
       const result = await model.generateContent(prompt);
@@ -102,7 +91,7 @@ Shop No.1, Ganga Niwas, Opp. Toyota Showroom, Chincholi Link Road, Malad (West),
     } finally {
       setIsGenerating(false);
     }
-  }, [chatPrompt, language]);
+  }, [chatPrompt, language, data.context]);
 
   const startNewChat = useCallback(() => {
     setChatMessages([]);
@@ -139,7 +128,7 @@ Shop No.1, Ganga Niwas, Opp. Toyota Showroom, Chincholi Link Road, Malad (West),
         <div className="flex h-full flex-col">
           <div className="mb-4 flex items-center justify-between">
             <h4 className="leading-tight font-light">
-              {language === "english" ? "AI ASSISTANT" : "एआय सहाय्यक"}
+              {language === "english" ? data.title.english : data.title.marathi}
             </h4>
             <div className="flex gap-2">
               <Button
@@ -161,7 +150,9 @@ Shop No.1, Ganga Niwas, Opp. Toyota Showroom, Chincholi Link Road, Malad (West),
                 onClick={startNewChat}
                 className="bg-muted h-8 border text-xs"
               >
-                {language === "english" ? "New Chat" : "नवीन चॅट"}
+                {language === "english"
+                  ? data.newChat.english
+                  : data.newChat.marathi}
               </Button>
             </div>
           </div>
@@ -171,7 +162,11 @@ Shop No.1, Ganga Niwas, Opp. Toyota Showroom, Chincholi Link Road, Malad (West),
             className="scrollbar flex-grow overflow-y-auto"
           >
             {chatMessages.length === 0 ? (
-              <EmptyScreen setChatPrompt={setChatPrompt} language={language} />
+              <EmptyScreen
+                setChatPrompt={setChatPrompt}
+                language={language}
+                data={data}
+              />
             ) : (
               chatMessages.map((message, index) => (
                 <ChatItem key={index} message={message} />
@@ -191,8 +186,8 @@ Shop No.1, Ganga Niwas, Opp. Toyota Showroom, Chincholi Link Road, Malad (West),
                   <Textarea
                     placeholder={
                       language === "english"
-                        ? "Ask about Adithya Interiors..."
-                        : "एदिथ्या इंटीरियर्सबद्दल विचारा..."
+                        ? data.placeholder.english
+                        : data.placeholder.marathi
                     }
                     className="scrollbar min-h-[38px] w-full resize-none px-3 py-3 text-[13px] placeholder:text-gray-400 focus-within:outline-none"
                     value={chatPrompt}
@@ -234,30 +229,16 @@ export default ChatBot;
 const EmptyScreen = ({
   setChatPrompt,
   language,
+  data,
 }: {
   setChatPrompt: (prompt: string) => void;
   language: "english" | "marathi";
+  data: ChatbotData;
 }) => {
-  const exampleMessagesEnglish = [
-    "How experienced are your workers?",
-    "Which areas do you serve?",
-    "What services do you offer?",
-    "Do you work in Kandivali?",
-    "Do you work in Malad?",
-    "Are your workers certified?",
-  ];
-
-  const exampleMessagesMarathi = [
-    "तुमचे कामगार किती अनुभवी आहेत?",
-    "तुम्ही कोणत्या भागात सेवा देता?",
-    "तुम्ही कोणत्या सेवा देता?",
-    "कांदिवलीत काम करता का?",
-    "मलाडमध्ये काम करता का?",
-    "तुमचे कामगार प्रमाणित आहेत का?",
-  ];
-
   const exampleMessages =
-    language === "english" ? exampleMessagesEnglish : exampleMessagesMarathi;
+    language === "english"
+      ? data.exampleMessages.english
+      : data.exampleMessages.marathi;
 
   return (
     <div className="text-foreground mx-auto px-4">
