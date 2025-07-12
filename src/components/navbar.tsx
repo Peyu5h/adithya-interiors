@@ -110,6 +110,12 @@ export default function Navbar({ data }: NavbarProps) {
           className={`hidden rounded-md md:block ${scrolled ? "bg-background/20" : ""}`}
           size={"lg"}
           effect="shineHover"
+          onClick={() => {
+            window.open(
+              "https://api.whatsapp.com/send/?phone=917208251641&text=Hello%20Adithya%20Interiors!%20I%20would%20like%20to%20discuss%20my%20interior%20design%20project.%20Can%20you%20help%20me%20get%20started?&type=phone_number&app_absent=0",
+              "_blank",
+            );
+          }}
         >
           {data.contactButton.text}
         </Button>

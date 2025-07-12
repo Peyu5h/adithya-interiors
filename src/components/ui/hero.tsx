@@ -143,7 +143,16 @@ export default function Hero({ data }: HeroProps) {
                 </div>
               </div>
               <div className="flex items-center gap-4">
-                <Button size={"lg"} effect="shineHover">
+                <Button
+                  size={"lg"}
+                  effect="shineHover"
+                  onClick={() => {
+                    window.open(
+                      "https://api.whatsapp.com/send/?phone=917208251641&text=Hello%20Adithya%20Interiors!%20I%20would%20like%20to%20get%20a%20quote%20for%20my%20interior%20design%20project.%20Can%20you%20help%20me?&type=phone_number&app_absent=0",
+                      "_blank",
+                    );
+                  }}
+                >
                   Get a Quote
                 </Button>
                 <Button
@@ -152,6 +161,9 @@ export default function Hero({ data }: HeroProps) {
                   icon={ArrowRightIcon}
                   iconPlacement="right"
                   variant={"outline"}
+                  onClick={() => {
+                    window.location.href = "/projects";
+                  }}
                 >
                   View Projects
                 </Button>

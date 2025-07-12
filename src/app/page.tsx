@@ -13,11 +13,14 @@ import Loader from "~/components/animations/Pagetransition/Loader";
 import { LandingCarousel } from "~/components/landing-page/landingCarousel";
 import Navbar from "~/components/navbar";
 import { landingPageData } from "~/lib/data/data";
+import { CTAPopover } from "~/components/ui/cta-popover";
+import { useCTAPopover } from "~/hooks/useCTAPopover";
 
 export default function HomePage() {
   const [showLoader, setShowLoader] = useState(true);
   const [isContentReady, setIsContentReady] = useState(false);
   const mainContentRef = useRef<HTMLDivElement>(null);
+  const { isVisible, closePopover } = useCTAPopover();
 
   useEffect(() => {
     if (document.readyState === "complete") {
@@ -106,6 +109,8 @@ export default function HomePage() {
           <Loader />
         </div>
       )}
+
+      <CTAPopover isVisible={isVisible} onClose={closePopover} />
     </main>
   );
 }

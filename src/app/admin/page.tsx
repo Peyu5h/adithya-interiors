@@ -39,8 +39,8 @@ import { useToast } from "~/components/ui/use-toast";
 import api from "~/lib/api";
 import { generateBlogContentWithGemini } from "~/lib/gemini";
 
-const CLOUDINARY_CLOUD_NAME = "dkysrpdi6";
-const CLOUDINARY_UPLOAD_PRESET = "wzj4shyr";
+const CLOUDINARY_CLOUD_NAME = "dr51ytqvk";
+const CLOUDINARY_UPLOAD_PRESET = "adithya";
 const CLOUDINARY_UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
 
 const ADMIN_PIN = "1234";
