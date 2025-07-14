@@ -226,7 +226,7 @@ export const landingPageData: LandingPageData = {
     title1: "Elevate Your",
     title2: "Home's Vision",
     subtitle:
-      "Mumbai's One-Stop Premium Home Interior Solutions, Backed by 35+ Years of Expertise.",
+      "Mumbai's One-Stop Provider for Premium Home Interior Solutions, Backed by 35+ Years of Unparalleled Trust & Expertise in Civil work, Carpentry Work and Complete Home Renovations",
   },
   about: {
     section: {
