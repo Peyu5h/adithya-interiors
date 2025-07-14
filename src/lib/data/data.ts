@@ -215,7 +215,7 @@ export const landingPageData: LandingPageData = {
       { name: "ABOUT US", href: "/about" },
       { name: "PROJECTS", href: "/projects" },
       { name: "SERVICES", href: "/services" },
-      { name: "BLOG", href: "/blog" },
+      { name: "BLOGS", href: "/blog" },
     ],
     contactButton: {
       text: "Contact Now",
