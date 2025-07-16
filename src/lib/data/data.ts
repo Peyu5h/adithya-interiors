@@ -409,7 +409,17 @@ export const landingPageData: LandingPageData = {
       {
         "title": "Modular Kitchen",
         "description": "Efficient and stylish modular kitchens designed for modern living.",
-        "src": "http://googleusercontent.com/image_collection/image_retrieval/13273556634225557578"
+        "src": "https://res.cloudinary.com/dkb3a9r9k/image/upload/pyx-photography-6LhCo9Beqow-unsplash_ulupgc"
+      },
+      {
+        "title": "Complete End-to-End Home Renovation",
+        "description": "Seamless, comprehensive home renovation services from concept to completion.",
+        "src": "https://res.cloudinary.com/dkb3a9r9k/image/upload/3d-rendering-modern-dining-room-living-room-with-luxury-decor_ji9okg"
+      },
+      {
+        "title": "Bathroom Remodeling",
+        "description": "Modern and functional bathroom remodels for a refreshing space.",
+        "src": "https://res.cloudinary.com/dkb3a9r9k/image/upload/lotus-design-n-print-g51F6-WYzyU-unsplash_bzhdmt"
       },
       {
         title: "Vastu Interiors",
@@ -424,10 +434,9 @@ export const landingPageData: LandingPageData = {
         src: "https://res.cloudinary.com/dkysrpdi6/image/upload/v1751717508/biju/images-homemaker/5-820x999_xhuwu6.jpg",
       },
       {
-        title: "Restaurant Interior",
-        description:
-          "Elegant and vibrant restaurant spaces designed for memorable dining experiences.",
-        src: "https://res.cloudinary.com/dkysrpdi6/image/upload/v1751717508/biju/images-homemaker/6-820x999_waf8bf.jpg",
+        "title": "Bathroom Remodeling",
+        "description": "Modern and functional bathroom remodels for a refreshing space.",
+        "src": "http://googleusercontent.com/image_collection/image_retrieval/9904266841231188559"
       },
       {
         title: "Commercial Spaces",
