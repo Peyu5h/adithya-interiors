@@ -213,12 +213,12 @@ export const landingPageData: LandingPageData = {
     menuItems: [
       { name: "HOME", href: "/" },
       { name: "ABOUT US", href: "/about" },
-      { name: "PROJECTS", href: "/projects" },
+      { name: "OUR PROJECTS", href: "/projects" },
       { name: "SERVICES", href: "/services" },
       { name: "BLOGS", href: "/blog" },
     ],
     contactButton: {
-      text: "Contact Now",
+      text: "Get Free Quote!",
     },
   },
   hero: {
@@ -286,9 +286,9 @@ export const landingPageData: LandingPageData = {
       },
     ],
     stats: [
-      { icon: "Award", value: 150, label: "Projects Completed", suffix: "+" },
-      { icon: "Users", value: 1200, label: "Happy Clients", suffix: "+" },
-      { icon: "Calendar", value: 12, label: "Years Experience", suffix: "" },
+      { icon: "Award", value: 600+, label: "Projects Completed", suffix: "+" },
+      { icon: "Users", value: 800+, label: "Happy Clients", suffix: "+" },
+      { icon: "Calendar", value: 35+, label: "Years Experience", suffix: "" },
       {
         icon: "TrendingUp",
         value: 98,
