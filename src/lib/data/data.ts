@@ -407,6 +407,11 @@ export const landingPageData: LandingPageData = {
         src: "https://res.cloudinary.com/dkysrpdi6/image/upload/v1751717552/biju/images-homemaker/7-820x999_l6ybry.jpg",
       },
       {
+        "title": "Modular Kitchen",
+        "description": "Efficient and stylish modular kitchens designed for modern living.",
+        "src": "http://googleusercontent.com/image_collection/image_retrieval/13273556634225557578"
+      },
+      {
         title: "Vastu Interiors",
         description:
           "Interiors designed with Vastu principles for harmony and prosperity.",
