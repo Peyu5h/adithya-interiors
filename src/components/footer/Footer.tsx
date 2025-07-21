@@ -88,7 +88,9 @@ const Footer = ({ data }: FooterProps) => {
                     >
                       <IoMailOpenOutline />
                       <span className="bg-secondary/40 rounded-md px-1.5 py-1 text-xs font-semibold text-white/80">
-                        {contact.value}
+                        {contact.value
+                          .replace(/@/, " [at] ")
+                          .replace(/\./g, " [dot] ")}
                       </span>
                     </span>
                   ))}
@@ -111,6 +113,38 @@ const Footer = ({ data }: FooterProps) => {
                   sublabel={social.sublabel}
                 />
               ))}
+              <a
+                href="https://facebook.com/adithyainteriors"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ml-2 text-white"
+              >
+                Facebook
+              </a>
+              <a
+                href="https://instagram.com/adithyainteriors"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ml-2 text-white"
+              >
+                Instagram
+              </a>
+              <a
+                href="https://linkedin.com/company/adithyainteriors"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ml-2 text-white"
+              >
+                LinkedIn
+              </a>
+              <a
+                href="https://youtube.com/@adithyainteriors"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ml-2 text-white"
+              >
+                YouTube
+              </a>
             </div>
             <div className="my-4 flex flex-col items-start md:mt-0 md:items-end md:gap-y-4">
               <div className="flex flex-col gap-x-6 gap-y-2 text-[13px] text-white/80 sm:flex-row sm:flex-wrap sm:justify-between md:gap-y-0">
