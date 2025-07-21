@@ -1,6 +1,11 @@
+"use client";
+
 import { BreadCrumb } from "~/components/blog/BreadCrumb";
 import type { BlogPost as BlogPostType } from "~/lib/types";
+import { useParams } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
 import BlogNav from "~/components/blog/BlogNav";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import parse from "html-react-parser";
 import DOMPurify from "dompurify";
@@ -9,7 +14,6 @@ import BlogPostLoader from "~/components/blog/loaders/BlogPostLoader";
 import ScrollProgress from "~/components/ui/scroll-progress";
 import api from "~/lib/api";
 import data from "~/lib/data/data";
-import { Metadata } from "next";
 
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
@@ -21,77 +25,66 @@ function formatDate(dateString: string): string {
   return date.toLocaleDateString("en-US", options);
 }
 
-async function fetchPost(id: string): Promise<BlogPostType | null> {
-  // Use fetch to call the API route directly (server-side)
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"}/api/blog/${id}`,
-  );
-  const response = await res.json();
-  if (!response.success) return null;
+const fetchPosts = async (id: string | string[]): Promise<any> => {
+  const blogId = Array.isArray(id) ? id[0] : id;
+  const response = await api.get(`/api/blog/${blogId}`);
+
+  if (!response.success) {
+    throw new Error("No blog found!");
+  }
+
+  console.log("blogData --->", response);
   return response.data;
-}
+};
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { id: string };
-}): Promise<Metadata> {
-  const post = await fetchPost(params.id);
-  if (!post) {
-    return {
-      title: "Blog Not Found | Adithya Interiors",
-      description: "No blog post found.",
-      robots: { index: false, follow: false },
-    };
-  }
-  return {
-    title: `${post.title} | Adithya Interiors Blog`,
-    description:
-      post.blogContent?.replace(/<[^>]+>/g, "").slice(0, 160) || post.title,
-    openGraph: {
-      title: post.title,
-      description:
-        post.blogContent?.replace(/<[^>]+>/g, "").slice(0, 160) || post.title,
-      url: `${process.env.NEXT_PUBLIC_BASE_URL || "https://adithyainteriors.com"}/blog/${post.slug}`,
-      images: post.thumbnailImgUrl ? [post.thumbnailImgUrl] : [],
-      type: "article",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: post.title,
-      description:
-        post.blogContent?.replace(/<[^>]+>/g, "").slice(0, 160) || post.title,
-      images: post.thumbnailImgUrl ? [post.thumbnailImgUrl] : [],
-    },
-    alternates: {
-      canonical: `${process.env.NEXT_PUBLIC_BASE_URL || "https://adithyainteriors.com"}/blog/${post.slug}`,
-    },
-  };
-}
+export default function BlogPost({ params }: { params: { id: string } }) {
+  const { id } = useParams();
+  const [activeHeading, setActiveHeading] = useState("");
+  const [headings, setHeadings] = useState<string[]>([]);
 
-export default async function BlogPost({ params }: { params: { id: string } }) {
-  const post = await fetchPost(params.id);
-  if (!post) return <div>No blog post found</div>;
+  const {
+    data: post,
+    isLoading,
+    error,
+  } = useQuery<BlogPostType>({
+    queryKey: ["blogPost", id],
+    queryFn: () => fetchPosts(id!),
+    enabled: !!id,
+  });
 
-  // Extract headings for TOC
-  let headings: string[] = [];
-  if (typeof window !== "undefined" && post.blogContent) {
-    // Client-side: use DOM
-    const tempDiv = document.createElement("div");
-    tempDiv.innerHTML = post.blogContent;
-    const h2Elements = tempDiv.getElementsByTagName("h2");
-    headings = Array.from(h2Elements).map((h2) => h2.textContent || "");
-  } else if (post.blogContent) {
-    // Server-side: fallback to regex
-    headings = Array.from(post.blogContent.matchAll(/<h2>(.*?)<\/h2>/g)).map(
-      (m) => m[1],
+  useEffect(() => {
+    if (post?.blogContent) {
+      const tempDiv = document.createElement("div");
+      tempDiv.innerHTML = post.blogContent;
+      const h2Elements = tempDiv.getElementsByTagName("h2");
+      setHeadings(Array.from(h2Elements).map((h2) => h2.textContent || ""));
+    }
+  }, [post]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveHeading(entry.target.id);
+          }
+        });
+      },
+      {
+        rootMargin: "-20% 0px -80% 0px",
+        threshold: 0,
+      },
     );
-  }
+
+    const h2Elements = document.querySelectorAll("h2[id]");
+    h2Elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, [post]);
 
   const sanitizeAndEnhanceHTML = (html: string) => {
-    // SSR-safe: skip DOMPurify if not in browser
-    const sanitizedHtml =
-      typeof window !== "undefined" ? DOMPurify.sanitize(html) : html;
+    const sanitizedHtml = DOMPurify.sanitize(html);
+
     return sanitizedHtml
       .replace(/<h1>(.*?)<\/h1>/g, (match, content) => {
         return `<h1 class="text-4xl font-bold mt-8 mb-6">${content}</h1>`;
@@ -130,6 +123,10 @@ export default async function BlogPost({ params }: { params: { id: string } }) {
       .replace(/<p>/g, '<p class="mb-4 leading-relaxed">')
       .replace(/<section>/g, '<section class="mb-8">');
   };
+
+  if (isLoading) return <BlogPostLoader />;
+  if (error) return <div>An error occurred: {error.message}</div>;
+  if (!post) return <div>No blog post found</div>;
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -196,14 +193,16 @@ export default async function BlogPost({ params }: { params: { id: string } }) {
                       <li key={id}>
                         <Link
                           href={`#${id}`}
-                          className={`block rounded px-2 py-1 transition-colors`}
+                          className={`block rounded px-2 py-1 transition-colors ${
+                            activeHeading === id
+                              ? "bg-primary text-white"
+                              : "hover:bg-gray-100"
+                          }`}
                           onClick={(e) => {
                             e.preventDefault();
-                            if (typeof window !== "undefined") {
-                              document.getElementById(id)?.scrollIntoView({
-                                behavior: "smooth",
-                              });
-                            }
+                            document.getElementById(id)?.scrollIntoView({
+                              behavior: "smooth",
+                            });
                           }}
                         >
                           {heading}
