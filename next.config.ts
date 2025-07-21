@@ -19,6 +19,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "vignammodelsstage.s3.ap-south-1.amazonaws.com",
       },
+      {
+        protocol: "https",
+        hostname: "googleusercontent.com",
+      },
     ],
   },
   eslint: {

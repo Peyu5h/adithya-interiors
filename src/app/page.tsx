@@ -63,7 +63,7 @@ export default function HomePage() {
   // }, []);
 
   return (
-    <main className="">
+    <main className="light">
       <Navbar data={landingPageData.navigation} />
 
       <div

@@ -208,7 +208,7 @@ export const landingPageData: LandingPageData = {
   navigation: {
     logo: {
       text: "ADITHYA",
-      highlight: "CONSTRUCTIONS & INTERIOR WORKS",
+      highlight: "CONSTRUCTIONS",
     },
     menuItems: [
       { name: "HOME", href: "/" },
@@ -407,19 +407,22 @@ export const landingPageData: LandingPageData = {
         src: "https://res.cloudinary.com/dkysrpdi6/image/upload/v1751717552/biju/images-homemaker/7-820x999_l6ybry.jpg",
       },
       {
-        "title": "Modular Kitchen",
-        "description": "Efficient and stylish modular kitchens designed for modern living.",
-        "src": "https://res.cloudinary.com/dkb3a9r9k/image/upload/pyx-photography-6LhCo9Beqow-unsplash_ulupgc"
+        title: "Modular Kitchen",
+        description:
+          "Efficient and stylish modular kitchens designed for modern living.",
+        src: "https://res.cloudinary.com/dkb3a9r9k/image/upload/pyx-photography-6LhCo9Beqow-unsplash_ulupgc",
       },
       {
-        "title": "Complete End-to-End Home Renovation",
-        "description": "Seamless, comprehensive home renovation services from concept to completion.",
-        "src": "https://res.cloudinary.com/dkb3a9r9k/image/upload/3d-rendering-modern-dining-room-living-room-with-luxury-decor_ji9okg"
+        title: "Complete End-to-End Home Renovation",
+        description:
+          "Seamless, comprehensive home renovation services from concept to completion.",
+        src: "https://res.cloudinary.com/dkb3a9r9k/image/upload/3d-rendering-modern-dining-room-living-room-with-luxury-decor_ji9okg",
       },
       {
-        "title": "Bathroom Remodeling",
-        "description": "Modern and functional bathroom remodels for a refreshing space.",
-        "src": "https://res.cloudinary.com/dkb3a9r9k/image/upload/lotus-design-n-print-g51F6-WYzyU-unsplash_bzhdmt"
+        title: "Bathroom Remodeling",
+        description:
+          "Modern and functional bathroom remodels for a refreshing space.",
+        src: "https://res.cloudinary.com/dkb3a9r9k/image/upload/lotus-design-n-print-g51F6-WYzyU-unsplash_bzhdmt",
       },
       {
         title: "Vastu Interiors",
@@ -432,11 +435,6 @@ export const landingPageData: LandingPageData = {
         description:
           "Specialized interior solutions for NRIs, tailored to your unique needs.",
         src: "https://res.cloudinary.com/dkysrpdi6/image/upload/v1751717508/biju/images-homemaker/5-820x999_xhuwu6.jpg",
-      },
-      {
-        "title": "Bathroom Remodeling",
-        "description": "Modern and functional bathroom remodels for a refreshing space.",
-        "src": "http://googleusercontent.com/image_collection/image_retrieval/9904266841231188559"
       },
       {
         title: "Commercial Spaces",
@@ -565,7 +563,6 @@ export const landingPageData: LandingPageData = {
         image: "https://randomuser.me/api/portraits/women/21.jpg",
         name: "Ritika Mehta",
         role: "INVESTMENT BANKER",
-
       },
       {
         text: "The design team understood our cultural and functional needs perfectly. The outcome blends tradition and modernity seamlessly.",
@@ -588,7 +585,7 @@ export const landingPageData: LandingPageData = {
       {
         text: "Great service, timely delivery, and excellent communication throughout. Truly a five-star experience.",
         image: "https://randomuser.me/api/portraits/men/51.jpg",
-        name: "Rahul Joshi",,
+        name: "Rahul Joshi",
         role: "PROJECT MANAGER",
       },
       {
