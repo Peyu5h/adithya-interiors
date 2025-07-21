@@ -14,7 +14,7 @@ const BlogCard: React.FC<BlogPost> = ({
 }) => {
   return (
     <Link href={`/blog/${slug}`} className="group block">
-      <div className="hover:bg-muted/50 overflow-hidden rounded-lg border shadow-sm transition-all duration-300">
+      <article className="hover:bg-muted/50 overflow-hidden rounded-lg border shadow-sm transition-all duration-300">
         <div className="relative h-48 w-full overflow-hidden">
           <Image
             src={thumbnailImgUrl}
@@ -37,7 +37,7 @@ const BlogCard: React.FC<BlogPost> = ({
           </h2>
           <p className="text-sm text-gray-600">{author}</p>
         </div>
-      </div>
+      </article>
     </Link>
   );
 };

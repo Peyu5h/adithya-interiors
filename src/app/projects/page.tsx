@@ -3,7 +3,7 @@
 import React, { Suspense, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import Head from "next/head";
+import type { Metadata } from "next";
 
 import { Zap } from "lucide-react";
 import { ProjectGallery } from "~/components/ProjectGallery";
@@ -69,18 +69,8 @@ const ProjectPageContent = () => {
 
   return (
     <>
-      <Head>
-        <title>{pageTitle}</title>
-        <meta name="description" content={pageDescription} />
-        <meta property="og:title" content={pageTitle} />
-        <meta property="og:description" content={pageDescription} />
-        <meta property="og:url" content={canonicalUrl} />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={pageTitle} />
-        <meta name="twitter:description" content={pageDescription} />
-        <link rel="canonical" href={canonicalUrl} />
-      </Head>
+      {/* <Head> */}
+      {/* </Head> */}
 
       <div>
         {/* <Stairs backgroundColor={"#0e0e0e"}> */}

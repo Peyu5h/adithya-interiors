@@ -1,57 +1,69 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import { notFound } from "next/navigation";
 import Navbar from "~/components/navbar";
 import { Service } from "~/lib/types";
-import api from "~/lib/api";
-import data from "~/lib/data/data";
 import { ServiceContentDisplay } from "~/components/ServiceContentDisplay";
+import data from "~/lib/data/data";
+import { Metadata } from "next";
 
-export default function ServicePage({ params }: { params: { slug: string } }) {
-  const [service, setService] = useState<Service | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+async function fetchService(slug: string): Promise<Service | null> {
+  const res = await fetch(
+    `https://www.adithyaconstructions.in/api/services/${slug}`,
+  );
+  const response = await res.json();
+  if (!response.success) return null;
+  return response.data;
+}
 
-  useEffect(() => {
-    const fetchService = async () => {
-      try {
-        setLoading(true);
-        const response = await api.get(`api/services/${params.slug}`);
-
-        if (response.success) {
-          // @ts-expect-error - API response type mismatch
-          setService(response.data);
-        } else {
-          setError("Service not found");
-        }
-      } catch (err) {
-        setError("Failed to fetch service");
-      } finally {
-        setLoading(false);
-      }
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const service = await fetchService(params.slug);
+  if (!service) {
+    return {
+      title: "Service Not Found | Adithya Interiors",
+      description: "No service found.",
+      robots: { index: false, follow: false },
     };
-
-    fetchService();
-  }, [params.slug]);
-
-  if (loading) {
-    return (
-      <>
-        <Navbar data={data.navigation} />
-        <main className="flex min-h-screen items-center justify-center">
-          <div className="text-center">
-            <div className="h-32 w-32 animate-spin rounded-full border-b-2 border-[#88734C]"></div>
-            <p className="mt-4 text-lg text-gray-600">Loading service...</p>
-          </div>
-        </main>
-      </>
-    );
   }
+  return {
+    title: `${service.title} | Services | Adithya Interiors`,
+    description:
+      service.description?.replace(/<[^>]+>/g, "").slice(0, 160) ||
+      service.title,
+    openGraph: {
+      title: service.title,
+      description:
+        service.description?.replace(/<[^>]+>/g, "").slice(0, 160) ||
+        service.title,
+      url: `https://www.adithyaconstructions.in/services/${service.slug}`,
+      images:
+        service.images && service.images.length > 0 ? [service.images[0]] : [],
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: service.title,
+      description:
+        service.description?.replace(/<[^>]+>/g, "").slice(0, 160) ||
+        service.title,
+      images:
+        service.images && service.images.length > 0 ? [service.images[0]] : [],
+    },
+    alternates: {
+      canonical: `https://www.adithyaconstructions.in/services/${service.slug}`,
+    },
+  };
+}
 
-  if (error || !service) {
-    notFound();
-  }
+export default async function ServicePage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const service = await fetchService(params.slug);
+  if (!service) notFound();
 
   const mappedTips = service.images.map((image, index) => ({
     text: `${service.title} Image ${index + 1}`,

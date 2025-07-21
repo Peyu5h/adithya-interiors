@@ -80,17 +80,19 @@ const Footer = ({ data }: FooterProps) => {
                 <h3 className="-mb-2 text-lg font-bold text-white md:mb-2">
                   CONTACT US
                 </h3>
-                {data.navigation.contact.map((contact, index) => (
-                  <span
-                    key={index}
-                    className="inline-flex items-center gap-2 sm:justify-start"
-                  >
-                    <IoMailOpenOutline />
-                    <span className="bg-secondary/40 rounded-md px-1.5 py-1 text-xs font-semibold text-white/80">
-                      {contact.value}
+                <address className="not-italic">
+                  {data.navigation.contact.map((contact, index) => (
+                    <span
+                      key={index}
+                      className="inline-flex items-center gap-2 sm:justify-start"
+                    >
+                      <IoMailOpenOutline />
+                      <span className="bg-secondary/40 rounded-md px-1.5 py-1 text-xs font-semibold text-white/80">
+                        {contact.value}
+                      </span>
                     </span>
-                  </span>
-                ))}
+                  ))}
+                </address>
               </div>
             </div>
           </div>

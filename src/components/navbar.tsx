@@ -89,6 +89,12 @@ export default function Navbar({ data }: NavbarProps) {
                       ? "text-gray-900"
                       : "text-black/50"
                   }`}
+                  aria-current={
+                    pathname === item.href ||
+                    (item.href !== "/" && pathname.startsWith(item.href))
+                      ? "page"
+                      : undefined
+                  }
                 >
                   {item.name}
                 </Link>
