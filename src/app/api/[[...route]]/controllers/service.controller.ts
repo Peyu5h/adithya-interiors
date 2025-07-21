@@ -95,10 +95,7 @@ export const updateServiceById = async (c: Context) => {
 
 export const getAllServices = async (c: Context) => {
   try {
-    const page = parseInt(c.req.query("page") || "1");
-    const limit = parseInt(c.req.query("limit") || "24");
     const category = c.req.query("category");
-    const skip = (page - 1) * limit;
 
     // Build where clause
     const where = {
@@ -106,30 +103,17 @@ export const getAllServices = async (c: Context) => {
       ...(category && { category }),
     };
 
-    // Get total count for pagination
-    const totalDocs = await prisma.service.count({ where });
-    const totalPages = Math.ceil(totalDocs / limit);
-
-    // Get services with pagination
+    // Get all services (no pagination)
     const services = await prisma.service.findMany({
       where,
       orderBy: { createdAt: "desc" },
-      skip,
-      take: limit,
     });
 
     if (!services || services.length === 0) {
       return c.json(err("No services found!"), 404);
     }
 
-    const responseData = {
-      services,
-      currentPage: page,
-      totalPages,
-      hasNextPage: page < totalPages,
-    };
-
-    return c.json(success(responseData));
+    return c.json(success({ services }));
   } catch (error) {
     return c.json(err("Some error occurred"), 503);
   }

@@ -120,10 +120,7 @@ export const updateProjectById = async (c: Context) => {
 
 export const getAllProjects = async (c: Context) => {
   try {
-    const page = parseInt(c.req.query("page") || "1");
-    const limit = parseInt(c.req.query("limit") || "24");
     const category = c.req.query("category");
-    const skip = (page - 1) * limit;
 
     // Build where clause
     const where = {
@@ -131,30 +128,17 @@ export const getAllProjects = async (c: Context) => {
       ...(category && { category }),
     };
 
-    // Get total count for pagination
-    const totalDocs = await prisma.project.count({ where });
-    const totalPages = Math.ceil(totalDocs / limit);
-
-    // Get projects with pagination
+    // Get all projects (no pagination)
     const projects = await prisma.project.findMany({
       where,
       orderBy: { createdAt: "desc" },
-      skip,
-      take: limit,
     });
 
     if (!projects || projects.length === 0) {
       return c.json(err("No projects found!"), 404);
     }
 
-    const responseData = {
-      projects,
-      currentPage: page,
-      totalPages,
-      hasNextPage: page < totalPages,
-    };
-
-    return c.json(success(responseData));
+    return c.json(success({ projects }));
   } catch (error) {
     return c.json(err("Some error occurred"), 503);
   }

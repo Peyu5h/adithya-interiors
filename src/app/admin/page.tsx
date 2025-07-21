@@ -132,8 +132,10 @@ export default function AdminDashboard() {
   const [showCreateServiceDialog, setShowCreateServiceDialog] = useState(false);
   const [showEditDialog, setShowEditDialog] = useState(false);
   const [showEditServiceDialog, setShowEditServiceDialog] = useState(false);
+  const [showEditProjectDialog, setShowEditProjectDialog] = useState(false);
   const [selectedBlog, setSelectedBlog] = useState<BlogPost | null>(null);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [editMode, setEditMode] = useState(false);
   const [activeTab, setActiveTab] = useState("blogs");
   const { toast } = useToast();
@@ -287,67 +289,66 @@ export default function AdminDashboard() {
     }
   };
 
-  // Image upload to Cloudinary
+  // Refactored handleImageUpload to support multiple files and a callback
   const handleImageUpload = async (
-    file: File,
+    files: FileList | File[],
     target: "blog" | "project" | "service",
+    onUpload?: (url: string) => void,
   ) => {
-    if (!file.type.startsWith("image/")) {
-      toast({
-        title: "Invalid File",
-        description: "Please select an image file",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    try {
-      setIsUploading(true);
-      const formDataImg = new FormData();
-      formDataImg.append("file", file);
-      formDataImg.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
-
-      const response = await fetch(CLOUDINARY_UPLOAD_URL, {
-        method: "POST",
-        body: formDataImg,
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(
-          `Cloudinary error: ${errorData.error?.message || "Upload failed"}`,
-        );
-      }
-
-      const data = await response.json();
-      if (data.secure_url) {
-        if (target === "blog") {
-          setFormData((prev) => ({
-            ...prev,
-            thumbnailImgUrl: data.secure_url,
-          }));
-        } else if (target === "project") {
-          setProjectFormData((prev) => ({
-            ...prev,
-            thumbnailImage: data.secure_url,
-          }));
-        }
+    const fileArray = Array.from(files);
+    for (const file of fileArray) {
+      if (!file.type.startsWith("image/")) {
         toast({
-          title: "Success",
-          description: "Image uploaded successfully",
+          title: "Invalid File",
+          description: "Please select an image file",
+          variant: "destructive",
         });
-      } else {
-        throw new Error("No secure URL returned from Cloudinary");
+        continue;
       }
-    } catch (error: any) {
-      console.error("Cloudinary upload error:", error);
-      toast({
-        title: "Upload Failed",
-        description: error.message || "Failed to upload image to Cloudinary",
-        variant: "destructive",
-      });
-    } finally {
-      setIsUploading(false);
+      try {
+        setIsUploading(true);
+        const formDataImg = new FormData();
+        formDataImg.append("file", file);
+        formDataImg.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+        const response = await fetch(CLOUDINARY_UPLOAD_URL, {
+          method: "POST",
+          body: formDataImg,
+        });
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(
+            `Cloudinary error: ${errorData.error?.message || "Upload failed"}`,
+          );
+        }
+        const data = await response.json();
+        if (data.secure_url) {
+          if (target === "blog") {
+            setFormData((prev) => ({
+              ...prev,
+              thumbnailImgUrl: data.secure_url,
+            }));
+          } else if (target === "project" && onUpload) {
+            onUpload(data.secure_url);
+          } else if (target === "service" && onUpload) {
+            onUpload(data.secure_url);
+          }
+          toast({
+            title: "Success",
+            description: "Image uploaded successfully",
+          });
+        } else {
+          throw new Error("No secure URL returned from Cloudinary");
+        }
+      } catch (error: any) {
+        console.error("Cloudinary upload error:", error);
+        toast({
+          title: "Upload Failed",
+          description: error.message || "Failed to upload image to Cloudinary",
+          variant: "destructive",
+        });
+      } finally {
+        setIsUploading(false);
+      }
     }
   };
 
@@ -653,6 +654,23 @@ export default function AdminDashboard() {
     setShowEditServiceDialog(true);
   };
 
+  const handleEditProject = (project: Project) => {
+    setSelectedProject(project);
+    setProjectFormData({
+      title: project.title,
+      location: project.location,
+      fullLocation: project.fullLocation,
+      description: project.description,
+      thumbnailImage: project.thumbnailImage,
+      images: project.images,
+      technologies: project.technologies,
+      completedDate: project.completedDate,
+      category: project.category,
+    });
+    setEditMode(true);
+    setShowEditProjectDialog(true);
+  };
+
   const handleUpdateBlog = async (e: React.FormEvent) => {
     e.preventDefault();
     if (
@@ -731,6 +749,49 @@ export default function AdminDashboard() {
       toast({
         title: "Error",
         description: "Failed to update service",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleUpdateProject = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (
+      !selectedProject ||
+      !projectFormData.title ||
+      !projectFormData.location ||
+      !projectFormData.description
+    ) {
+      toast({
+        title: "Missing Fields",
+        description: "Please fill in all required fields",
+        variant: "destructive",
+      });
+      return;
+    }
+    try {
+      setIsLoading(true);
+      const response = await api.put(
+        `/api/projects/${selectedProject.id}`,
+        projectFormData,
+      );
+      if (response.success) {
+        toast({
+          title: "Success",
+          description: "Project updated successfully",
+        });
+        setShowEditProjectDialog(false);
+        setEditMode(false);
+        resetProjectForm();
+        setSelectedProject(null);
+        await fetchProjects();
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to update project",
         variant: "destructive",
       });
     } finally {
@@ -819,23 +880,6 @@ export default function AdminDashboard() {
       ...prev,
       technologies: prev.technologies.filter((tech) => tech !== techToRemove),
     }));
-  };
-
-  const addImageUrl = (target: "project" | "service") => {
-    if (imageInput.trim()) {
-      if (target === "project") {
-        setProjectFormData((prev) => ({
-          ...prev,
-          images: [...prev.images, imageInput.trim()],
-        }));
-      } else {
-        setServiceFormData((prev) => ({
-          ...prev,
-          images: [...prev.images, imageInput.trim()],
-        }));
-      }
-      setImageInput("");
-    }
   };
 
   const removeImageUrl = (
@@ -1022,8 +1066,15 @@ export default function AdminDashboard() {
                             type="file"
                             accept="image/*"
                             onChange={(e) => {
-                              const file = e.target.files?.[0];
-                              if (file) handleImageUpload(file, "blog");
+                              const files = e.target.files;
+                              if (files && files.length > 0) {
+                                handleImageUpload(files, "blog", (url) =>
+                                  setFormData((prev) => ({
+                                    ...prev,
+                                    thumbnailImgUrl: url,
+                                  })),
+                                );
+                              }
                             }}
                             disabled={isUploading}
                           />
@@ -1167,8 +1218,15 @@ export default function AdminDashboard() {
                             type="file"
                             accept="image/*"
                             onChange={(e) => {
-                              const file = e.target.files?.[0];
-                              if (file) handleImageUpload(file, "blog");
+                              const files = e.target.files;
+                              if (files && files.length > 0) {
+                                handleImageUpload(files, "blog", (url) =>
+                                  setFormData((prev) => ({
+                                    ...prev,
+                                    thumbnailImgUrl: url,
+                                  })),
+                                );
+                              }
                             }}
                             disabled={isUploading}
                           />
@@ -1287,10 +1345,6 @@ export default function AdminDashboard() {
                             </p>
                           </div>
                           <div className="flex flex-col gap-2">
-                            <Button size="sm" variant="outline">
-                              <Eye className="mr-1 h-4 w-4" />
-                              View
-                            </Button>
                             <Button
                               size="sm"
                               variant="outline"
@@ -1423,8 +1477,15 @@ export default function AdminDashboard() {
                             type="file"
                             accept="image/*"
                             onChange={(e) => {
-                              const file = e.target.files?.[0];
-                              if (file) handleImageUpload(file, "project");
+                              const files = e.target.files;
+                              if (files && files.length > 0) {
+                                handleImageUpload(files, "project", (url) =>
+                                  setProjectFormData((prev) => ({
+                                    ...prev,
+                                    thumbnailImage: url,
+                                  })),
+                                );
+                              }
                             }}
                             disabled={isUploading}
                           />
@@ -1450,42 +1511,58 @@ export default function AdminDashboard() {
                         <div className="mt-2 flex gap-2">
                           <Input
                             id="project-images"
-                            value={imageInput}
-                            onChange={(e) => setImageInput(e.target.value)}
-                            placeholder="Add image URL"
+                            type="file"
+                            accept="image/*"
+                            multiple
+                            onChange={(e) => {
+                              const files = e.target.files;
+                              if (files && files.length > 0) {
+                                handleImageUpload(files, "project", (url) =>
+                                  setProjectFormData((prev) => ({
+                                    ...prev,
+                                    images: [...prev.images, url],
+                                  })),
+                                );
+                              }
+                            }}
+                            disabled={isUploading}
                           />
-                          <Button
-                            type="button"
-                            onClick={() => addImageUrl("project")}
-                            variant="outline"
-                          >
-                            Add
-                          </Button>
                         </div>
+                        {isUploading && (
+                          <p className="mt-2 text-sm text-blue-600">
+                            Uploading image(s)...
+                          </p>
+                        )}
                         <div className="mt-2 flex flex-wrap gap-2">
                           {projectFormData.images.map((image) => (
-                            <Badge
-                              key={image}
-                              variant="secondary"
-                              className="cursor-pointer"
-                              onClick={() => removeImageUrl(image, "project")}
-                            >
-                              {image.substring(0, 30)}... ×
-                            </Badge>
+                            <div key={image} className="relative">
+                              <img
+                                src={image}
+                                alt="Project preview"
+                                className="h-16 w-24 rounded border object-cover"
+                              />
+                              <Button
+                                size="icon"
+                                variant="destructive"
+                                className="absolute top-0 right-0"
+                                type="button"
+                                onClick={() => removeImageUrl(image, "project")}
+                              >
+                                ×
+                              </Button>
+                            </div>
                           ))}
                         </div>
                       </div>
 
                       <div>
-                        <Label htmlFor="project-technologies">
-                          Technologies
-                        </Label>
+                        <Label htmlFor="project-technologies">Category</Label>
                         <div className="mt-2 flex gap-2">
                           <Input
                             id="project-technologies"
                             value={techInput}
                             onChange={(e) => setTechInput(e.target.value)}
-                            placeholder="Add technology"
+                            placeholder="Add category (flooring, carpentry, etc.)"
                             onKeyPress={(e) =>
                               e.key === "Enter" &&
                               (e.preventDefault(), addTechnology())
@@ -1530,20 +1607,6 @@ export default function AdminDashboard() {
                             placeholder="e.g., 2024"
                           />
                         </div>
-                        <div>
-                          <Label htmlFor="project-category">Category</Label>
-                          <Input
-                            id="project-category"
-                            value={projectFormData.category}
-                            onChange={(e) =>
-                              setProjectFormData((prev) => ({
-                                ...prev,
-                                category: e.target.value,
-                              }))
-                            }
-                            placeholder="e.g., interior, exterior"
-                          />
-                        </div>
                       </div>
 
                       <div className="flex justify-end gap-2">
@@ -1556,6 +1619,265 @@ export default function AdminDashboard() {
                         </Button>
                         <Button type="submit" disabled={isLoading}>
                           {isLoading ? "Creating..." : "Create Project"}
+                        </Button>
+                      </div>
+                    </form>
+                  </DialogContent>
+                </Dialog>
+
+                {/* Edit Project Dialog */}
+                <Dialog
+                  open={showEditProjectDialog}
+                  onOpenChange={setShowEditProjectDialog}
+                >
+                  <DialogContent className="max-h-[90vh] max-w-6xl overflow-y-auto">
+                    <DialogHeader>
+                      <DialogTitle>Edit Project</DialogTitle>
+                      <DialogDescription>
+                        Update the details below to modify the project
+                      </DialogDescription>
+                    </DialogHeader>
+                    <form onSubmit={handleUpdateProject} className="space-y-6">
+                      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                        <div>
+                          <Label htmlFor="edit-project-title">Title *</Label>
+                          <Input
+                            id="edit-project-title"
+                            value={projectFormData.title}
+                            onChange={(e) =>
+                              handleProjectFormDataChange(
+                                "title",
+                                e.target.value,
+                              )
+                            }
+                            placeholder="Enter project title"
+                            required
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="edit-project-location">
+                            Location *
+                          </Label>
+                          <Input
+                            id="edit-project-location"
+                            value={projectFormData.location}
+                            onChange={(e) =>
+                              handleProjectFormDataChange(
+                                "location",
+                                e.target.value,
+                              )
+                            }
+                            placeholder="e.g., Andheri, Mumbai"
+                            required
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <Label htmlFor="edit-project-full-location">
+                          Full Location
+                        </Label>
+                        <Input
+                          id="edit-project-full-location"
+                          value={projectFormData.fullLocation}
+                          onChange={(e) =>
+                            handleProjectFormDataChange(
+                              "fullLocation",
+                              e.target.value,
+                            )
+                          }
+                          placeholder="e.g., Andheri - Project At Mahindra Vicino - Malad West, Mumbai"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="edit-project-description">
+                          Description *
+                        </Label>
+                        <Textarea
+                          id="edit-project-description"
+                          value={projectFormData.description}
+                          onChange={(e) =>
+                            handleProjectFormDataChange(
+                              "description",
+                              e.target.value,
+                            )
+                          }
+                          placeholder="Enter project description"
+                          rows={4}
+                          required
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="edit-project-thumbnail">
+                          Thumbnail Image *
+                        </Label>
+                        <div className="mt-2">
+                          <Input
+                            id="edit-project-thumbnail"
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => {
+                              const files = e.target.files;
+                              if (files && files.length > 0) {
+                                handleImageUpload(files, "project", (url) =>
+                                  setProjectFormData((prev) => ({
+                                    ...prev,
+                                    thumbnailImage: url,
+                                  })),
+                                );
+                              }
+                            }}
+                            disabled={isUploading}
+                          />
+                          {isUploading && (
+                            <p className="mt-2 text-sm text-blue-600">
+                              Uploading image...
+                            </p>
+                          )}
+                          {projectFormData.thumbnailImage && (
+                            <div className="mt-3">
+                              <img
+                                src={projectFormData.thumbnailImage}
+                                alt="Thumbnail preview"
+                                className="h-20 w-32 rounded border object-cover"
+                              />
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      <div>
+                        <Label htmlFor="edit-project-images">
+                          Project Images
+                        </Label>
+                        <div className="mt-2 flex gap-2">
+                          <Input
+                            id="edit-project-images"
+                            type="file"
+                            accept="image/*"
+                            multiple
+                            onChange={(e) => {
+                              const files = e.target.files;
+                              if (files && files.length > 0) {
+                                handleImageUpload(files, "project", (url) =>
+                                  setProjectFormData((prev) => ({
+                                    ...prev,
+                                    images: [...prev.images, url],
+                                  })),
+                                );
+                              }
+                            }}
+                            disabled={isUploading}
+                          />
+                        </div>
+                        {isUploading && (
+                          <p className="mt-2 text-sm text-blue-600">
+                            Uploading image(s)...
+                          </p>
+                        )}
+                        <div className="mt-2 flex flex-wrap gap-2">
+                          {projectFormData.images.map((image) => (
+                            <div key={image} className="relative">
+                              <img
+                                src={image}
+                                alt="Project preview"
+                                className="h-16 w-24 rounded border object-cover"
+                              />
+                              <Button
+                                size="icon"
+                                variant="destructive"
+                                className="absolute top-0 right-0"
+                                type="button"
+                                onClick={() => removeImageUrl(image, "project")}
+                              >
+                                ×
+                              </Button>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      <div>
+                        <Label htmlFor="edit-project-technologies">
+                          Technologies
+                        </Label>
+                        <div className="mt-2 flex gap-2">
+                          <Input
+                            id="edit-project-technologies"
+                            value={techInput}
+                            onChange={(e) => setTechInput(e.target.value)}
+                            placeholder="Add technology"
+                            onKeyPress={(e) =>
+                              e.key === "Enter" &&
+                              (e.preventDefault(), addTechnology())
+                            }
+                          />
+                          <Button
+                            type="button"
+                            onClick={addTechnology}
+                            variant="outline"
+                          >
+                            Add
+                          </Button>
+                        </div>
+                        <div className="mt-2 flex flex-wrap gap-2">
+                          {projectFormData.technologies.map((tech) => (
+                            <Badge
+                              key={tech}
+                              variant="secondary"
+                              className="cursor-pointer"
+                              onClick={() => removeTechnology(tech)}
+                            >
+                              {tech} ×
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                        <div>
+                          <Label htmlFor="edit-project-completed">
+                            Completed Date
+                          </Label>
+                          <Input
+                            id="edit-project-completed"
+                            value={projectFormData.completedDate}
+                            onChange={(e) =>
+                              setProjectFormData((prev) => ({
+                                ...prev,
+                                completedDate: e.target.value,
+                              }))
+                            }
+                            placeholder="e.g., 2024"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="edit-project-category">
+                            Category
+                          </Label>
+                          <Input
+                            id="edit-project-category"
+                            value={projectFormData.category}
+                            onChange={(e) =>
+                              setProjectFormData((prev) => ({
+                                ...prev,
+                                category: e.target.value,
+                              }))
+                            }
+                            placeholder="e.g., interior, exterior"
+                          />
+                        </div>
+                      </div>
+                      <div className="flex justify-end gap-2">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={() => {
+                            setShowEditProjectDialog(false);
+                            resetProjectForm();
+                            setSelectedProject(null);
+                          }}
+                        >
+                          Cancel
+                        </Button>
+                        <Button type="submit" disabled={isLoading}>
+                          {isLoading ? "Updating..." : "Update Project"}
                         </Button>
                       </div>
                     </form>
@@ -1607,11 +1929,11 @@ export default function AdminDashboard() {
                             </p>
                           </div>
                           <div className="flex flex-col gap-2">
-                            <Button size="sm" variant="outline">
-                              <Eye className="mr-1 h-4 w-4" />
-                              View
-                            </Button>
-                            <Button size="sm" variant="outline">
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => handleEditProject(project)}
+                            >
                               <Edit className="mr-1 h-4 w-4" />
                               Edit
                             </Button>
@@ -1757,28 +2079,46 @@ export default function AdminDashboard() {
                         <div className="mt-2 flex gap-2">
                           <Input
                             id="service-images"
-                            value={imageInput}
-                            onChange={(e) => setImageInput(e.target.value)}
-                            placeholder="Add image URL"
+                            type="file"
+                            accept="image/*"
+                            multiple
+                            onChange={(e) => {
+                              const files = e.target.files;
+                              if (files && files.length > 0) {
+                                handleImageUpload(files, "service", (url) =>
+                                  setServiceFormData((prev) => ({
+                                    ...prev,
+                                    images: [...prev.images, url],
+                                  })),
+                                );
+                              }
+                            }}
+                            disabled={isUploading}
                           />
-                          <Button
-                            type="button"
-                            onClick={() => addImageUrl("service")}
-                            variant="outline"
-                          >
-                            Add
-                          </Button>
                         </div>
+                        {isUploading && (
+                          <p className="mt-2 text-sm text-blue-600">
+                            Uploading image(s)...
+                          </p>
+                        )}
                         <div className="mt-2 flex flex-wrap gap-2">
                           {serviceFormData.images.map((image) => (
-                            <Badge
-                              key={image}
-                              variant="secondary"
-                              className="cursor-pointer"
-                              onClick={() => removeImageUrl(image, "service")}
-                            >
-                              {image.substring(0, 30)}... ×
-                            </Badge>
+                            <div key={image} className="relative">
+                              <img
+                                src={image}
+                                alt="Service preview"
+                                className="h-16 w-24 rounded border object-cover"
+                              />
+                              <Button
+                                size="icon"
+                                variant="destructive"
+                                className="absolute top-0 right-0"
+                                type="button"
+                                onClick={() => removeImageUrl(image, "service")}
+                              >
+                                ×
+                              </Button>
+                            </div>
                           ))}
                         </div>
                       </div>
@@ -1927,28 +2267,46 @@ export default function AdminDashboard() {
                         <div className="mt-2 flex gap-2">
                           <Input
                             id="edit-service-images"
-                            value={imageInput}
-                            onChange={(e) => setImageInput(e.target.value)}
-                            placeholder="Add image URL"
+                            type="file"
+                            accept="image/*"
+                            multiple
+                            onChange={(e) => {
+                              const files = e.target.files;
+                              if (files && files.length > 0) {
+                                handleImageUpload(files, "service", (url) =>
+                                  setServiceFormData((prev) => ({
+                                    ...prev,
+                                    images: [...prev.images, url],
+                                  })),
+                                );
+                              }
+                            }}
+                            disabled={isUploading}
                           />
-                          <Button
-                            type="button"
-                            onClick={() => addImageUrl("service")}
-                            variant="outline"
-                          >
-                            Add
-                          </Button>
                         </div>
+                        {isUploading && (
+                          <p className="mt-2 text-sm text-blue-600">
+                            Uploading image(s)...
+                          </p>
+                        )}
                         <div className="mt-2 flex flex-wrap gap-2">
                           {serviceFormData.images.map((image) => (
-                            <Badge
-                              key={image}
-                              variant="secondary"
-                              className="cursor-pointer"
-                              onClick={() => removeImageUrl(image, "service")}
-                            >
-                              {image.substring(0, 30)}... ×
-                            </Badge>
+                            <div key={image} className="relative">
+                              <img
+                                src={image}
+                                alt="Service preview"
+                                className="h-16 w-24 rounded border object-cover"
+                              />
+                              <Button
+                                size="icon"
+                                variant="destructive"
+                                className="absolute top-0 right-0"
+                                type="button"
+                                onClick={() => removeImageUrl(image, "service")}
+                              >
+                                ×
+                              </Button>
+                            </div>
                           ))}
                         </div>
                       </div>
@@ -2016,10 +2374,6 @@ export default function AdminDashboard() {
                             </p>
                           </div>
                           <div className="flex flex-col gap-2">
-                            <Button size="sm" variant="outline">
-                              <Eye className="mr-1 h-4 w-4" />
-                              View
-                            </Button>
                             <Button
                               size="sm"
                               variant="outline"

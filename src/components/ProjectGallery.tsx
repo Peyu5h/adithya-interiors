@@ -113,9 +113,6 @@ const ProjectCarousel = ({
 
           {/* Technologies */}
           <div>
-            <h3 className="mb-2 text-sm font-semibold text-gray-900">
-              Technologies
-            </h3>
             <div className="flex flex-wrap gap-2">
               {project.technologies.map((tech, index) => (
                 <span
