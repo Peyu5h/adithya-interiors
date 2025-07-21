@@ -286,9 +286,9 @@ export const landingPageData: LandingPageData = {
       },
     ],
     stats: [
-      { icon: "Award", value: 600+, label: "Projects Completed", suffix: "+" },
-      { icon: "Users", value: 800+, label: "Happy Clients", suffix: "+" },
-      { icon: "Calendar", value: 35+, label: "Years Experience", suffix: "" },
+      { icon: "Award", value: 600, label: "Projects Completed", suffix: "+" },
+      { icon: "Users", value: 800, label: "Happy Clients", suffix: "+" },
+      { icon: "Calendar", value: 35, label: "Years Experience", suffix: "" },
       {
         icon: "TrendingUp",
         value: 98,
