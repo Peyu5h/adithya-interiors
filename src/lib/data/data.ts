@@ -453,10 +453,13 @@ export const landingPageData: LandingPageData = {
         thumbnail:
           "https://res.cloudinary.com/dkb3a9r9k/image/upload/v1752697747/sedhu_11_chavxh.jpg",
         images: [
-          "https://res.cloudinary.com/dkysrpdi6/image/upload/v1751717568/biju/images-homemaker/WhatsApp-Image-2024-11-07-at-16.20.28_d400f443-scaled-1-850x540_qmosd1.png",
           "https://res.cloudinary.com/dkb3a9r9k/image/upload/sedhu_12_cqngsl",
-          "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
-          "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=600&fit=crop",
+          "https://res.cloudinary.com/dkb3a9r9k/image/upload/sedhu_12_cqngsl",
+          "https://res.cloudinary.com/dkb3a9r9k/image/upload/sedhu_7_vayvmb",
+          "https://res.cloudinary.com/dkb3a9r9k/image/upload/sedhu_2_xmgneu",
+          "https://res.cloudinary.com/dkb3a9r9k/image/upload/sedhu_6_w9bbtr",
+          "https://res.cloudinary.com/dkb3a9r9k/image/upload/sedhu_4_k1fxrl",
+          "https://res.cloudinary.com/dkb3a9r9k/image/upload/sedhu_1_wmhuqb",
         ],
         description:
           "Modern office interior design with advanced ergonomic solutions and contemporary aesthetics. This space combines functionality with style to create an inspiring work environment.",
