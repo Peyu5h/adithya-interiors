@@ -446,10 +446,10 @@ export const landingPageData: LandingPageData = {
     gallery: [
       {
         id: 1,
-        title: "LODHA RAJ INFINIA NEW 2 BHK PROJECT COMPLETED FOR OUR NRI CLIENT",
-        location: "MALAD WEST,MUMBAI",
+        title: "Lodha Raj Infinia – Elegant 2 BHK Interior for NRI Client",
+        location: "Malad West, Mumbai",
         fullLocation:
-          "LODHA RAJ INIFINIA,EVERSHINE NAGAR,MALAD WEST,MUMBAI",
+          "Lodha Raj Infinia, Evershine Nagar, Malad West, Mumbai",
         thumbnail:
           "https://res.cloudinary.com/dkb3a9r9k/image/upload/c_thumb,h_270,w_420/sedhu_11_chavxh",
         images: [
@@ -462,7 +462,7 @@ export const landingPageData: LandingPageData = {
           "https://res.cloudinary.com/dkb3a9r9k/image/upload/sedhu_1_wmhuqb",
         ],
         description:
-          "Modern office interior design with advanced ergonomic solutions and contemporary aesthetics. This space combines functionality with style to create an inspiring work environment.",
+          "A sophisticated 2 BHK apartment designed for an NRI client at Lodha Raj Infinia, blending modern elegance with functional comfort. Featuring contemporary finishes, optimized space planning, and bespoke interiors, this home offers a luxurious yet practical living environment in the heart of Malad West.",
         technologies: ["Interior Design", "Space Planning", "Ergonomics"],
         completedDate: "2024-03-15",
         url: "https://example.com",
