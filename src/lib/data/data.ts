@@ -567,7 +567,7 @@ export const landingPageData: LandingPageData = {
         role: "INVESTMENT BANKER",
       },
       {
-        text: "The design team understood our cultural and functional needs perfectly. The outcome blends tradition and modernity seamlessly.",,
+        text: "The design team understood our cultural and functional needs perfectly. The outcome blends tradition and modernity seamlessly.",
         name: "Vishnu Nair",
         role: "DATA ANALYST",
       },
