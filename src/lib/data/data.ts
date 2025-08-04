@@ -446,15 +446,15 @@ export const landingPageData: LandingPageData = {
     gallery: [
       {
         id: 1,
-        title: "Office Interior",
-        location: "Andheri, Mumbai",
+        title: "LODHA RAJ INFINIA NEW 2 BHK PROJECT COMPLETED FOR OUR NRI CLIENT",
+        location: "MALAD WEST,MUMBAI",
         fullLocation:
-          "Andheri - Project At Mahindra Vicino - Malad West, Mumbai",
+          "LODHA RAJ INIFINIA,EVERSHINE NAGAR,MALAD WEST,MUMBAI",
         thumbnail:
-          "https://res.cloudinary.com/dkysrpdi6/image/upload/v1751717568/biju/images-homemaker/WhatsApp-Image-2024-11-07-at-16.20.28_d400f443-scaled-1-850x540_qmosd1.png",
+          "https://res.cloudinary.com/dkb3a9r9k/image/upload/v1752697747/sedhu_11_chavxh.jpg",
         images: [
           "https://res.cloudinary.com/dkysrpdi6/image/upload/v1751717568/biju/images-homemaker/WhatsApp-Image-2024-11-07-at-16.20.28_d400f443-scaled-1-850x540_qmosd1.png",
-          "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=600&fit=crop",
+          "https://res.cloudinary.com/dkb3a9r9k/image/upload/sedhu_12_cqngsl",
           "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
           "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=600&fit=crop",
         ],
