@@ -453,7 +453,7 @@ export const landingPageData: LandingPageData = {
         thumbnail:
           "https://res.cloudinary.com/dkb3a9r9k/image/upload/v1752697747/sedhu_11_chavxh.jpg",
         images: [
-          "https://res.cloudinary.com/dkb3a9r9k/image/upload/sedhu_12_cqngsl",
+          "https://res.cloudinary.com/dkb3a9r9k/image/upload/v1752697747/sedhu_11_chavxh",
           "https://res.cloudinary.com/dkb3a9r9k/image/upload/sedhu_12_cqngsl",
           "https://res.cloudinary.com/dkb3a9r9k/image/upload/sedhu_7_vayvmb",
           "https://res.cloudinary.com/dkb3a9r9k/image/upload/sedhu_2_xmgneu",
