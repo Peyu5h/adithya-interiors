@@ -451,7 +451,7 @@ export const landingPageData: LandingPageData = {
         fullLocation:
           "LODHA RAJ INIFINIA,EVERSHINE NAGAR,MALAD WEST,MUMBAI",
         thumbnail:
-          "https://res.cloudinary.com/dkb3a9r9k/image/upload/v1752697747/sedhu_11_chavxh.jpg",
+          "https://res.cloudinary.com/dkb3a9r9k/image/upload/c_thumb,h_270,w_420/sedhu_11_chavxh",
         images: [
           "https://res.cloudinary.com/dkb3a9r9k/image/upload/v1752697747/sedhu_11_chavxh",
           "https://res.cloudinary.com/dkb3a9r9k/image/upload/sedhu_12_cqngsl",
