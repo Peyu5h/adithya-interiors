@@ -560,55 +560,46 @@ export const landingPageData: LandingPageData = {
     items: [
       {
         text: "Adithya Interiors completely transformed our space. Their attention to detail and innovative use of materials exceeded expectations.",
-        image: "https://randomuser.me/api/portraits/women/21.jpg",
         name: "Ritika Mehta",
         role: "INVESTMENT BANKER",
       },
       {
-        text: "The design team understood our cultural and functional needs perfectly. The outcome blends tradition and modernity seamlessly.",
-        image: "https://randomuser.me/api/portraits/men/34.jpg",
+        text: "The design team understood our cultural and functional needs perfectly. The outcome blends tradition and modernity seamlessly.",,
         name: "Vishnu Nair",
         role: "DATA ANALYST",
       },
       {
         text: "From planning to execution, the process was smooth and professional. Our home feels more spacious and stylish.",
-        image: "https://randomuser.me/api/portraits/women/45.jpg",
         name: "Sunita Pillai",
         role: "IT MANAGER",
       },
       {
         text: "We wanted traditional South Indian woodwork and they integrated it beautifully into our modern home layout.",
-        image: "https://randomuser.me/api/portraits/women/32.jpg",
         name: "Divya Menon",
         role: "BUSINESS OWNER",
       },
       {
         text: "Great service, timely delivery, and excellent communication throughout. Truly a five-star experience.",
-        image: "https://randomuser.me/api/portraits/men/51.jpg",
         name: "Rahul Joshi",
         role: "PROJECT MANAGER",
       },
       {
         text: "They delivered much more than promised, and our space feels luxurious without going over budget.",
-        image: "https://randomuser.me/api/portraits/women/56.jpg",
         name: "Nikita Rao",
         role: "BUSINESS ANALYST",
       },
       {
         text: "Adithya Interiors brought warmth and practicality into our home. Their team was respectful and creative.",
-        image: "https://randomuser.me/api/portraits/men/61.jpg",
         name: "Anand Ramaswamy",
         role: "MARKETING DIRECTOR",
       },
       {
         text: "We now get compliments every time someone visits. The transformation was beyond what we imagined.",
-        image: "https://randomuser.me/api/portraits/men/28.jpg",
         name: "Deepak Sinha",
         role: "SALES MANAGER",
       },
       {
         text: "They brought life into our old layout with thoughtful designs and quality workmanship. Excellent choice.",
-        image: "https://randomuser.me/api/portraits/women/41.jpg",
         name: "Sneha Iyer",
         role: "E-COMMERCE MANAGER",
       },
