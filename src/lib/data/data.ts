@@ -416,13 +416,13 @@ export const landingPageData: LandingPageData = {
         title: "Complete End-to-End Home Renovation",
         description:
           "Seamless, comprehensive home renovation services from concept to completion.",
-        src: "https://res.cloudinary.com/dkb3a9r9k/image/upload/3d-rendering-modern-dining-room-living-room-with-luxury-decor_ji9okg",
+        src: "https://res.cloudinary.com/dkb3a9r9k/image/upload/Screenshot_2025-09-24_125134_f8haor",
       },
       {
         title: "Bathroom Remodeling",
         description:
           "Modern and functional bathroom remodels for a refreshing space.",
-        src: "https://res.cloudinary.com/dkb3a9r9k/image/upload/lotus-design-n-print-g51F6-WYzyU-unsplash_bzhdmt",
+        src: "https://res.cloudinary.com/dr51ytqvk/image/upload/v1753158477/gdyj7dxcjqj1jpy7g0kz.jpg",
       },
       {
         title: "Vastu Interiors",
