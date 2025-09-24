@@ -553,7 +553,7 @@ export const landingPageData: LandingPageData = {
         text: "The design team understood our cultural and functional needs perfectly. The outcome blends tradition and modernity seamlessly.",
         name: "Vishnu Nair",
         role: "DATA ANALYST",
-        images: "https://res.cloudinary.com/dkb3a9r9k/image/upload/Screenshot_2025-09-24_130718_bvlf8s
+        images: "https://res.cloudinary.com/dkb3a9r9k/image/upload/Screenshot_2025-09-24_130718_bvlf8s"
       },
       {
         text: "From planning to execution, the process was smooth and professional. Our home feels more spacious and stylish.",
