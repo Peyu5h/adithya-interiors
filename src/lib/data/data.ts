@@ -644,7 +644,7 @@ export const landingPageData: LandingPageData = {
     ],
     contact: {
       text: "Contact us",
-      email: "info@yourcompany.com",
+      email: "adithyabiju038@gmail.com",
     },
   },
   footer: {
@@ -661,8 +661,8 @@ export const landingPageData: LandingPageData = {
         { text: "Blog", href: "/blog" },
       ],
       contact: [
-        { type: "email", value: "contact@adithyainteriors.com" },
-        { type: "email", value: "info@adithyainteriors.com" },
+        { type: "mobile", value: "7208251641/9594635913" },
+        { type: "email", value: "adithyabiju038@gmail.com" },
       ],
     },
     social: [
